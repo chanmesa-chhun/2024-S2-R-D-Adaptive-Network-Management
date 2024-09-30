@@ -12,58 +12,26 @@ catch (PDOException $e) {
 }
 
 // Read the CSV file
-$csvFile = 'C:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\2degrees data\ranKH.SITES.csv';
+$csvFile = 'C:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\2degrees data\ranSTATS.es_lte_cell_prb_hour.csv';
 if (!file_exists($csvFile)) {
     die("CSV file not found.");
 }
 
-// Define columns and data types for ranKH_SITES table
+// Define columns and data types for ranSTATS_es_lte_cell_prb_hour table
 $columns = [
-    'NAME VARCHAR(255)',
-    'LONGITUDE FLOAT',
-    'LATITUDE FLOAT',
-    'ALTITUDE FLOAT',
-    'COMMENT_ VARCHAR(255)',
-    'PYLON_HEIGHT FLOAT',
-    'SUPPORT_INFO VARCHAR(255)',
-    'CHANNEL_ELEMENTS_UL INT',
-    'CHANNEL_ELEMENTS_DL INT',
-    'MAX_IUB_RATE_UL FLOAT',
-    'MAX_IUB_RATE_DL FLOAT',
-    'CDMA_EQUIPMENT VARCHAR(255)',
-    'EVDO_CES VARCHAR(255)',
-    'BH_CAPACITY_DL FLOAT',
-    'BH_CAPACITY_UL FLOAT',
-    'STATUS VARCHAR(255)',
-    'TIER VARCHAR(255)',
-    'SITENAME VARCHAR(255)',
-    'OPERATOR VARCHAR(255)',
-    'NAMELINK VARCHAR(255)',
-    'COUNCIL VARCHAR(255)',
-    'PROPERTY_TYPE VARCHAR(255)',
-    'RF_RANK VARCHAR(255)',
-    'PROGRESS VARCHAR(255)',
-    'STRUCTURE_TYPE VARCHAR(255)',
-    'SITE_TYPE VARCHAR(255)',
-    'TARGET_ON_AIR VARCHAR(255)',
-    'CABINET_LAYOUT VARCHAR(255)',
-    'CO_STATUS VARCHAR(255)',
-    'SPATIAL_REGION VARCHAR(255)',
-    'ONAIR VARCHAR(255)',
-    'L07_ONAIR VARCHAR(255)',
-    'L18_ONAIR VARCHAR(255)',
-    'L09_ONAIR VARCHAR(255)',
-    'L21_ONAIR VARCHAR(255)',
-    'DB_RECORD_ID VARCHAR(255)',
-    'HISTORY_ID VARCHAR(255)',
-    'MODIFIED_BY VARCHAR(255)',
-    'MODIFIED_DATE DATETIME',
-    'HISTORY_STATUS VARCHAR(255)',
-    'N35_ONAIR VARCHAR(255)'
+    'Object VARCHAR(255)',
+    'Date DATE',
+    'Hour INT',
+    'datetimestamp DATETIME',
+    'PRB_Avail FLOAT',
+    'PRB_Used_DL FLOAT',
+    'PRB_Used_UL FLOAT',
+    'PRB_Utilization_DL FLOAT',
+    'PRB_Utilization_UL FLOAT'
 ];
 
 // Define the table name
-$tableName = '"ranKH_SITES"';
+$tableName = '"ranSTATS_es_lte_cell_prb_hour"';
 
 // Create the table if it doesn't exist
 try {
@@ -110,6 +78,106 @@ if (($handle = fopen($csvFile, "r")) !== FALSE) {
 } else {
     die("Error opening CSV file.");
 }
+
+// // Read the CSV file
+// $csvFile = 'C:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\2degrees data\ranKH.SITES.csv';
+// if (!file_exists($csvFile)) {
+//     die("CSV file not found.");
+// }
+
+// // Define columns and data types for ranKH_SITES table
+// $columns = [
+//     'NAME VARCHAR(255)',
+//     'LONGITUDE FLOAT',
+//     'LATITUDE FLOAT',
+//     'ALTITUDE FLOAT',
+//     'COMMENT_ VARCHAR(255)',
+//     'PYLON_HEIGHT FLOAT',
+//     'SUPPORT_INFO VARCHAR(255)',
+//     'CHANNEL_ELEMENTS_UL INT',
+//     'CHANNEL_ELEMENTS_DL INT',
+//     'MAX_IUB_RATE_UL FLOAT',
+//     'MAX_IUB_RATE_DL FLOAT',
+//     'CDMA_EQUIPMENT VARCHAR(255)',
+//     'EVDO_CES VARCHAR(255)',
+//     'BH_CAPACITY_DL FLOAT',
+//     'BH_CAPACITY_UL FLOAT',
+//     'STATUS VARCHAR(255)',
+//     'TIER VARCHAR(255)',
+//     'SITENAME VARCHAR(255)',
+//     'OPERATOR VARCHAR(255)',
+//     'NAMELINK VARCHAR(255)',
+//     'COUNCIL VARCHAR(255)',
+//     'PROPERTY_TYPE VARCHAR(255)',
+//     'RF_RANK VARCHAR(255)',
+//     'PROGRESS VARCHAR(255)',
+//     'STRUCTURE_TYPE VARCHAR(255)',
+//     'SITE_TYPE VARCHAR(255)',
+//     'TARGET_ON_AIR VARCHAR(255)',
+//     'CABINET_LAYOUT VARCHAR(255)',
+//     'CO_STATUS VARCHAR(255)',
+//     'SPATIAL_REGION VARCHAR(255)',
+//     'ONAIR VARCHAR(255)',
+//     'L07_ONAIR VARCHAR(255)',
+//     'L18_ONAIR VARCHAR(255)',
+//     'L09_ONAIR VARCHAR(255)',
+//     'L21_ONAIR VARCHAR(255)',
+//     'DB_RECORD_ID VARCHAR(255)',
+//     'HISTORY_ID VARCHAR(255)',
+//     'MODIFIED_BY VARCHAR(255)',
+//     'MODIFIED_DATE DATETIME',
+//     'HISTORY_STATUS VARCHAR(255)',
+//     'N35_ONAIR VARCHAR(255)'
+// ];
+
+// // Define the table name
+// $tableName = '"ranKH_SITES"';
+
+// // Create the table if it doesn't exist
+// try {
+//     $createTableSQL = "CREATE TABLE $tableName (" . implode(", ", $columns) . ")";
+//     $conn->exec($createTableSQL);
+//     echo "Table '$tableName' created successfully.\n";
+// } catch (PDOException $e) {
+//     die("Error creating table: " . $e->getMessage());
+// }
+
+// // Prepare the SQL for data insertion
+// $sql = "INSERT INTO $tableName (" . implode(", ", array_map(fn($col) => explode(' ', $col)[0], $columns)) . ") VALUES (" . rtrim(str_repeat("?, ", count($columns)), ", ") . ")";
+// $stmt = $conn->prepare($sql);
+
+// // Read and insert data from the CSV file
+// if (($handle = fopen($csvFile, "r")) !== FALSE) {
+//     // Skip the header row
+//     fgetcsv($handle, 1000, ",");
+
+//     // Start transaction
+//     $conn->beginTransaction();
+//     $batchSize = 1000; // Number of rows per batch
+//     $rowCount = 0;
+
+//     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+//         // Make sure the data matches the number of columns
+//         if (count($data) == count($columns)) {
+//             $stmt->execute($data);
+//             $rowCount++;
+//         }
+
+//         // Commit every 1000 rows
+//         if ($rowCount % $batchSize == 0) {
+//             $conn->commit();
+//             $conn->beginTransaction();
+//         }
+//     }
+
+//     // Commit the final batch
+//     $conn->commit();
+//     fclose($handle);
+    
+//     echo "Data successfully imported!";
+// } else {
+//     die("Error opening CSV file.");
+// }
 
 // // Read the CSV file
 // $csvFile = 'C:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\2degrees data\ranKH.allcells_nw.csv';
