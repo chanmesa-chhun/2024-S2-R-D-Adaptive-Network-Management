@@ -11,27 +11,31 @@ catch (PDOException $e) {
     die(print_r($e));
 }
 
-// Read the CSV file
-$csvFile = 'C:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\2degrees data\ranSTATS.es_lte_cell_prb_hour.csv';
+// Read the CSV file (new file name)
+$csvFile = 'C:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\2degrees data\ranSTATS.nvd3_lte_prb_hour.csv';
 if (!file_exists($csvFile)) {
     die("CSV file not found.");
 }
 
-// Define columns and data types for ranSTATS_es_lte_cell_prb_hour table
+// Define columns and data types for ranSTATS_nvd3_lte_prb_hour table
 $columns = [
-    'Object VARCHAR(255)',
     'Date DATE',
-    'Hour INT',
-    'datetimestamp DATETIME',
-    'PRB_Avail FLOAT',
-    'PRB_Used_DL FLOAT',
-    'PRB_Used_UL FLOAT',
-    'PRB_Utilization_DL FLOAT',
-    'PRB_Utilization_UL FLOAT'
+    'eNodeB_Name VARCHAR(255)',
+    'Object VARCHAR(255)',
+    'Integrity VARCHAR(255)',
+    'L_ChMeas_PRB_DL_Used_Avg FLOAT',
+    'L_ChMeas_PRB_PUSCH_Avg FLOAT',
+    'DL_PRB_Usage_Rate FLOAT',
+    'UL_PRB_Usage_Rate FLOAT',
+    'L_ChMeas_PRB_DL_Avail FLOAT',
+    'L_ChMeas_PRB_UL_Avail FLOAT',
+    'DL_Average_Throughput_Kbps FLOAT',
+    'UL_Average_Throughput_Kbps FLOAT',
+    'Average_Cell_DL_Throughput_H_Mbps FLOAT'
 ];
 
-// Define the table name
-$tableName = '"ranSTATS_es_lte_cell_prb_hour"';
+// Define the table name (new table name)
+$tableName = '"ranSTATS_nvd3_lte_prb_hour"';
 
 // Create the table if it doesn't exist
 try {
@@ -78,6 +82,73 @@ if (($handle = fopen($csvFile, "r")) !== FALSE) {
 } else {
     die("Error opening CSV file.");
 }
+// // Read the CSV file
+// $csvFile = 'C:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\2degrees data\ranSTATS.es_lte_cell_prb_hour.csv';
+// if (!file_exists($csvFile)) {
+//     die("CSV file not found.");
+// }
+
+// // Define columns and data types for ranSTATS_es_lte_cell_prb_hour table
+// $columns = [
+//     'Object VARCHAR(255)',
+//     'Date DATE',
+//     'Hour INT',
+//     'datetimestamp DATETIME',
+//     'PRB_Avail FLOAT',
+//     'PRB_Used_DL FLOAT',
+//     'PRB_Used_UL FLOAT',
+//     'PRB_Utilization_DL FLOAT',
+//     'PRB_Utilization_UL FLOAT'
+// ];
+
+// // Define the table name
+// $tableName = '"ranSTATS_es_lte_cell_prb_hour"';
+
+// // Create the table if it doesn't exist
+// try {
+//     $createTableSQL = "CREATE TABLE $tableName (" . implode(", ", $columns) . ")";
+//     $conn->exec($createTableSQL);
+//     echo "Table '$tableName' created successfully.\n";
+// } catch (PDOException $e) {
+//     die("Error creating table: " . $e->getMessage());
+// }
+
+// // Prepare the SQL for data insertion
+// $sql = "INSERT INTO $tableName (" . implode(", ", array_map(fn($col) => explode(' ', $col)[0], $columns)) . ") VALUES (" . rtrim(str_repeat("?, ", count($columns)), ", ") . ")";
+// $stmt = $conn->prepare($sql);
+
+// // Read and insert data from the CSV file
+// if (($handle = fopen($csvFile, "r")) !== FALSE) {
+//     // Skip the header row
+//     fgetcsv($handle, 1000, ",");
+
+//     // Start transaction
+//     $conn->beginTransaction();
+//     $batchSize = 1000; // Number of rows per batch
+//     $rowCount = 0;
+
+//     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+//         // Make sure the data matches the number of columns
+//         if (count($data) == count($columns)) {
+//             $stmt->execute($data);
+//             $rowCount++;
+//         }
+
+//         // Commit every 1000 rows
+//         if ($rowCount % $batchSize == 0) {
+//             $conn->commit();
+//             $conn->beginTransaction();
+//         }
+//     }
+
+//     // Commit the final batch
+//     $conn->commit();
+//     fclose($handle);
+    
+//     echo "Data successfully imported!";
+// } else {
+//     die("Error opening CSV file.");
+// }
 
 // // Read the CSV file
 // $csvFile = 'C:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\2degrees data\ranKH.SITES.csv';
