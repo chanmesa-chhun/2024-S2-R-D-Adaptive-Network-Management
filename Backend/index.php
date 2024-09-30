@@ -11,8 +11,8 @@ catch (PDOException $e) {
     die(print_r($e));
 }
 
-// Step 2: Open the CSV file
-$csvFile = 'data.csv'; // Path to the CSV file
+// Read the CSV file
+$csvFile = 'C:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\2degrees data\ranKH.allcells_nw.csv'; // Path to the CSV file
 if (!file_exists($csvFile)) {
     die("CSV file not found.");
 }
@@ -21,11 +21,10 @@ if (($handle = fopen($csvFile, "r")) !== FALSE) {
     // Get the column names from the CSV file
     $headers = fgetcsv($handle, 1000, ",");
 
-    // Build the CREATE TABLE statement, assuming the target table is `my_table`
-    $tableName = 'my_table'; // You can customize the table name
+    // Build the CREATE TABLE statement
+    $tableName = 'ranKH.allcells_nw';
     $columns = [];
 
-    // Assuming default column type as VARCHAR(255), adjust logic if needed
     foreach ($headers as $header) {
         $columns[] = "$header VARCHAR(255)";
     }
@@ -45,7 +44,7 @@ if (($handle = fopen($csvFile, "r")) !== FALSE) {
     $sql = "INSERT INTO $tableName (" . implode(", ", $headers) . ") VALUES (" . rtrim(str_repeat("?, ", count($headers)), ", ") . ")";
     $stmt = $conn->prepare($sql);
 
-    // Step 3: Loop through the CSV file and insert data
+    // Loop through the CSV file and insert data
     $conn->beginTransaction(); // Begin transaction
     $batchSize = 1000; // Number of rows to insert in a batch
     $rowCount = 0;
