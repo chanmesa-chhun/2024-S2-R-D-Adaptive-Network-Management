@@ -1,5 +1,5 @@
 <?php
-require 'vendor/autoload.php'; // 加载 proj4php 库
+require 'vendor/autoload.php'; // Load the proj4php library
 
 use proj4php\Proj4php;
 use proj4php\Proj;
@@ -16,7 +16,7 @@ try {
 
 // Step 2: Add the new column 'x_y' if it does not exist
 try {
-    $alterTableSQL = "ALTER TABLE PopulationDataGrid ADD x_y VARCHAR(255)";  // 增加新的列用于存储经纬度
+    $alterTableSQL = "ALTER TABLE PopulationDataGrid ADD x_y VARCHAR(255)";  // Add a new column to store latitude and longitude
     $conn->exec($alterTableSQL);
     echo "New column 'x_y' added successfully.\n";
 } catch (PDOException $e) {
@@ -26,18 +26,18 @@ try {
 
 // Step 3: Initialize proj4php for coordinate conversion
 $proj4 = new Proj4php();
-$projNZGD2000 = new Proj('EPSG:2193', $proj4);  // 定义 NZGD2000 坐标系
-$projWGS84 = new Proj('EPSG:4326', $proj4);     // 定义 WGS84 坐标系
+$projNZGD2000 = new Proj('EPSG:2193', $proj4);  // Define the NZGD2000 coordinate system
+$projWGS84 = new Proj('EPSG:4326', $proj4);     // Define the WGS84 coordinate system
 
 // Step 4: Query all rows from the table to get CENTROID_X and CENTROID_Y
-$query = "SELECT GridID, CENTROID_X, CENTROID_Y FROM PopulationDataGrid";  // 使用 GridID 作为标识符
+$query = "SELECT GridID, CENTROID_X, CENTROID_Y FROM PopulationDataGrid";  // Use GridID as the unique identifier
 $stmt = $conn->prepare($query);
 $stmt->execute();
 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Step 5: Process each row, convert coordinates, and update the table
 foreach ($results as $row) {
-    $gridID = $row['GridID'];  // 使用 GridID 作为标识符
+    $gridID = $row['GridID'];  // Use GridID as the identifier
     $centroidX = $row['CENTROID_X'];
     $centroidY = $row['CENTROID_Y'];
 
@@ -48,11 +48,11 @@ foreach ($results as $row) {
     }
 
     // Convert the centroid coordinates from NZGD2000 to WGS84
-    $pointSrc = new Point(floatval($centroidX), floatval($centroidY), $projNZGD2000);  // 创建 NZGD2000 中的点
-    $pointDest = $proj4->transform($projWGS84, $pointSrc);  // 转换为 WGS84
+    $pointSrc = new Point(floatval($centroidX), floatval($centroidY), $projNZGD2000);  // Create a point in NZGD2000
+    $pointDest = $proj4->transform($projWGS84, $pointSrc);  // Transform to WGS84
 
     // Format the result as "latitude, longitude"
-    $x_y_string = $pointDest->y . ', ' . $pointDest->x;  // 格式化为纬度，经度
+    $x_y_string = $pointDest->y . ', ' . $pointDest->x;  // Format as "latitude, longitude"
 
     // Update the table with the new x_y value
     $updateSQL = "UPDATE PopulationDataGrid SET x_y = ? WHERE GridID = ?";
