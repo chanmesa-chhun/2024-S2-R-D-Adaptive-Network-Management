@@ -1,4 +1,5 @@
 <?php
+set_time_limit(0);
 try {
     // Step 1: Connect to the Azure SQL database
     $conn = new PDO("sqlsrv:server = tcp:adaptive-network-management.database.windows.net,1433; Database = Adaptive_Netowork_Management", "CloudSA44398b14", "Adaptive2024");
