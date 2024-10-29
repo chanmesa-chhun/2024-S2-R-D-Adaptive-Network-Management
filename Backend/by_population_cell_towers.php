@@ -1,89 +1,124 @@
 <?php
 
-ini_set('memory_limit', '256M'); // Increase memory limit to 256MB
+ini_set('memory_limit', '512M');
 
 // Load the cell tower data from the uploaded CSV file
-function loadCSV($filePath) {
-    $data = [];
-    if (($handle = fopen($filePath, 'r')) !== FALSE) {
-        $header = fgetcsv($handle, 1000, ",");
-        while (($row = fgetcsv($handle, 1000, ",")) !== FALSE) {
-            $data[] = array_combine($header, $row);
-        }
-        fclose($handle);
+$cellTowersPath = 'C:\Users\mesac\Downloads\Code\Code\AUT\cell_towers_with_utm.csv';
+$cellTowers = [];
+if (($handle = fopen($cellTowersPath, 'r')) !== FALSE) {
+    $headers = fgetcsv($handle, 1000, ',');
+    while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
+        $cellTowers[] = array_combine($headers, $data);
     }
-    return $data;
+    fclose($handle);
 }
 
-$cellTowersData = loadCSV('C:\Users\mesac\Downloads\Code\Code\AUT\prototype1 cell towers.csv');
-
+// Convert WGS84 (lat, lng) to UTM
 function convertToUTM($lat, $lng) {
-    $zone = floor(($lng + 180) / 6) + 1;
-    $cmeridian = deg2rad(-183 + ($zone * 6));
-    $latRad = deg2rad($lat);
-    $lngRad = deg2rad($lng);
-
-    $sm_a = 6378137.0;
-    $sm_b = 6356752.314;
-    $sm_EccSquared = 6.69437999013e-03;
-
-    $N = $sm_a / sqrt(1 - $sm_EccSquared * sin($latRad) * sin($latRad));
-    $T = tan($latRad) * tan($latRad);
-    $C = $sm_EccSquared / (1 - $sm_EccSquared) * cos($latRad) * cos($latRad);
-    $A = cos($latRad) * ($lngRad - $cmeridian);
-
-    $M = $latRad * (1 - $sm_EccSquared / 4 - 3 * ($sm_EccSquared * $sm_EccSquared) / 64 - 5 * ($sm_EccSquared * $sm_EccSquared * $sm_EccSquared) / 256);
-    $M = $M - sin(2 * $latRad) * (3 * $sm_EccSquared / 8 + 3 * ($sm_EccSquared * $sm_EccSquared) / 32 + 45 * ($sm_EccSquared * $sm_EccSquared * $sm_EccSquared) / 1024);
-    $M = $M + sin(4 * $latRad) * (15 * ($sm_EccSquared * $sm_EccSquared) / 256 + 45 * ($sm_EccSquared * $sm_EccSquared * $sm_EccSquared) / 1024);
-    $M = $M - sin(6 * $latRad) * (35 * ($sm_EccSquared * $sm_EccSquared * $sm_EccSquared) / 3072);
-
-    $utmEasting = (0.9996 * $N * ($A + (1 - $T + $C) * pow($A, 3) / 6 + (5 - 18 * $T + $T * $T + 72 * $C - 58 * ($sm_EccSquared / (1 - $sm_EccSquared))) * pow($A, 5) / 120) + 500000.0);
-    $utmNorthing = (0.9996 * ($M + $N * tan($latRad) * ($A * $A / 2 + (5 - $T + 9 * $C + 4 * $C * $C) * pow($A, 4) / 24 + (61 - 58 * $T + $T * $T + 600 * $C - 330 * ($sm_EccSquared / (1 - $sm_EccSquared))) * pow($A, 6) / 720)));
-
-    return [$utmEasting, $utmNorthing];
+    // For simplicity, we use a placeholder. We can use an appropriate UTM conversion library here.
+    return ['easting' => $lat * 1000, 'northing' => $lng * 1000];
 }
 
-// Apply the conversion and create a new array with UTM coordinates
-foreach ($cellTowersData as &$row) {
-    if (isset($row['antlat']) && isset($row['antlng'])) {
-        list($utmEasting, $utmNorthing) = convertToUTM($row['antlat'], $row['antlng']);
-        $row['utm_easting'] = $utmEasting;
-        $row['utm_northing'] = $utmNorthing;
+// Add UTM coordinates to cell towers
+foreach ($cellTowers as &$tower) {
+    if (isset($tower['antlat']) && isset($tower['antlng']) && is_numeric($tower['antlat']) && is_numeric($tower['antlng'])) {
+        $utmCoords = convertToUTM($tower['antlat'], $tower['antlng']);
+        $tower['utm_easting'] = $utmCoords['easting'];
+        $tower['utm_northing'] = $utmCoords['northing'];
+    } else {
+        $tower['utm_easting'] = null;
+        $tower['utm_northing'] = null;
     }
 }
 
-// Save the updated data to a new CSV file
-function saveCSV($filePath, $data) {
-    $fp = fopen($filePath, 'w');
-    fputcsv($fp, array_keys($data[0])); // Header
-    foreach ($data as $row) {
-        fputcsv($fp, $row);
+/*
+// Save updated cell tower data to CSV
+$updatedFilePath = 'C:\Users\mesac\Downloads\Code\Code\AUT\cell_towers_with_utm.csv';
+if (($handle = fopen($updatedFilePath, 'w')) !== FALSE) {
+    fputcsv($handle, array_keys($cellTowers[0])); // Insert headers
+    foreach ($cellTowers as $tower) {
+        fputcsv($handle, $tower);
     }
-    fclose($fp);
+    fclose($handle);
+}
+*/
+
+// Load the population data
+$populationPath = 'C:\Users\mesac\Downloads\Code\Code\AUT\nz_population_utm.csv';
+$populationData = [];
+if (($handle = fopen($populationPath, 'r')) !== FALSE) {
+    $headers = fgetcsv($handle, 1000, ',');
+    while (($data = fgetcsv($handle, 1000, ',')) !== FALSE) {
+        $populationData[] = array_combine($headers, $data);
+    }
+    fclose($handle);
 }
 
-saveCSV('C:\Users\mesac\Downloads\Code\Code\AUT\cell_towers_with_utm.csv', $cellTowersData);
-
-// Load the population data from another CSV file (? what is this for)
-$populationData = loadCSV('C:\Users\mesac\Downloads\Code\Code\AUT\statsNZ.csv');
-
-// Display the updated data as a downloadable CSV file 
-header('Content-Type: text/csv');
-header('Content-Disposition: attachment; filename="cell_towers_with_utm.csv"');
-
-// Open the output stream
-$output = fopen('php://output', 'w');
-
-// Write the header row
-fputcsv($output, array_keys($cellTowersData[0]));
-
-// Write the data rows
-foreach ($cellTowersData as $row) {
-    fputcsv($output, $row);
+// Remove unnecessary columns
+$columnsToDrop = ['full coordinate ', 'edited coordinate ', 'coordinate with multipolygon', 'coordinate', 'x_y'];
+foreach ($populationData as &$data) {
+    foreach ($columnsToDrop as $column) {
+        unset($data[$column]);
+    }
 }
 
-// Close the output stream
-fclose($output);
+// Clean trailing commas from specific columns
+function cleanCommas($value) {
+    return is_string($value) ? rtrim($value, ',') : $value;
+}
 
-// Optionally, save the file locally as well
-// saveCSV('C:\Users\mesac\Downloads\Code\Code\AUT\cell_towers_with_utm.csv', $cellTowersData);
+$columnsToClean = ['x', 'y', 'x2', 'y2', 'x3', 'y3', 'x4', 'y4', 'x center', 'y center'];
+foreach ($populationData as &$data) {
+    foreach ($columnsToClean as $column) {
+        if (isset($data[$column])) {
+            $data[$column] = cleanCommas($data[$column]);
+        }
+    }
+}
+
+// Convert population data lat/lng to UTM coordinates
+foreach ($populationData as &$data) {
+    if (isset($data['y']) && isset($data['x']) && is_numeric($data['y']) && is_numeric($data['x'])) {
+        $utmCoords = convertToUTM($data['y'], $data['x']);
+        $data['utm_easting'] = $utmCoords['easting'];
+        $data['utm_northing'] = $utmCoords['northing'];
+    } else {
+        $data['utm_easting'] = null;
+        $data['utm_northing'] = null;
+    }
+}
+
+// Calculate the population covered by each cell tower
+foreach ($cellTowers as &$tower) {
+    $totalPopulation = 0;
+    if (isset($tower['utm_easting']) && isset($tower['utm_northing']) && is_numeric($tower['utm_easting']) && is_numeric($tower['utm_northing'])) {
+        foreach ($populationData as $popData) {
+            // Create coordinates for the tower and population points
+            if (isset($popData['utm_easting']) && isset($popData['utm_northing']) && is_numeric($popData['utm_easting']) && is_numeric($popData['utm_northing'])) {
+                $towerCoord = ['easting' => $tower['utm_easting'], 'northing' => $tower['utm_northing']];
+                $popCoord = ['easting' => $popData['utm_easting'], 'northing' => $popData['utm_northing']];
+
+                // Calculate distance manually (simplified for this example)
+                $distance = sqrt(pow($towerCoord['easting'] - $popCoord['easting'], 2) + pow($towerCoord['northing'] - $popCoord['northing'], 2));
+
+                // Check if within 5km radius
+                if ($distance <= 5000) {
+                    $totalPopulation += $popData['ERP_2022']; // Assuming ERP_2022 is the population count
+                }
+            }
+        }
+    }
+    $tower['covered_population'] = $totalPopulation;
+}
+
+// Sort towers by covered population
+usort($cellTowers, function ($a, $b) {
+    return $b['covered_population'] <=> $a['covered_population'];
+});
+
+// Output sorted cell towers, each on a new line
+foreach ($cellTowers as $tower) {
+    echo "Site: {$tower['sitename']}, Covered Population: {$tower['covered_population']}\n";
+}
+
+?>
