@@ -213,7 +213,7 @@
       let iconUrl = null;
       if (type === 'hospital') iconUrl = 'hospital_icon.png';
       else if (type === 'police') iconUrl = 'police_station_icon.png';
-      else if (type === 'fire_station') iconUrl = 'firestaion_icon.png';
+      else if (type === 'fire_station') iconUrl = 'firestation_icon.png';
 
       // If there's no matching URL, return null (default marker).
       if (!iconUrl) return null;
@@ -311,7 +311,7 @@
   </script>
 </head>
 <body>
-  <h1 style="text-align: center;">Map of Cell Towers & Emergency Services</h1>
+  <h1 style="text-align: center;">Map of Cell Towers</h1>
   <div id="map" style="width:100%; height:500px;"></div>
   
   <!-- Buttons to toggle 5km circles (global view) -->
