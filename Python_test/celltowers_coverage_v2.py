@@ -30,7 +30,7 @@ coverage_radius = 5000
 
 results = []
 
-print("\n🚀 Calculating cell tower coverage...")
+print("\n🚀 Calculating cell tower coverage (precise approach)...")
 for _, tower in tqdm(df_celltower.iterrows(), total=len(df_celltower)):
     # Create a Shapely point for the tower
     tower_point = Point(tower["utm_easting"], tower["utm_northing"])
@@ -43,18 +43,17 @@ for _, tower in tqdm(df_celltower.iterrows(), total=len(df_celltower)):
     total_population_2022 = 0
     total_population_2023 = 0
 
-    # Option 1: Use centroid inclusion (simpler but less precise)
+    # Option 2: More precise approach using area-weighted population
     for idx in candidate_ids:
         cell_geom, pop_2022, pop_2023 = geometry_map[idx]
-        if tower_coverage.contains(cell_geom.centroid):
-            total_population_2022 += pop_2022
-            total_population_2023 += pop_2023
+        # Calculate the intersection between the cell and the coverage circle
+        intersection = cell_geom.intersection(tower_coverage)
+        if not intersection.is_empty:
+            # Fraction of the cell covered by the tower's coverage circle
+            fraction = intersection.area / cell_geom.area
+            total_population_2022 += pop_2022 * fraction
+            total_population_2023 += pop_2023 * fraction
 
-    # Option 2: For a more precise approach, you could compute the fraction of each cell
-    # that intersects with the coverage circle and weight the population accordingly.
-    # (This requires: intersection_area = cell_geom.intersection(tower_coverage).area
-    #                fraction = intersection_area / cell_geom.area)
-    
     results.append({
         "sitename": tower["NAME"],
         "total_population_2022": total_population_2022,
@@ -63,5 +62,5 @@ for _, tower in tqdm(df_celltower.iterrows(), total=len(df_celltower)):
 
 # Save or display the results
 result_df = pd.DataFrame(results)
-result_df.to_csv("cell_tower_population_50m.csv", index=False)
-print("✅ Coverage calculation complete! Results saved to 'cell_tower_population_50m.csv'.")
+result_df.to_csv("cell_tower_population_50m_precise.csv", index=False)
+print("✅ Coverage calculation complete! Results saved to 'cell_tower_population_50m_precise.csv'.")
