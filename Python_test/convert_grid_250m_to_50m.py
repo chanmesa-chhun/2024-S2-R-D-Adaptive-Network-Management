@@ -2,7 +2,7 @@ import pandas as pd
 from tqdm import tqdm
 
 # File names
-input_file = "population_250m.csv"  # your 250m grid file
+input_file = "population_250m.csv"  # 250m grid file
 output_file = "population_50m.csv"  # output file for 50m grid
 
 def convert_250m_to_50m(df):

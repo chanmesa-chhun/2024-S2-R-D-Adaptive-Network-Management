@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 
 // CSV file path. Use __DIR__ to ensure it looks in the same directory as this script
-$filename = __DIR__ . '/prototype2_celltowers.csv';
+$filename = __DIR__ . '/prototype2_celltowers_2.csv';
 
 $markers = [];
 
@@ -24,7 +24,8 @@ if (($handle = fopen($filename, "r")) !== false) {
         $markers[] = [
             'lat' => $lat,
             'lng' => $lng,
-            'sitename' => $row['sitename']
+            'sitename' => $row['sitename'],
+            'status' => $row['status']
         ];
     }
     fclose($handle);
