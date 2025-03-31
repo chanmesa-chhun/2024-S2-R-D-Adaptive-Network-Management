@@ -1,0 +1,294 @@
+ID ,Type ,Name ,Location ,Latitude,Longitude 
+1,Police station,Dargaville Police Station,"18 Portland St,Dargaville",-35.93924387,173.8675932
+2,Police station,Hikurangi Police Station,"3 Valley Rd,Hikurangi",-35.59533572,174.2863791
+3,Police station,Houhora Police Station,"11 Lamb Rd,Pukenui,Kaitaia",-34.81537101,173.1172406
+4,Police station,Kaeo Police Station,"Leigh St,Kaeo",-35.1007791,173.781972
+5,Police station,Kaikohe Police Station,"142 Broadway,Kaikohe",-35.40786582,173.7988999
+6,Police station,Kaitaia Police Station,"17-19 Redan Rd,Kaitaia",-35.11767826,173.263584
+7,Police station,Kamo Police Station,"416 Kamo Rd,Kamo,Whangarei	",-35.68256058,174.3009894
+8,Police station,Kawakawa Police Station,"18 Albert St,Kawakawa",-35.38152796,174.0663104
+9,Police station,Kerikeri Police Station,"102 Kerikeri Rd,Kerikeri",-35.22585319,173.9499542
+10,Police station,Kohukohu Police Station,"2 Maning St,Kohukohu",-35.36162853,173.5444473
+11,Police station,Mang?nui Police Station,"1 Beach Rd,Mang?nui",-34.98826219,173.5313999
+12,Police station,Maungaturoto Police Station,"99 Hurndall St East,Maungaturoto",-36.10887836,174.3583087
+13,Police station,Northland District Headquarters,"88 Cameron Street,Whang?rei,Whang?rei",-35.72754374,174.3216823
+14,Police station,Onerahi Police Station,"Onerahi Tavern Carpark, Onerahi Road",-35.75356539,174.3678796
+15,Police station,Paihia Police Station,"47 Williams Rd,Paihia",-35.2827929,174.0901002
+16,Police station,Rawene Police Station,"19 Parnell St,Rawene",-35.39399199,173.5045419
+17,Police station,Ruak?k? Police Station,"Corner Peter Snell Rd & Takutai Pl,Ruak?k?",-35.87508899,174.4564986
+18,Police station,Ruawai Police Station,"7 Jellicoe St,Ruawai",-36.13575534,174.0230461
+19,Police station,Russell Police Station,"37 The Strand,Russell",-35.26062647,174.1217527
+20,Police station,Waip? Police Station,"8 Cove Rd,Waip?",-35.98519155,174.4484781
+21,Police station,Whang?rei Central Police Station,"88 Cameron Street,Whang?rei",-35.72657974,174.3224027
+22,Police station,Browns Bay Community Policing Centre,"10 Bayview Rd,Browns Bay",-36.71336736,174.7487491
+23,Police station,Glenfield Police Station,"365 Glenfield Rd,Glenfield",-36.7844024,174.7223712
+24,Police station,Helensville Police Station,"8 Rimu St,Helensville",-36.67881455,174.4506226
+25,Police station,Henderson Police Station,"7 Buscomb Ave,Henderson,Auckland",-36.87438729,174.6290061
+26,Police station,Kume?/Huapai Police Station,"4 Matua Road,Huapai",-36.7717163,174.5464558
+27,Police station,Mahurangi Police Station,"1 Hamatana Rd,Snells Beach,Warkworth",-36.42068939,174.7237365
+28,Police station,Mangawhai Police Station,"35 Moir St,Mangawhai",-36.12578044,174.5765203
+29,Police station,Massey Police Station,"390 Don Buck Rd,Massey,Henderson, Auckland",-36.83537616,174.6022801
+30,Police station,New Lynn Police Station,"3092 Great North Rd,New Lynn,Henderson",-36.90876056,174.6819848
+31,Police station,North Shore Police Station,"52 Parkway Dr,Rosedale,North Shore 0745",-36.75143275,174.7309849
+32,Police station,?rewa Police Station,"4 Riverside Rd,?rewa 0931,Rodney",-36.58968798,174.6967705
+33,Police station,Takapuna Police Station,"17 Anzac St,Takapuna",-36.78638632,174.771249
+34,Police station,Waitemat? District Headquarters,"7 Buscomb Ave,Henderson",-36.87460078,174.6293397
+35,Police station,Warkworth Police Station,"6 Falls St,Warkworth",-36.39788955,174.6612957
+36,Police station,Wellsford Police Station,"108 Rodney St,Wellsford",-36.29725302,174.5239054
+37,Police station,Auckland Air Support Unit,"59 Miami Parade,Onehunga,Auckland",-36.92959354,174.8125079
+38,Police station,Auckland Central Police Station,"13-15 College Hill, Freemans Bay,Auckland Central,Auckland",-36.8479387,174.7499467
+39,Police station,Auckland Maritime Unit,"3 Solent Street, Mechanics Bay,Auckland",-36.84687843,174.7882606
+40,Police station,Avondale Police Station,"1832 Great North Rd,Avondale,Auckland",-36.89320909,174.6965412
+41,Police station,Balmoral Police Station,"1-3 Halston Rd,Mount Eden,Balmoral",-36.8895249,174.7474851
+42,Police station,Commercial Vehicle Safety Team - Area 1,"1 Churchill Street, Auckland CBD,Auckland",-36.85067777,174.7742392
+43,Police station,Dog Base - Auckland,"31 Main Highway, Ellerslie,Auckland",-36.89592628,174.8032343
+44,Police station,Glen Innes Police Station,"88 Line Rd,Glen Innes",-36.87817144,174.8568604
+45,Police station,Great Barrier Island Police Station,"175 Hector Sanderson Rd,Claris,Great Barrier Island",-36.24137824,175.4572052
+46,Police station,"Harbour Bridge Centre, Auckland","28 Sulphur Beach Road, Northcote Point, Birkenhead,Auckland",-36.81767136,174.7489918
+47,Police station,Mount Roskill Police Station,"150 Stoddard Rd,Mount Roskill,Auckland",-36.90239913,174.7239091
+48,Police station,Mount Wellington Police Station,"6A Harrison Rd,Mount Wellington,Panmure",-36.89932365,174.8260004
+49,Police station,Newmarket Police Station,"14 Teed Street,Newmarket,Auckland",-36.86852729,174.7754843
+50,Police station,Onehunga Police Station,"126 Onehunga Mall,Onehunga",-36.92475003,174.7852812
+51,Police station,Piki Ki Te Ao,"482 Great South Rd,?t?huhu,Auckland",-36.94685279,174.8459678
+52,Police station,Puawaitahi Multi Agency Service,"99 Grafton Rd, Auckland,Auckland",-36.85901868,174.767867
+53,Police station,South Motorway Base Traffic Safety Branch,"14 Tecoma St,Ellerslie,Auckland",-36.89467521,174.8063364
+54,Police station,Waiheke Island Police Station,"104 Ocean View Rd,Oneroa,Waiheke Island",-36.7819373,175.007442
+55,Police station,Auckland Airport Police Station,"7 Manu Tapu Drive,Auckland Airport",-36.99951148,174.7854891
+56,Police station,Beachlands Community Policing Base,"43 Kouka Road,Beachlands,Auckland 2018",-36.89049084,175.0102443
+57,Police station,Clevedon Police Station,"4 Papakura-Clevedon Rd,Clevedon,Papakura",-36.99172086,175.0377973
+58,Police station,Counties Manukau Police Station,"42 Manukau Station Rd,Manukau City",-36.99450653,174.8798391
+59,Police station,Howick Police Station,"76 Cook Street,Howick,Auckland",-36.8983226,174.9344212
+60,Police station,M?ngere Police Station,"92 Bader Drive,M?ngere",-36.96739653,174.7978966
+61,Police station,Manurewa Police Station,"14 Halver Rd,Manurewa",-37.0214844,174.8989281
+62,Police station,Ormiston Police Station,"50 Ormiston Road,Flat Bush,Auckland",-36.96252889,174.8969541
+63,Police station,?t?huhu Police Station,"180 Great South Rd,?t?huhu",-36.94081361,174.8408034
+64,Police station,Papakura Central Police Station,"64 Wood St,Papakura",-37.06523297,174.9452033
+65,Police station,Photography,"Harlech House 482 Gt. South Road, Otahuhu,Otahuhu",-36.9466449,174.845679
+66,Police station,P?keno Highway Patrol,"11 P?keno Road,P?keno,South Auckland",-37.24433576,175.0190009
+67,Police station,Pukekohe Police Station,"37 Manukau Rd,Pukekohe",-37.20246674,174.9077399
+68,Police station,Tuakau Police Station,"5 St Stephens Av,Tuakau",-37.2581523,174.9478806
+69,Police station,Waiuku Police Station,"3 Court St,Waiuku",-37.25084309,174.730166
+70,Police station,Benneydale Police Station,"66 Ellis Rd,Benneydale,Waitomo",-38.51767072,175.3687974
+71,Police station,Cambridge Police Station,"2 Fort Street,Cambridge",-37.89683618,175.4723545
+72,Police station,Coromandel Police Station,"405 Kapanga Rd,Coromandel",-36.7568302,175.4985931
+73,Police station,Hamilton Central Police Station,"12 Anzac Parade (formerly Bridge St),Hamilton ",-37.79297896,175.2874409
+74,Police station,Huntly Police Station,"27 William St,Huntly,Waikato",-37.55929247,175.16102
+75,Police station,Kawhia Police Station,"98 Tainui St,Kawhia",-38.06398165,174.8214395
+76,Police station,Matamata Police Station,"16-18 Tui St,Matamata",-37.81209314,175.7741945
+77,Police station,Morrinsville Police Station,"33 Moorhouse St,Morrinsville",-37.65821801,175.5295335
+78,Police station,Ng?ruawahia Police Station,"12 Waikato Esplanade,Ng?ruawahia",-37.66629164,175.1509954
+79,Police station,Ngatea Police Station,"91 Orchard West Rd,Ngatea",-37.27620315,175.4896875
+80,Police station,Otorohanga Police Station,"8 Ballance St,Otorohanga",-38.18512452,175.2111173
+81,Police station,Paeroa Police Station,"6 Willoughby St,Paeroa",-37.38158961,175.6743061
+82,Police station,Piopio Police Station,"17 Tui Street,Pio Pio",-38.46588231,175.0165038
+83,Police station,Raglan Police Station,"3 Wi Neera St,Raglan",-37.80049325,174.8676507
+84,Police station,Tairua Police Station,"282 Main Rd,Tairua,Waikato East",-36.99724009,175.8496552
+85,Police station,Te Aroha Police Station,"53 Rewi St,Te Aroha",-37.54411775,175.7115323
+86,Police station,Te Awamutu Central Police Station,"75 Roche Street,Te Awamutu",-38.01082021,175.3242932
+87,Police station,Te Kauwhata Police Station,"5 Scott Rd,Te Kauwhata",-37.40661794,175.1444816
+88,Police station,Te Kuiti Police Station,"62 Carroll St,Te Kuiti,Waikato West",-38.33686302,175.1656103
+89,Police station,Thames Police Station,"404A Queen St,Thames",-37.13965847,175.5414264
+90,Police station,Waih? Police Station,"55 Kenny St,Waih?",-37.39225296,175.8419222
+91,Police station,Waikato District Headquarters,"12 Anzac Parade (formerly Bridge St),Hamilton ",-37.79297619,175.2874397
+92,Police station,Whangamat? Police Station,"102 Hetherington Rd,Whangamat?",-37.20340557,175.873768
+93,Police station,Whitianga Police Station,"3 Campbell St,Whitianga",-36.83594153,175.70491
+94,Police station,Bay of Plenty District Headquarters,"1190-1214 Fenton St,Rotorua,ROTORUA",-38.13600123,176.2540225
+95,Police station,Edgecumbe Police Station,"17 Kauri St,Edgecumbe",-37.97775474,176.8263478
+96,Police station,Katikati Police Station,"78 Main Rd,Katikati",-37.55623414,175.91667
+97,Police station,Kawerau Police Station,"3 Bledisloe St,Kawerau",-38.08581435,176.7027793
+98,Police station,Mangakino Police Station,"88 Rangatira Dr,Mangakino",-38.37163206,175.7750572
+99,Police station,Mount Maunganui Police Station,"9 Hull Road,Mount Maunganui",-37.65524939,176.1967303
+100,Police station,Murupara Police Station,"23 Pine Dr,Murupara",-38.45838822,176.7054517
+101,Police station,?p?tiki Police Station,"29 King St,Opotiki",-38.0061013,177.2858935
+102,Police station,Papamoa Police Station,"530 Papamoa Beach Rd,Papamoa",-37.69687651,176.2833103
+103,Police station,Put?ruru Police Station,"41-45 Kensington St,Put?ruru",-38.04897699,175.7792423
+104,Police station,Rotorua Police Station,"1190-1214 Fenton St,Rotorua",-38.13635589,176.2540456
+105,Police station,T?neatua Police Station,"58 Tuhoe St,T?neatua",-38.06558435,177.0036188
+106,Police station,Taup? Police Station,"21 Story Pl,Taup?",-38.68660546,176.0676051
+107,Police station,Tauranga Central Police Station,"11 Monmouth St,Tauranga",-37.67976459,176.1690038
+108,Police station,Tauranga South Police Station,"244 Chadwick Road, Greerton,Gate Pa,Tauranga",-37.72594691,176.1318401
+109,Police station,Te Kaha Police Station,"6755 SH 35,Te Kaha",-37.7408116,177.6782325
+110,Police station,Te Puke Police Station,"20 Station Rd,Te Puke",-37.78162505,176.3268819
+111,Police station,Te Teko,"35 SH 30,Te Teko,Te Teko",-38.03646432,176.7951642
+112,Police station,Tokoroa Police Station,"33 Logan St,Tokoroa",-38.21706026,175.8707156
+113,Police station,T?rangi Police Station,"4 Ohuanga Rd,T?rangi",-38.98993334,175.8077657
+114,Police station,Whakat?ne Police Station,"62-70 Boon St,Whak?tane",-37.95403043,176.9944826
+115,Police station,Bay View Police Station,"15 Petane Rd,Bay View,Napier",-39.42135537,176.8663185
+116,Police station,Eastern District Headquarters,"102 Eastbourne Street West,Hastings,Hastings 4122",-39.64240287,176.8417273
+117,Police station,Flaxmere Police Station,"15 Swansea Rd,Flaxmere",-39.62630224,176.7890229
+118,Police station,Gisborne Police Station,"Cnr Gladstone Road and Customhouse Street,Gisborne",-38.66789777,178.0276899
+119,Police station,Hastings Police Station,"102 Eastbourne Street West,Hastings Central",-39.64240298,176.841728
+120,Police station,Kotemaori Police Station,"4780 State Highway,Kotemaori,Hawke's Bay",-39.06270382,177.0330217
+121,Police station,Mahia Police Station,"Newcastle Street (next to fire station),Mahia",-39.07716896,177.8752806
+122,Police station,Manutuke Police Station,"82 Whakato Rd,Manutuke",-38.67941667,177.9094916
+123,Police station,Maraenui Police Station,"36 Bledisloe Rd,Maraenui,Napier",-39.51522009,176.9049359
+124,Police station,Matawai Police Station,"Matawai Road,Matawai",-38.35837544,177.5346121
+125,Police station,Napier Police Station,"135 Dalton Street,Napier",-39.49246252,176.9164689
+126,Police station,P?rangahau Police Station,"(opposite Duke of Edinburgh Hotel) Abercromby Street,P?rangahau",-40.30428494,176.6114809
+127,Police station,Ruatoria Police Station,"193 Waiomatatini Rd,Ruatoria",-37.88805294,178.3200812
+128,Police station,Tamatea Police Station,"Durham Avenue,Tamatea,Napier",-39.51053862,176.8688131
+129,Police station,Taradale Police Station,"209 Gloucester St,Taradale",-39.53409253,176.8489442
+130,Police station,Te Araroa Police Station,"13 Rata St,Te Araroa",-37.63448872,178.3689985
+131,Police station,Te Karaka Police Station,"46 Cliff Rd,Te Karaka",-38.47082332,177.8639052
+132,Police station,Tokomaru Bay Police Station,"8 Tokomaru St,Tokomaru Bay",-38.12579442,178.3155552
+133,Police station,Tolaga Bay Police Station,"13 Monkhouse St,Tolaga Bay",-38.37356229,178.2981033
+134,Police station,Tuai Police Station,"63 Hill St,Tuai",-38.81145564,177.146168
+135,Police station,Waipukurau Police Station,"16 Northumberland St,Waipukurau",-39.99350069,176.5551544
+136,Police station,Wairoa Police Station,"72 Queen St,Wairoa",-39.03442506,177.4212299
+137,Police station,Ashhurst Police Station,"14 Guildford St,Ashhurst",-40.29016974,175.753726
+138,Police station,Bulls Police Station,"105 Bridge St,Bulls",-40.17608398,175.3849031
+139,Police station,Dannevirke Police Station,"13 Gordon St,Dannevirke",-40.20809184,176.0992404
+140,Police station,Eketahuna Police Station,"6 Newman Rd,Eketahuna",-40.64332961,175.7043019
+141,Police station,Eltham Police Station,"175 High St,Eltham",-39.42994312,174.2990294
+142,Police station,Feilding Police Station,"93 Kimbolton Rd,Feilding",-40.22539854,175.5670477
+143,Police station,Fitzroy Police Station,"12 Clemow Rd,Fitzroy,New Plymouth",-39.04925269,174.1028151
+144,Police station,Foxton Beach Police Station,"2 Ocean Beach St,Foxton Beach",-40.46003755,175.2190873
+145,Police station,Foxton Police Station,"1 Main St,Foxton",-40.471004,175.2817554
+146,Police station,Gonville Police Station,"2 Harper St,Gonville,Whanganui",-39.94227032,175.0224512
+147,Police station,H?wera Police Station,"128 Princes St,H?wera",-39.5879632,174.2844312
+148,Police station,Highbury Community Policing Centre,"94 Highbury Av,Highbury,Palmerston North",-40.35908664,175.586427
+149,Police station,Hunterville Police Station,"3 Bruce St,Hunterville",-39.93646521,175.5682669
+150,Police station,Inglewood Police Station,"4 Brookes St,Inglewood",-39.15936204,174.206879
+151,Police station,Kimbolton Police Station,"2890 Kimbolton Rd,Kimbolton,Kimbolton",-40.05822432,175.7799678
+152,Police station,Levin Police Station,"7 Bristol St,Levin",-40.62063242,175.2857969
+153,Police station,Linton Community Policing Centre,"Puttick Rd, Linton Camp,Palmerston North",-40.41244223,175.5919537
+154,Police station,Marton Police Station,"22 Stewart St,Marton,Marton",-40.0692665,175.3767846
+155,Police station,Massey University Police Station,"University Av,Massey University,Palmerston North",-40.38778222,175.6204432
+156,Police station,M?kau Police Station,"1 Oha St,M?kau",-38.69444586,174.6192541
+157,Police station,National Park Police Station,"31 Buddo St,National Park",-39.17225564,175.3967826
+158,Police station,New Plymouth Central Police Station,"95 Powderham Street,New Plymouth",-39.05996227,174.0707326
+159,Police station,Norsewood Police Station,"9 Coronation St,Norsewood",-40.07022659,176.2157175
+160,Police station,Ohakea Patrol Base Weigh Station,"3302 SH 1,Sanson",-40.20220813,175.3965003
+161,Police station,Ohakune Police Station,"10 Clyde St,Ohakune",-39.41657469,175.3963162
+162,Police station,Okato Police Station,"84 Oxford Rd,Okato",-39.19403757,173.879763
+163,Police station,?punake Police Station,"105 Tasman St,?punake",-39.45348712,173.8578802
+164,Police station,?taki Police Station,"1 Iti St,?taki",-40.75405005,175.1377462
+165,Police station,Pahiatua Police Station,"15 Main St,Pahiatua",-40.44870428,175.8446277
+166,Police station,Palmerston North Central Police Station,"410 Church St,Palmerston North",-40.3558673,175.6155225
+167,Police station,P?tea Police Station,"27 Victoria St,P?tea",-39.75301271,174.4720168
+168,Police station,Pongaroa Police Station,"Route 52,Pongaroa",-40.58493942,176.1446688
+169,Police station,Raetihi Police Station,"4 Seddon St,Raetihi",-39.42798526,175.2821799
+170,Police station,Shannon Police Station,"25 Ballance St,Shannon",-40.54826424,175.4124017
+171,Police station,Stratford Police Station,"43 Miranda St,Stratford",-39.33870048,174.2827303
+172,Police station,Taihape Police Station,"6 Tui St,Taihape",-39.67839088,175.7982884
+173,Police station,Taumarunui Police Station,"8 Turaki St,Taumarunui",-38.88373327,175.2675209
+174,Police station,Waiouru Police Station,"Cnr State Highway 1 and State Highway 49,Waiouru",-39.47681363,175.6677886
+175,Police station,Waitara Police Station,"23 Domett St,Waitara",-39.00251396,174.236503
+176,Police station,Waverley Police Station,"64 Weraroa Rd,Waverley",-39.76387731,174.6334395
+177,Police station,Westown Police Station,"54 Tukapa St,Westown,New Plymouth",-39.07122021,174.0619477
+178,Police station,Whanganui Central Police Station,"1D Bell St,Wanganui",-39.93106383,175.0548592
+179,Police station,Woodville Police Station,"96 Vogel St,Woodville",-40.33814035,175.8697746
+180,Police station,Carterton Police Station,"30 Holloway St,Carterton",-41.0253099,175.528246
+181,Police station,Chatham Islands Police Station,"4B Waitangi-Tuku Rd,Chatham Islands",-43.95163234,-176.560905
+182,Police station,Document Examination Section,"41 Victoria Street, 6011,Wellington",-41.28747498,174.7767882
+183,Police station,Featherston Police Station,"3 Daniell St,Featherston,Featherston",-41.11659907,175.3253664
+184,Police station,K?piti Police Station,"182 Rimu Road (Corner Rimu Road and Kapiti Road),Paraparaumu",-40.91469797,175.0052296
+185,Police station,Lower Hutt Police Station,"19 Kings Cres,Lower Hutt 5010",-41.20802,174.908448
+186,Police station,Martinborough Police Station,"16 Cork St,Martinborough",-41.21963943,175.4609509
+187,Police station,Masterton Police Station,"21 Church Street,Masterton",-40.95090313,175.6632607
+188,Police station,Naenae Community Policing Centre,"5-11 Sladden St,Naenae,Lower Hutt",-41.19748404,174.9487724
+189,Police station,Porirua Police Hub,"19 Heriot Drive,Porirua",-41.13343205,174.8355024
+190,Police station,Royal New Zealand Police College,"Papakowhai Road,Porirua",-41.12008593,174.8597195
+191,Police station,Upper Hutt Police Station,"863 Fergusson Dr,Upper Hutt, 5018",-41.12593496,175.068689
+192,Police station,Wainuiomata Police Station,"3 Fitzherbert Rd,Wainuiomata,Lower Hutt",-41.26037946,174.9468886
+193,Police station,Waitangirua Police Station,"212 Warspite Avenue,Waitangirua,Porirua",-41.12991667,174.8808223
+194,Police station,Wellington Central Police Station,"41 Victoria St,Wellington",-41.28747686,174.7767867
+195,Police station,Blenheim Police Station,"8 Main St,Blenheim",-41.51378325,173.9580958
+196,Police station,Franz Josef Police Station,"13 Main Rd,Franz Josef",-43.3894041,170.181502
+197,Police station,Granity Police Station,"81 Torea St,Granity",-41.63049408,171.8524135
+198,Police station,Greymouth Police Station,"45-47 Guinness St,Greymouth",-42.44972494,171.2082539
+199,Police station,Haast Police Station,"2 Pauareka Rd,Haast",-43.8812712,169.0415194
+200,Police station,Havelock Police Station,"59 Main Rd,Havelock",-41.27957965,173.7669154
+201,Police station,Hokitika Police Station,"50 Sewell St,Hokitika",-42.71787686,170.9642605
+202,Police station,Kaik?ura Police Station,"12 Hastings St,Kaik?ura",-42.40549967,173.678056
+203,Police station,Karamea Police Station,"37 Wharf Rd,Karamea",-41.24762968,172.111209
+204,Police station,Motueka Police Station,"68 High St,Motueka",-41.10755643,173.0111032
+205,Police station,Murchison Police Station,"15 Fairfax St,Murchison",-41.79793311,172.3257869
+206,Police station,Nelson Central Police Station,"5 St John Street,Nelson 7010",-41.27362427,173.2884332
+207,Police station,Picton Police Station,"36 Broadway,Picton 7220",-41.29316166,174.0067349
+208,Police station,Reefton Police Station,"86 Broadway,Reefton",-42.11937154,171.8629286
+209,Police station,Renwick Highway Patrol,"65A High St,Renwick,Renwick 7243",-41.50855067,173.825223
+210,Police station,Richmond Police Station,"196 Queen St,Richmond",-41.3408238,173.1866694
+211,Police station,Ross Police Station,"23 Moorhouse St,Ross",-42.89781496,170.8157684
+212,Police station,T?kaka Police Station,"159 Commercial St,T?kaka",-40.85209064,172.8070311
+213,Police station,Tasman District Headquarters,"188 Bridge St,Nelson,NELSON",-41.27292219,173.2881885
+214,Police station,Wakefield Police Station,"9 Clifford Rd,Wakefield",-41.40639399,173.041475
+215,Police station,Westport Police Station,"13 Wakefield St,Westport",-41.75650656,171.5998754
+216,Police station,Akaroa Police Station,"9 Rue Lavaud,Akaroa",-43.80101937,172.9704591
+217,Police station,Amberley Police Station,"106 Carters Rd,Amberley",-43.15542975,172.7296422
+218,Police station,Arthur's Pass Police Station,"State Highway 73,Arthur's Pass",-42.94860173,171.5676542
+219,Police station,Ashburton Police Station,"303 Havelock St,Ashburton",-43.90522229,171.7509931
+220,Police station,Canterbury District Headquarters,"40 Lichfield Street,Christchurch Central,CHRISTCHURCH",-43.53438119,172.634816
+221,Police station,Cheviot Police Station,"8 McQueen Rd,Cheviot,Cheviot, North Canterbury",-42.81347776,173.2750984
+222,Police station,Christchurch Central Police Station,"40 Lichfield Street,Christchurch Central ,Christchurch",-43.53438162,172.6348152
+223,Police station,Christchurch South Police Station,"154-158 Colombo Street,Christchurch",-43.55666583,172.6370418
+224,Police station,Culverden Police Station,"6 Searle Cr,Culverden",-42.76998445,172.8528294
+225,Police station,Darfield Police Station,"14 North Tce,Darfield",-43.48853343,172.1157462
+226,Police station,Fairlie Police Station,"Kirke St,Fairlie",-44.10105283,170.8271363
+227,Police station,Geraldine Police Station,"45 Talbot St,Geraldine",-44.09189465,171.2446586
+228,Police station,Hanmer Springs Police Station,"39 Amuri Av,Hamner Springs",-42.52321487,172.8303988
+229,Police station,Hornby Police Station,"9-13 Tower Street,Hornby",-43.54442532,172.5269592
+230,Police station,Lake Tekapo Police Station,"Tekapo-Twizel Road,Lake Tekapo",-44.00556195,170.478934
+231,Police station,Leeston Police Station,"2 Cunningham St,Leeston",-43.7600844,172.3047169
+232,Police station,Lincoln Police Station,"30 Gerald St,Lincoln",-43.64046513,172.4808002
+233,Police station,Lyttelton Police Station,"5-9 Sumner Rd,Lyttelton",-43.60291306,172.7233403
+234,Police station,Methven Police Station,"15-17 Methven Chertsey Rd,Methven",-43.63347699,171.6492706
+235,Police station,Oxford Police Station,"27 Main St,Oxford",-43.29770661,172.1953503
+236,Police station,Papanui Police Station,"36 Main North Rd,Papanui,Christchurch",-43.49508392,172.6092542
+237,Police station,Pleasant Point Police Station,"129 Main Rd,Pleasant Point",-44.25982694,171.1227195
+238,Police station,Rakaia Police Station,"149 Michael St,Rakaia",-43.75595566,172.0321518
+239,Police station,Rangiora Police Station,"1 Southern Cross Road,Rangiora",-43.33366982,172.5970422
+240,Police station,Rolleston Police Station,"69 Tennyson St,Rolleston",-43.59605594,172.3837682
+241,Police station,Saint Andrews Police Station,"22 Waimate Hwy,Saint Andrews",-44.52808036,171.1917547
+242,Police station,Temuka Police Station,"20 Domain Av,Temuka",-44.24657085,171.2810789
+243,Police station,Timaru Central Police Station,"20 North St,Timaru",-44.40058481,171.2546042
+244,Police station,Twizel Police Station,"23 Tasman Rd,Twizel",-44.25719038,170.0967472
+245,Police station,Waikari Police Station,"32 Princes St,Waikari,North Canterbury",-42.96844708,172.6975932
+246,Police station,Waimate Police Station,"53 Queen St,Waimate",-44.73280082,171.0482094
+247,Police station,Alexandra Police Station,"2 Kelman St,Alexandra",-45.25747958,169.3912403
+248,Police station,Arrowtown Community Policing Centre,"57 Buckingham St,Arrowtown,Queenstown",-44.93878107,168.834185
+249,Police station,Balclutha Police Station,"7-9 Renfrew St,Balclutha",-46.23808012,169.7420326
+250,Police station,Bluff Police Station,"80 Barrow St,Bluff",-46.60015126,168.3428875
+251,Police station,Clinton Police Station,"15 Gorge Rd,Clinton",-46.20298405,169.3741807
+252,Police station,Cromwell Police Station,"157 Waenga Dr,Cromwell",-45.03822811,169.1948816
+253,Police station,Dunedin Airport,"25 Miller Road,Dunedin 9073",-45.92552382,170.2020594
+254,Police station,Dunedin Central Police Station,"25 Great King St,Dunedin Central,Dunedin",-45.87286483,170.5063209
+255,Police station,Dunedin North Police Station,"111 North Rd,North East Valley,Dunedin",-45.85171318,170.523284
+256,Police station,Dunedin South Police Station,"77 MacAndrew Rd,South Dunedin,Dunedin",-45.89700364,170.5000498
+257,Police station,Gore Police Station,"2 Hokonui Dr,Gore",-46.09869602,168.9461964
+258,Police station,Green Island Police Station,"198 Main South Rd,Green Island,Dunedin",-45.90174902,170.4312493
+259,Police station,Halfmoon Bay Police Station,"2 View St,Halfmoon Bay,Stewart Island, 9846",-46.90105048,168.1249811
+260,Police station,Hampden Police Station,"28 London St,Hampden,Hampden",-45.32436198,170.8178553
+261,Police station,Invercargill Central Police Station,"117 Don St,Invercargill",-46.41087776,168.3550799
+262,Police station,Invercargill South Police Station,"141 Janet Street,Appleby,Invercargill",-46.42832727,168.3609605
+263,Police station,Kaikorai Valley Community Policing Centre,"33 Kaikorai Valley Rd,Kaikorai",-45.86667091,170.4842692
+264,Police station,Kurow Police Station,"29 Bledisloe St,Kurow",-44.73491596,170.4707792
+265,Police station,Lawrence Police Station,"27 Beaumont Hwy,Lawrence",-45.9144562,169.6779393
+266,Police station,Lumsden Police Station,"28 Hero St,Lumsden",-45.74070022,168.4427118
+267,Police station,Mataura Police Station,"117 Main St,Mataura",-46.19330185,168.865609
+268,Police station,Middlemarch Police Station,"12 Nottage St,Middlemarch",-45.50977644,170.1201636
+269,Police station,Milton Police Station,"35 Spenser St,Milton",-46.12130085,169.9611355
+270,Police station,Mosgiel Police Station,"105 Gordon Rd,Mosgiel",-45.87621207,170.3493141
+271,Police station,North Invercargill (Person Squad) Police Station,"72 Windsor Street,Windsor,Invercargill",-46.39433235,168.3652993
+272,Police station,Oamaru Police Station,"18 Severn St,Oamaru",-45.09789934,170.9685404
+273,Police station,Ohai Police Station,"75 Birchwood Rd,Ohai",-45.93244663,167.95909
+274,Police station,Omakau Police Station,"33 Leask St,Omakau",-45.09910799,169.5971423
+275,Police station,?marama Police Station,"14 Chain Hills Hwy,?marama",-44.48876991,169.9668618
+276,Police station,?tautau Police Station,"154 Main St,?tautau",-46.14337874,167.9977514
+277,Police station,?waka Police Station,"25 Stuart St,?waka",-46.45269799,169.6562945
+278,Police station,Palmerston Police Station,"119 Ronaldsay St,Palmerston,Otago",-45.48434887,170.7156149
+279,Police station,Port Chalmers Police Station,"35 George St,Port Chalmers",-45.81637577,170.6209762
+280,Police station,Portobello Police Station,"1710 Highcliff Rd,Portobello",-45.84031148,170.6485656
+281,Police station,Queenstown Police Station,"11 Camp St,Queenstown",-45.03215317,168.6628752
+282,Police station,Ranfurly Police Station,"2 Thomas St,Ranfurly",-45.12813362,170.098791
+283,Police station,Riversdale Police Station,"1 Lincoln St,Riversdale",-45.90004522,168.7421909
+284,Police station,Riverton Police Station,"31 Napier St,Riverton",-46.35259777,168.016052
+285,Police station,Roxburgh Police Station,"8 Ferry Rd,Roxburgh",-45.54142805,169.3159812
+286,Police station,Southern District Headquarters,"25 Great King St,Dunedin Central,Dunedin",-45.8728554,170.5063282
+287,Police station,Tapanui Police Station,"1 Station Rd,Tapanui,West Otago 9542",-45.94333275,169.257649
+288,Police station,Te Anau Police Station,"196 Milford Rd,Te Anau",-45.41281321,167.7209381
+289,Police station,Tuatapere Police Station,"17 Orawia Rd,Tuatapere",-46.13314719,167.6887919
+290,Police station,Waikouaiti Police Station,"3 Court St,Waikouaiti",-45.59648402,170.6723882
+291,Police station,W?naka Police Station,"5 Ballantyne Road,W?naka,W?naka",-44.69535451,169.1426733
+292,Police station,Winton Police Station,"297 Great North Rd,Winton",-46.14120909,168.3255825
+293,Police station,Wyndham Police Station,"1 Balaclava St,Wyndham",-46.3251273,168.849398

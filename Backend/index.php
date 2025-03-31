@@ -11,12 +11,15 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
 
   <script>
-    let map;                       // Global map variable
-    let cellTowerMarkers = [];     // Array to store cell tower markers
-    let circles = [];              // Array to store circles
-    let currentCircle = null;      // Currently displayed circle
+    let map;                        // Global map variable
+    let cellTowerMarkers = [];      // Array to store cell tower markers
+    let circles = [];               // Array to store circles
+    let currentCircle = null;       // Currently displayed circle
     let currentFacilityMarkers = []; // Facility markers for selected tower
-    let populationData = [];       // Array for population grid data
+    let populationData = [];        // Array for population grid data
+    let hospitalsData = [];         // Array for hospitals data from CSV
+    let policeData = [];            // Array for police data from CSV
+    let fireStationsData = [];      // Array for fire station data from CSV
 
     // Load population CSV (already in lat/lng)
     function loadPopulationData(callback) {
@@ -29,6 +32,51 @@
         })
         .catch(err => {
           console.error("Error loading population data:", err);
+          callback();
+        });
+    }
+
+    // Load hospitals CSV from local file
+    function loadHospitalsData(callback) {
+      fetch('hospitals_data.csv')
+        .then(response => response.text())
+        .then(csvText => {
+          const parsed = Papa.parse(csvText, { header: true });
+          hospitalsData = parsed.data;
+          callback();
+        })
+        .catch(err => {
+          console.error("Error loading hospitals data:", err);
+          callback();
+        });
+    }
+
+    // Load police CSV from local file
+    function loadPoliceData(callback) {
+      fetch('police_data.csv')
+        .then(response => response.text())
+        .then(csvText => {
+          const parsed = Papa.parse(csvText, { header: true });
+          policeData = parsed.data;
+          callback();
+        })
+        .catch(err => {
+          console.error("Error loading police data:", err);
+          callback();
+        });
+    }
+
+    // Load fire station CSV from local file
+    function loadFireStationsData(callback) {
+      fetch('firestation_data.csv')
+        .then(response => response.text())
+        .then(csvText => {
+          const parsed = Papa.parse(csvText, { header: true });
+          fireStationsData = parsed.data;
+          callback();
+        })
+        .catch(err => {
+          console.error("Error loading fire station data:", err);
           callback();
         });
     }
@@ -50,6 +98,54 @@
       return totalPop;
     }
 
+    // Count hospitals within 5km of a given location using CSV data
+    function countHospitalsForTower(towerLatLng) {
+      let count = 0;
+      hospitalsData.forEach(hospital => {
+        const lat = parseFloat(hospital.latitude);
+        const lng = parseFloat(hospital.longitude);
+        if (isNaN(lat) || isNaN(lng)) return;
+        const hospitalLatLng = new google.maps.LatLng(lat, lng);
+        const distance = google.maps.geometry.spherical.computeDistanceBetween(towerLatLng, hospitalLatLng);
+        if (distance <= 5000) {
+          count++;
+        }
+      });
+      return count;
+    }
+
+    // Count police stations within 5km of a given location using CSV data
+    function countPoliceForTower(towerLatLng) {
+      let count = 0;
+      policeData.forEach(police => {
+        const lat = parseFloat(police.latitude);
+        const lng = parseFloat(police.longitude);
+        if (isNaN(lat) || isNaN(lng)) return;
+        const policeLatLng = new google.maps.LatLng(lat, lng);
+        const distance = google.maps.geometry.spherical.computeDistanceBetween(towerLatLng, policeLatLng);
+        if (distance <= 5000) {
+          count++;
+        }
+      });
+      return count;
+    }
+
+    // Count fire stations within 5km of a given location using CSV data
+    function countFireStationsForTower(towerLatLng) {
+      let count = 0;
+      fireStationsData.forEach(fireStation => {
+        const lat = parseFloat(fireStation.latitude);
+        const lng = parseFloat(fireStation.longitude);
+        if (isNaN(lat) || isNaN(lng)) return;
+        const stationLatLng = new google.maps.LatLng(lat, lng);
+        const distance = google.maps.geometry.spherical.computeDistanceBetween(towerLatLng, stationLatLng);
+        if (distance <= 5000) {
+          count++;
+        }
+      });
+      return count;
+    }
+
     function initMap() {
       const center = { lat: -36.8485, lng: 174.7633 };
 
@@ -65,162 +161,146 @@
 
       const service = new google.maps.places.PlacesService(map);
 
-      // First, load population data then fetch cell tower markers.
+      // Load population, hospitals, police, and fire station data before fetching cell tower markers.
       loadPopulationData(function() {
-        fetch('markers.php')
-          .then(response => response.json())
-          .then(data => {
-            const tableBody = document.getElementById('tower-body');
+        loadHospitalsData(function() {
+          loadPoliceData(function() {
+            loadFireStationsData(function() {
+              fetch('markers.php')
+                .then(response => response.json())
+                .then(data => {
+                  const tableBody = document.getElementById('tower-body');
 
-            data.forEach(markerData => {
-              // Choose icon based on CSV status ("YES" or "NO")
-              const markerIcon = markerData.status === "NO" ? 'celltower_down_icon.png' : 'celltower_icon3.png';
+                  data.forEach(markerData => {
+                    // Choose icon based on CSV status ("YES" or "NO")
+                    const markerIcon = markerData.status === "NO" ? 'celltower_down_icon.png' : 'celltower_icon3.png';
 
-              const marker = new google.maps.Marker({
-                position: { lat: markerData.lat, lng: markerData.lng },
-                map: map,
-                title: markerData.sitename,
-                icon: {
-                  url: markerIcon,
-                  scaledSize: new google.maps.Size(32, 32),
-                  anchor: new google.maps.Point(16, 32)
-                }
-              });
-              // Store the CSV status in a custom property; default "YES"
-              marker.customStatus = markerData.status;
-              cellTowerMarkers.push(marker);
+                    const marker = new google.maps.Marker({
+                      position: { lat: markerData.lat, lng: markerData.lng },
+                      map: map,
+                      title: markerData.sitename,
+                      icon: {
+                        url: markerIcon,
+                        scaledSize: new google.maps.Size(32, 32),
+                        anchor: new google.maps.Point(16, 32)
+                      }
+                    });
+                    marker.customStatus = markerData.status;
+                    cellTowerMarkers.push(marker);
 
-              // Create a table row for the cell tower info.
-              const row = document.createElement('tr');
+                    // Create a table row for the cell tower info.
+                    const row = document.createElement('tr');
 
-              // Site Name cell
-              const nameCell = document.createElement('td');
-              nameCell.textContent = markerData.sitename;
-              row.appendChild(nameCell);
+                    // Site Name cell
+                    const nameCell = document.createElement('td');
+                    nameCell.textContent = markerData.sitename;
+                    row.appendChild(nameCell);
 
-              // Coordinates cell
-              const coordCell = document.createElement('td');
-              coordCell.textContent = `(${markerData.lat}, ${markerData.lng})`;
-              row.appendChild(coordCell);
+                    // Coordinates cell
+                    const coordCell = document.createElement('td');
+                    coordCell.textContent = `(${markerData.lat}, ${markerData.lng})`;
+                    row.appendChild(coordCell);
 
-              // Population (5km) cell (initially blank)
-              const popCell = document.createElement('td');
-              popCell.textContent = "—";
-              row.appendChild(popCell);
+                    // Population (5km) cell (initially blank)
+                    const popCell = document.createElement('td');
+                    popCell.textContent = "—";
+                    row.appendChild(popCell);
 
-              // Hospitals/Clinics cell
-              const hospitalCell = document.createElement('td');
-              hospitalCell.textContent = "Loading...";
-              row.appendChild(hospitalCell);
+                    // Hospitals/Clinics cell - using local CSV
+                    const hospitalCell = document.createElement('td');
+                    try {
+                      const count = countHospitalsForTower(marker.getPosition());
+                      hospitalCell.textContent = count;
+                      row.dataset.hospital = count;
+                      sortTable();
+                    } catch (e) {
+                      console.error("Error counting hospitals:", e);
+                      hospitalCell.textContent = "Error";
+                    }
+                    row.appendChild(hospitalCell);
 
-              // Police Stations cell
-              const policeCell = document.createElement('td');
-              policeCell.textContent = "Loading...";
-              row.appendChild(policeCell);
+                    // Police Stations cell - using local CSV
+                    const policeCell = document.createElement('td');
+                    try {
+                      const count = countPoliceForTower(marker.getPosition());
+                      policeCell.textContent = count;
+                      row.dataset.police = count;
+                      sortTable();
+                    } catch (e) {
+                      console.error("Error counting police stations:", e);
+                      policeCell.textContent = "Error";
+                    }
+                    row.appendChild(policeCell);
 
-              // Fire Stations cell
-              const fireCell = document.createElement('td');
-              fireCell.textContent = "Loading...";
-              row.appendChild(fireCell);
+                    // Fire Stations cell - using local CSV
+                    const fireCell = document.createElement('td');
+                    try {
+                      const count = countFireStationsForTower(marker.getPosition());
+                      fireCell.textContent = count;
+                      row.dataset.fire = count;
+                      sortTable();
+                    } catch (e) {
+                      console.error("Error counting fire stations:", e);
+                      fireCell.textContent = "Error";
+                    }
+                    row.appendChild(fireCell);
 
-              // Nearby Towers cell
-              const towersCell = document.createElement('td');
-              towersCell.textContent = "Loading...";
-              row.appendChild(towersCell);
+                    // Nearby Towers cell
+                    const towersCell = document.createElement('td');
+                    towersCell.textContent = "Loading...";
+                    row.appendChild(towersCell);
 
-              // Set dataset values for sorting
-              row.dataset.hospital = 0;
-              row.dataset.police = 0;
-              row.dataset.fire = 0;
-              row.dataset.towers = 0;
-              // Will also later store population as row.dataset.population
+                    // Set dataset values for sorting
+                    row.dataset.police = row.dataset.police || 0;
+                    row.dataset.fire = row.dataset.fire || 0;
+                    row.dataset.towers = 0;
+                    // Will also later store population as row.dataset.population
 
-              // Save references on the marker for later update.
-              marker.tableRow = row;
-              marker.popCell = popCell;
+                    // Save references on the marker for later update.
+                    marker.tableRow = row;
+                    marker.popCell = popCell;
 
-              // On row click, center the map, draw 5km circle, and show facilities.
-              row.addEventListener('click', () => {
-                map.setCenter(marker.getPosition());
-                map.setZoom(12);
-                if (currentCircle) currentCircle.setMap(null);
-                clearFacilityMarkers();
-                currentCircle = new google.maps.Circle({
-                  map: map,
-                  center: marker.getPosition(),
-                  radius: 5000,
-                  fillColor: '#FF0000',
-                  fillOpacity: 0.1,
-                  strokeColor: '#FF0000',
-                  strokeOpacity: 0.8,
-                  strokeWeight: 2
-                });
-                showFacilitiesForTower(marker.getPosition(), service);
-              });
+                    // On row click, center the map, draw a 5km circle, and show facilities.
+                    row.addEventListener('click', () => {
+                      map.setCenter(marker.getPosition());
+                      map.setZoom(12);
+                      if (currentCircle) currentCircle.setMap(null);
+                      clearFacilityMarkers();
+                      currentCircle = new google.maps.Circle({
+                        map: map,
+                        center: marker.getPosition(),
+                        radius: 5000,
+                        fillColor: '#FF0000',
+                        fillOpacity: 0.1,
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2
+                      });
+                      showFacilitiesForTower(marker.getPosition(), service);
+                    });
 
-              tableBody.appendChild(row);
+                    tableBody.appendChild(row);
 
-              // Emergency service queries (unchanged)
-              searchEmergencyServicesForTowerType(marker.getPosition(), 'hospital', service)
-                .then(results => {
-                  const unique = {};
-                  results.forEach(r => { unique[r.place_id] = r; });
-                  const count = Object.keys(unique).length;
-                  hospitalCell.textContent = count;
-                  row.dataset.hospital = count;
-                  sortTable();
+                    // Count nearby towers (within 5km)
+                    const towerLatLng = new google.maps.LatLng(markerData.lat, markerData.lng);
+                    let nearbyTowerCount = 0;
+                    data.forEach(other => {
+                      if (markerData.lat === other.lat && markerData.lng === other.lng) return;
+                      const otherLatLng = new google.maps.LatLng(other.lat, other.lng);
+                      const distance = google.maps.geometry.spherical.computeDistanceBetween(towerLatLng, otherLatLng);
+                      if (distance <= 5000) nearbyTowerCount++;
+                    });
+                    towersCell.textContent = nearbyTowerCount;
+                    row.dataset.towers = nearbyTowerCount;
+                  });
                 })
-                .catch(err => {
-                  console.error("Error searching hospitals:", err);
-                  hospitalCell.textContent = "Error";
-                });
-
-              searchEmergencyServicesForTowerType(marker.getPosition(), 'police', service)
-                .then(results => {
-                  const unique = {};
-                  results.forEach(r => { unique[r.place_id] = r; });
-                  const count = Object.keys(unique).length;
-                  policeCell.textContent = count;
-                  row.dataset.police = count;
-                  sortTable();
-                })
-                .catch(err => {
-                  console.error("Error searching police stations:", err);
-                  policeCell.textContent = "Error";
-                });
-
-              searchEmergencyServicesForTowerType(marker.getPosition(), 'fire_station', service)
-                .then(results => {
-                  const unique = {};
-                  results.forEach(r => { unique[r.place_id] = r; });
-                  const count = Object.keys(unique).length;
-                  fireCell.textContent = count;
-                  row.dataset.fire = count;
-                  sortTable();
-                })
-                .catch(err => {
-                  console.error("Error searching fire stations:", err);
-                  fireCell.textContent = "Error";
-                });
-
-              // Count nearby towers (within 5km)
-              const towerLatLng = new google.maps.LatLng(markerData.lat, markerData.lng);
-              let nearbyTowerCount = 0;
-              data.forEach(other => {
-                if (markerData.lat === other.lat && markerData.lng === other.lng) return;
-                const otherLatLng = new google.maps.LatLng(other.lat, other.lng);
-                const distance = google.maps.geometry.spherical.computeDistanceBetween(towerLatLng, otherLatLng);
-                if (distance <= 5000) nearbyTowerCount++;
-              });
-              towersCell.textContent = nearbyTowerCount;
-              row.dataset.towers = nearbyTowerCount;
+                .catch(error => console.error('Error loading markers:', error));
             });
-          })
-          .catch(error => console.error('Error loading markers:', error));
+          });
+        });
       });
 
       // --- Random Event Button ---
-      // Now uses a 10% chance to mark a tower as "NO"
       document.getElementById("random-event").addEventListener("click", function() {
         cellTowerMarkers.forEach(marker => {
           if (Math.random() < 0.1) {
@@ -235,7 +315,6 @@
       });
 
       // --- Run Button ---
-      // Calculate population coverage only for towers with status "NO" and update the table.
       document.getElementById("run-coverage").addEventListener("click", function() {
         const tableBody = document.getElementById("tower-body");
         let filteredRows = [];
@@ -265,7 +344,6 @@
       });
 
       // --- Reset Markers Button ---
-      // Revert all markers back to "YES" status and show all rows.
       document.getElementById("reset-markers").addEventListener("click", function() {
         cellTowerMarkers.forEach(marker => {
           marker.setIcon({
@@ -280,54 +358,62 @@
       });
     }
 
-    // Helper: Search for emergency service of a given type
-    function searchEmergencyServicesForTowerType(location, type, service) {
-      return new Promise(resolve => {
-        const request = {
-          location: location,
-          radius: '5000',
-          type: type
-        };
-        service.nearbySearch(request, (results, status) => {
-          if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-            resolve(results);
-          } else {
-            resolve([]);
-          }
-        });
-      });
-    }
-
-    // Helper: Clear facility markers
-    function clearFacilityMarkers() {
-      if (currentFacilityMarkers.length) {
-        currentFacilityMarkers.forEach(marker => marker.setMap(null));
-        currentFacilityMarkers = [];
-      }
-    }
-
     // Helper: Show facility markers around a tower location
     function showFacilitiesForTower(location, service) {
       const emergencyTypes = ['hospital', 'police', 'fire_station'];
       emergencyTypes.forEach(type => {
-        const request = {
-          location: location,
-          radius: '5000',
-          type: type
-        };
-        service.nearbySearch(request, (results, status) => {
-          if (status === google.maps.places.PlacesServiceStatus.OK && results) {
-            results.forEach(place => {
+        if (type === 'hospital') {
+          hospitalsData.forEach(hospital => {
+            const lat = parseFloat(hospital.latitude);
+            const lng = parseFloat(hospital.longitude);
+            if (isNaN(lat) || isNaN(lng)) return;
+            const facilityLatLng = new google.maps.LatLng(lat, lng);
+            const distance = google.maps.geometry.spherical.computeDistanceBetween(location, facilityLatLng);
+            if (distance <= 5000) {
               const marker = new google.maps.Marker({
                 map: map,
-                position: place.geometry.location,
-                title: place.name,
-                icon: getIconForType(type) || undefined
+                position: facilityLatLng,
+                title: hospital.name || "Hospital",
+                icon: getIconForType('hospital') || undefined
               });
               currentFacilityMarkers.push(marker);
-            });
-          }
-        });
+            }
+          });
+        } else if (type === 'police') {
+          policeData.forEach(police => {
+            const lat = parseFloat(police.latitude);
+            const lng = parseFloat(police.longitude);
+            if (isNaN(lat) || isNaN(lng)) return;
+            const facilityLatLng = new google.maps.LatLng(lat, lng);
+            const distance = google.maps.geometry.spherical.computeDistanceBetween(location, facilityLatLng);
+            if (distance <= 5000) {
+              const marker = new google.maps.Marker({
+                map: map,
+                position: facilityLatLng,
+                title: police.name || "Police Station",
+                icon: getIconForType('police') || undefined
+              });
+              currentFacilityMarkers.push(marker);
+            }
+          });
+        } else if (type === 'fire_station') {
+          fireStationsData.forEach(fireStation => {
+            const lat = parseFloat(fireStation.latitude);
+            const lng = parseFloat(fireStation.longitude);
+            if (isNaN(lat) || isNaN(lng)) return;
+            const facilityLatLng = new google.maps.LatLng(lat, lng);
+            const distance = google.maps.geometry.spherical.computeDistanceBetween(location, facilityLatLng);
+            if (distance <= 5000) {
+              const marker = new google.maps.Marker({
+                map: map,
+                position: facilityLatLng,
+                title: fireStation.name || "Fire Station",
+                icon: getIconForType('fire_station') || undefined
+              });
+              currentFacilityMarkers.push(marker);
+            }
+          });
+        }
       });
     }
 
@@ -341,7 +427,7 @@
       return {
         url: iconUrl,
         scaledSize: new google.maps.Size(32, 32),
-        anchor: new google.maps.Point(8, 16)
+        anchor: new google.maps.Point(16, 16)
       };
     }
 

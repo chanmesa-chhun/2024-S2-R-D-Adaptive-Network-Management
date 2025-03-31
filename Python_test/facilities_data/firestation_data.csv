@@ -1,0 +1,217 @@
+ID ,Type ,Name ,Location ,Latitude,Longitude 
+1,Fire Station,Chatham Islands Fire Station,"117 Waitangi Wharf Owenga Road, Chatham Island",-43.95343627,-176.5564106
+2,Fire Station,Houhora Fire Station,"3985 Far North Road, Pukenui",-34.82492176,173.1283268
+3,Fire Station,Rangiputa Volunteer Rural Fire Force,"699 Rangiputa Road, Karikari Peninsula",-34.88041972,173.2984298
+4,Fire Station,Karikari Fire Station,"28 Matai Bay Road, Karikari Peninsula",-34.86839089,173.3814786
+5,Fire Station,Ahipara Volunteer Fire Brigade,"45 Takahe Road, Ahipara",-35.16645768,173.1548004
+6,Fire Station,Kaitaia Fire Station,"196-198 Commerce Street, Kaitaia",-35.1108536,173.2608302
+7,Fire Station,Broadwood Fire Station,"1089 Broadwood Road, Broadwood",-35.25981413,173.3906005
+8,Fire Station,Mangonui Fire Station,"5 Wrathall Road, Mangonui",-34.9916901,173.5224351
+9,Fire Station,Taupo Bay Fire Station,"721 Taupo Bay Road, Taupo Bay",-34.98784951,173.6816919
+10,Fire Station,Kaeo Fire Station,"33 Leigh Street, Kaeo",-35.09997349,173.7782993
+11,Fire Station,Cavalli Fire Station,"1414 Matauri Bay Road, Matauri Bay",-35.04438162,173.9007061
+12,Fire Station,Rawhiti Fire Station,"1 Rawhiti Road, Rawhiti",-35.2207149,174.2564597
+13,Fire Station,Russell Fire Station,"5 Baker Street, Russell",-35.26290851,174.1243307
+14,Fire Station,Paihia Volunteer Fire Brigade,"23 Selwyn Road, Paihia",-35.28139582,174.0905113
+15,Fire Station,Kawakawa Fire Station,"6 Station Road, Kawakawa",-35.37979722,174.0636752
+16,Fire Station,Kerikeri Fire Station,"5 Cobham Road, Kerikeri",-35.22818072,173.9493827
+17,Fire Station,Okaihau Fire Station,"7 Lake Road, Okaihau",-35.32071002,173.7712371
+18,Fire Station,Kaikohe Fire Station,"4 Clifford Street, Kaikohe",-35.40703794,173.7995548
+19,Fire Station,Kaikohe Voluntary Rural Fire Force,"1B Recreation Road, Kaikohe",-35.41079277,173.8018245
+20,Fire Station,Kohukohu Fire Station,"24 Beach Road, Kohukohu",-35.35992686,173.5452357
+21,Fire Station,Rawene Fire Station,"51 Parnell Street, Rawene",-35.39642534,173.5038163
+22,Fire Station,Omapere Fire Station,"191 Hokianga Harbour Drive, Omapere",-35.52223734,173.3891979
+23,Fire Station,Wekaweka Voluntary Rural Fire Force,"1261 Wekaweka Road, Waimamaku",-35.57884752,173.5958181
+24,Fire Station,Towai Fire Station,"32 Towai Road, Towai",-35.49397276,174.1317154
+25,Fire Station,Whananaki Fire Station,"2249 Whananaki North Road, Whananaki",-35.50989526,174.4603829
+26,Fire Station,Ngunguru Fire Station,"29 Waiotoi Road, Ngunguru",-35.62620324,174.5053202
+27,Fire Station,Whangarei Heads Volunteer Fire Brigade,"2066 Whangarei Heads Road, Whangarei Heads",-35.81535457,174.504718
+28,Fire Station,Onerahi Fire Station,"1 Handforth Street, Onerahi",-35.76525303,174.3667214
+29,Fire Station,Whangarei Station,"133 Bank Street, Regent",-35.72013461,174.3208113
+30,Fire Station,New Zealand Fire Service - Northland Fire Region,"12 Mansfield Terrace, Regent",-35.71972374,174.3200351
+31,Fire Station,Kamo Fire Station,"591 Kamo Road,Te Kamo",-35.68105671,174.2996328
+32,Fire Station,Hikurangi Fire Station,"3 Alfred Street, Hikurangi",-35.60111853,174.2867743
+33,Fire Station,Portland Fire Station,"1 Manaia Road, Portland",-35.80094266,174.3280851
+34,Fire Station,Maungakaramea Fire Station,"13 Tangihua Road, Maungakaramea",-35.84446359,174.203021
+35,Fire Station,Ruakaka Fire Station,"58 Marsden Point Road, Ruakaka",-35.90020513,174.4499581
+36,Fire Station,Waipu Volunteer Fire Brigade,"23 Nova Scotia Drive, Waipu",-35.98306043,174.4483724
+37,Fire Station,Mangawhai Fire Station,"197 Molesworth Drive, Mangawhai Heads",-36.10174426,174.5866924
+38,Fire Station,Kaiwaka Fire Station,"10 Gibbons Road, Kaiwaka",-36.15982114,174.4437373
+39,Fire Station,Maungaturoto Fire Station,"76 Hurndall Street, Maungaturoto",-36.10610586,174.3608237
+40,Fire Station,Paparoa Fire Station,"10 Depot Road, Paparoa",-36.10780322,174.22792
+41,Fire Station,Tinopai Fire Station,"3 Komiti Road, Tinopai",-36.24858901,174.2475174
+42,Fire Station,Ruawai Fire Station,"5A Well Street, Ruawai",-36.13626429,174.0219814
+43,Fire Station,Te Kopuru Volunteer Fire Brigade,"13 West Coast Road, Te Kopuru",-36.03185348,173.9215678
+44,Fire Station,Dargaville Fire Station,"66 Normanby Street, Dargaville",-35.94001984,173.8696451
+45,Fire Station,Wellsford Fire Station,"100 Rodney Street, Wellsford",-36.29791738,174.5241849
+46,Fire Station,Leigh Fire Station,"28 Hauraki Road, Leigh",-36.291927,174.8036324
+47,Fire Station,Matakana Fire Station,"102B Omaha Flats Road, Tawharanui Peninsula",-36.33958603,174.7420096
+48,Fire Station,Warkworth Fire Station,"2 Church Hill, Warkworth",-36.40107613,174.6637106
+49,Fire Station,Mahurangi East Volunteer Fire Brigade,"326 Mahurangi East Road, Snells Beach",-36.42338797,174.7264512
+50,Fire Station,Kawau Volunteer Fire Brigade,"Wilson Avenue, Kawau Island",-36.42982483,174.8287941
+51,Fire Station,Puhoi Fire Station,"52 Ahuroa Road, Puhoi",-36.50917681,174.6569797
+52,Fire Station,Ahuroa Volunteer Fire Brigade,"383 West Coast Road, Makarau",-36.4992925,174.4957549
+53,Fire Station,Shelly Beach Volunteer Fire Brigade,"33A James McLeod Road, Shelly Beach",-36.57199697,174.3775986
+54,Fire Station,Kaukapakapa Fire Station,"943 Kaipara Coast Highway, Kaukapakapa",-36.61870039,174.4961628
+55,Fire Station,Silverdale Fire Station,"147 Hibiscus Coast Highway, Red Beach",-36.60635149,174.690042
+56,Fire Station,Manly Fire Station,"960 Whangaparaoa Road, Manly",-36.62982263,174.7664912
+57,Fire Station,Helensville Fire Station,"9 Rata Street, Helensville",-36.67835553,174.451611
+58,Fire Station,Okiwi Volunteer Fire Brigade,"1501 Aotea Road, Great Barrier Island (Aotea Island)",-36.15251723,175.4057972
+59,Fire Station,Kaitoke Fire Station,"81 Hector Sanderson Road, Great Barrier Island (Aotea Island)",-36.24358833,175.4668554
+60,Fire Station,Tryphena Fire Station,"32 Rosalie Bay Road, Great Barrier Island (Aotea Island)",-36.31268444,175.5005636
+61,Fire Station,East Coast Bays Fire Station,"984 East Coast Road, Northcross",-36.70670064,174.7246316
+62,Fire Station,Greenhithe Volunteer Fire Brigade,"5 Greenhithe Road, Greenhithe, Auckland",-36.7763488,174.6704441
+63,Fire Station,Albany Fire Station,"8 Ride Way, Rosedale, Auckland",-36.75215894,174.7040315
+64,Fire Station,Takapuna Fire Station,"83 Wairau Road, Takapuna, Auckland",-36.77682039,174.7448442
+65,Fire Station,Birkenhead Fire Station,"154 Mokoia Road, Birkenhead, Auckland",-36.81099189,174.7159394
+66,Fire Station,West Harbour Fire Station,"21 Hobsonville Road, West Harbour, Auckland",-36.81827839,174.616034
+67,Fire Station,Devonport Fire Station,"23 Lake Road, Devonport, Auckland",-36.82194142,174.7968631
+68,Fire Station,Oneroa Fire Station,"3 Weka Road, Oneroa, Waiheke Island",-36.78344398,175.0099594
+69,Fire Station,Onetangi Fire Station,"10 Totara Road, Onetangi, Waiheke Island",-36.7934265,175.0766533
+70,Fire Station,Beachlands Fire Station,"2 Bell Road, Beachlands",-36.88639489,174.9996986
+71,Fire Station,Howick Fire Station,"511 Pakuranga Road, Highland Park, Auckland",-36.89893681,174.9097487
+72,Fire Station,Mount Wellington Fire Station,"30 Pilkington Road, Panmure, Auckland",-36.89765324,174.8541204
+73,Fire Station,Kumeu Fire Station,"331 Main Road, Kumeu",-36.77223838,174.543913
+74,Fire Station,Waitakere Fire Station,"8 Township Road, Waitakere, Auckland",-36.84873662,174.5442482
+75,Fire Station,Bethells Valley Fire Station,"2 Te Aute Ridge Road, Waitakere, Auckland",-36.86876175,174.4907372
+76,Fire Station,Muriwai Fire Station,"341 Motutara Road, Muriwai",-36.82454466,174.4333953
+77,Fire Station,Kawakawa Bay Fire Station,"6 Banks Road, Kawakawa Bay",-36.94979984,175.1690301
+78,Fire Station,Orere Point Fire Station,"8 Orere Point Road, Orere Point",-36.94980145,175.1690294
+79,Fire Station,Clevedon Fire Brigade,"40 Clevedon-Kawakawa Road, Clevedon",-36.98860094,175.0420221
+80,Fire Station,Piha Fire Station,"50 Seaview Road, Piha",-36.9539981,174.474383
+81,Fire Station,Karekare Fire Station,"100-126 Lone Kauri Road, Karekare",-36.98857005,174.501411
+82,Fire Station,Huia Fire Station,"1282-1284 Huia Road, Huia, Auckland",-37.00141123,174.5642335
+83,Fire Station,Laingholm Fire Station,"75 Victory Road, Laingholm, Auckland",-36.96342298,174.6289224
+84,Fire Station,Titirangi Fire Station,"525 South Titirangi Road, Titirangi, Auckland",-36.94002341,174.6549768
+85,Fire Station,Waiatarua Fire Station,"464A Scenic Drive, Waiatarua, Auckland",-36.93385463,174.5777705
+86,Fire Station,Glen Eden Fire Station,"4 Glenview Road, Glen Eden, Auckland",-36.90899299,174.6516892
+87,Fire Station,Henderson Fire Station,"90 Railside Avenue, Henderson, Auckland",-36.88428718,174.631601
+88,Fire Station,Te Atatu Fire Station,"297 Te Atatu Road, Te Atatu South, Auckland",-36.86075527,174.6512026
+89,Fire Station,Balmoral Fire Station,"211 Balmoral Road, Mount Eden, Balmoral",-36.88628696,174.7449498
+90,Fire Station,Mt Roskill Fire Station,"1169 Dominion Road, Mount Roskill, Auckland",-36.91579883,174.737924
+91,Fire Station,Avondale Fire Station,"162 Blockhouse Bay Road, Avondale, Auckland",-36.89723914,174.701371
+92,Fire Station,Grey Lynn Fire Station,"134 Williamson Avenue, Grey Lynn, Auckland",-36.8645478,174.7390462
+93,Fire Station,Auckland City Fire Station,"40 Pitt Street, Auckland Central, Auckland",-36.85622394,174.7590362
+94,Fire Station,Parnell Fire Station,"32 Balfour Road, Parnell, Auckland",-36.84902195,174.7843094
+95,Fire Station,Remuera Fire Station,"291 Remuera Road, Remuera, Auckland",-36.88057574,174.7954565
+96,Fire Station,Ellerslie Fire Station,"634 Great South Road, Ellerslie, Auckland",-36.8994636,174.8048453
+97,Fire Station,Onehunga Fire Station,"408 Onehunga Mall, Onehunga, Auckland",-36.91423091,174.7840165
+98,Fire Station,Saint Heliers Fire Station,"179 Long Drive, Kohimarama, Auckland",-36.86238498,174.855778
+99,Fire Station,Hunua Fire Station,"4 Lockwood Road, Hunua",-37.07861575,175.0713321
+100,Fire Station,Papakura Fire Station,"76 Great South Road, Papakura, Auckland",-37.05728613,174.9396124
+101,Fire Station,Manurewa Fire Station,"225 Great South Road, Manurewa",-37.02455138,174.8998627
+102,Fire Station,Papatoetoe Fire Station,"15A Lambie Drive, Papatoetoe",-36.98689246,174.8717474
+103,Fire Station,Otara Fire Station,"341 East Tamaki Road, East Tamaki",-36.95422546,174.8910046
+104,Fire Station,Otahuhu Fire Station,"14 Albion Road, Otahuhu",-36.93968316,174.840877
+105,Fire Station,Mangere Fire Station,"88 Bader Drive, Mangere",-36.9666159,174.7974261
+106,Fire Station,Awhitu Fire Station,"2678 Awhitu Road, Awhitu",-37.1081446,174.6210448
+107,Fire Station,Waiau Pa Volunteer Fire Station,"428-468 Clarks Beach Road, Waiau Pa",-37.13678187,174.751862
+108,Fire Station,Patumahoe Fire Station,"3 Johns Street, Patumahoe",-37.18844882,174.8277241
+109,Fire Station,Pukekohe Fire Station,"Harris Street, Pukekohe",-37.20435071,174.8980292
+110,Fire Station,Waiuku Fire Station,"13 King Street, Waiuku",-37.24743055,174.728995
+111,Fire Station,Waihau Bay Fire Station,"113 State Highway 35, Waihau Bay",-37.61858565,177.9067571
+112,Fire Station,Port Waikato Fire Station,"83 Maunsell Road, Port Waikato",-37.39139696,174.7247537
+113,Fire Station,Onewhero Fire Station,"621 Onewhero-Tuakau Bridge Road, Onewhero",-37.32938663,174.913869
+114,Fire Station,Tuakau Fire Station,"Hall Street, Tuakau",-37.25994608,174.9452794
+115,Fire Station,Pokeno Fire Station,"37 Great South Road, Pokeno",-37.24692549,175.0237606
+116,Fire Station,Te Kauwhata Fire Station,"7 Baird Avenue, Te Kauwhata",-37.40252866,175.1441296
+117,Fire Station,Huntly Fire Station,"21 William Street, Huntly",-37.55987691,175.161178
+118,Fire Station,Ngaruawahia Fire Station,"56 Herschel Street, Ngaruawahia",-37.67138246,175.1493744
+119,Fire Station,Te Akau Fire Station,"1159 Te Akau road, Te Akau",-37.67799579,174.8576096
+120,Fire Station,Raglan Fire Station,"11 Wainui Road, Raglan",-37.80111002,174.8685089
+121,Fire Station,Kawhia Fire Station,"7 Charleton Street, Kawhia",-38.06340895,174.8210452
+122,Fire Station,Tainui Mokau Volunteer Fire Brigade,"41 North Street, Mokau",-38.69790784,174.6196784
+123,Fire Station,Piopio Fire Station,"14 Ruru Street, Piopio",-38.46761912,175.0152144
+124,Fire Station,Benneydale Volunteer Fire Brigade,"2 School Road, Maniaiti / Benneydale",-38.52192047,175.3637297
+125,Fire Station,Te Kuiti Fire Station,"52 Taupiri Street, Te Kuiti",-38.33451456,175.1664759
+126,Fire Station,Otorohanga Volunteer Fire Brigade,"11 Ballance Street, Otorohanga",-38.18527613,175.2103572
+127,Fire Station,Pirongia Fire Station,"766 Franklin Street, Pirongia",-37.99049362,175.2004172
+128,Fire Station,Te Awamutu Fire Station,"14 Palmer Street, Te Awamutu",-38.01145304,175.3246759
+129,Fire Station,Cambridge Fire Station,"29 Duke Street, Cambridge",-37.89512945,175.4689523
+130,Fire Station,Hamilton Fire Station,"189 Anglesea Street, Hamilton Central, Hamilton",-37.7910307,175.2826199
+131,Fire Station,Chartwell Fire Station,"70 Crosby Road, Chartwell, Hamilton",-37.75464886,175.2887995
+132,Fire Station,Te Rapa Fire Station,"160 Arthur Porter Drive, Burbush",-37.75293145,175.2284966
+133,Fire Station,Southern Lakes Fire Station,"360 Omori Road, Kuratau",-38.89677246,175.7615867
+134,Fire Station,Turangi Fire Station,"16 Ohuanga Road, Turangi",-38.99031491,175.8063778
+135,Fire Station,Kinloch Fire Station,"10 Mata Place, Acacia Bay, Kinloch",-38.66270318,175.920439
+136,Fire Station,Taupo Fire Station,"1 Kaimanawa Street, Taupo",-38.69302352,176.0760178
+137,Fire Station,Lake Taupo Fire Station,"17 Matai Street, Tauhara, Taupo",-38.68696111,176.1034321
+138,Fire Station,Mangakino Fire Station,"14 College Street, Mangakino",-38.37143502,175.773281
+139,Fire Station,Tokoroa Fire Station,"85 Bridge Street, Tokoroa",-38.21907872,175.8683386
+140,Fire Station,Putaruru Fire Station,"7-19 Overdale Street, Putaruru",-38.05020778,175.7778626
+141,Fire Station,Tirau Fire Station,"Okoroire Road, Tirau",-37.97433412,175.7616005
+142,Fire Station,Matamata Fire Station,"9 Peria Road, Matamata",-37.80782132,175.769655
+143,Fire Station,Whitikahu Fire Station,"1967 Orini Road, Whitikahu",-37.59442326,175.3452829
+144,Fire Station,Morrinsville Fire Station,"91 Anderson Street, Morrinsville",-37.6578893,175.5237583
+145,Fire Station,Te Aroha Fire Station,"14 Koromiko Street, Te Aroha",-37.54188573,175.7138561
+146,Fire Station,Tahuna Volunteer Fire Brigade,"Huia Road, Tahuna 3373",-37.49973436,175.4929551
+147,Fire Station,Kaiaua Fire Station,"29 Pohutukawa Avenue, Kaiaua",-37.1060236,175.2966513
+148,Fire Station,Maramarua Fire Station,"2258 State Highway 2, Maramarua",-37.2527235,175.2338515
+149,Fire Station,Mangatangi Fire Station,"2084 Miranda Road, Mangatangi",-37.20050283,175.2005996
+150,Fire Station,Paeroa Fire Station,"Willoughby Street, Paeroa",-37.37854588,175.6703847
+151,Fire Station,Ngatea Fire Station,"Dent Street, Ngatea",-37.27501786,175.4959754
+152,Fire Station,Turua Fire Station,"503 Hauraki Road, Turua",-37.24068543,175.5678903
+153,Fire Station,Puriri Fire Station,"10 Station Road, Puriri",-37.23018933,175.6359931
+154,Fire Station,Thames Fire Station,"106 Pahau Street, Thames",-37.13639014,175.5403944
+155,Fire Station,Waihi Fire Station,"69 Kenny Street, Waihi",-37.39149602,175.8434135
+156,Fire Station,Whiritoa Volunteer Fire Brigade,"44 Whiritoa Beach Road, Whiritoa",-37.28369876,175.8976348
+157,Fire Station,Whangamata Fire Station,"411 Port Road, Whangamata",-37.20791828,175.8704816
+158,Fire Station,Onemana-Opoutere Fire Station,"Whitipirorua Road, Onemana",-37.15362183,175.8740748
+159,Fire Station,Tapu Fire Station,"752 Thames Coast Road, Tapu",-36.98532327,175.5016576
+160,Fire Station,Manaia Hauraki Fire Station,"60 Goldfields Road, Manaia",-36.85453903,175.4812196
+161,Fire Station,Pauanui Fire Station,"60 Jubilee Drive, Pauanui",-37.0246076,175.8606907
+162,Fire Station,Tairua Volunteer Fire Brigade,"233 Main Road, Tairua",-37.00111155,175.8483858
+163,Fire Station,Whitianga Fire Station,"70 Kupe Drive, Whitianga",-36.83286022,175.6941269
+164,Fire Station,Cooks Beach Fire Station,"26 Banks Street, Cooks Beach",-36.83813514,175.7424944
+165,Fire Station,Hahei Fire Station,"54 Hahei Beach Road, Hahei",-36.8409858,175.8023819
+166,Fire Station,Coromandel Fire Station,"345 Tiki Road, Coromandel",-36.76235321,175.4998921
+167,Fire Station,Kuaotunu Fire Station,"13 Black Jack Road, Kuaotunu",-36.72224095,175.7300438
+168,Fire Station,Matarangi Fire Station,"201B Matarangi Drive, Matarangi",-36.73358604,175.6617827
+169,Fire Station,Whangapoua Fire Station,"386 Tangiora Avenue, Whangapoua",-36.71301936,175.6141096
+170,Fire Station,Kennedy Bay Fire Station,"1245 Kennedy Bay Road, Kennedy Bay",-36.68239951,175.548847
+171,Fire Station,Colville Fire Station,"2331 Colville Road, Colville",-36.63320345,175.4752968
+172,Fire Station,Port Charles Volunteer Fire Brigade,"1297 Port Charles Road, Port Charles",-36.5436817,175.4727777
+173,Fire Station,Mayor View Volunteer Fire Brigade,"43 Roretana Drive, Athenree",-37.44510453,175.9635326
+174,Fire Station,Katikati Volunteer Fire Brigade,"15 Sheffield Street, Katikati",-37.56063271,175.9184997
+175,Fire Station,Matakana Island Fire Station,"114 Waihirere Road, Matakana Island",-37.59158993,176.075038
+176,Fire Station,Omokoroa Fire Station,"335 Omokoroa Road, Omokoroa",-37.6530551,176.0264102
+177,Fire Station,Kawerau Fire Station,"41 River Road, Kawerau",-38.08283441,176.7104485
+178,Fire Station,Rotorua Fire Station,"19 Biak Street, Mangakakahi",-38.13263109,176.2360181
+179,Fire Station,Minginui Fire Station,"9 Rimu Crescent, Minginui",-38.64243586,176.7303805
+180,Fire Station,Whakapapa Fire Station,"Bruce Road, Tongariro National Park, Manawat?-Whanganui",-39.20339131,175.5409745
+181,Fire Station,Feilding Fire Station,"205 Kimbolton Road, Feilding",-40.22176412,175.574677
+182,Fire Station,Milson Fire Station,"810 Tremaine Avenue, Roslyn",-40.3350641,175.6205545
+183,Fire Station,Palmerston North Fire Station,"50 Cook Street, Palmerston North",-40.36089317,175.6029578
+184,Fire Station,Pahiatua Fire Station,"4 Tui Street, Pahiatua",-40.45111749,175.8410961
+185,Fire Station,Woodville Fire Station,"73 Ormond Street, Woodville",-40.33653442,175.8682062
+186,Fire Station,Pongaroa Fire Station,"10801 Route 52 , Pongaroa",-40.54262313,176.1926499
+187,Fire Station,Levin Fire Station,"32 Queen Street East, Levin",-40.62068526,175.2847141
+188,Fire Station,Foxton Fire Station,"7 Whyte Street, Foxton",-40.47264406,175.2830371
+189,Fire Station,Greytown Fire Station,"54 Main Street, Greytown",-41.07776247,175.463029
+190,Fire Station,Masterton Fire Station,"2 Chapel Street, Masterton",-40.94574771,175.6654086
+191,Fire Station,Carterton Fire Station,"61 High Street, Carterton",-41.02603097,175.5267564
+192,Fire Station,Fire Station Featherston,"46 Fox Street, Featherston",-41.11660933,175.3260875
+193,Fire Station,Porirua Fire Station,"10 Mungavin Avenue, Ranui",-41.13833839,174.8472006
+194,Fire Station,Trentham Fire Station,"545 Fergusson Drive, Trentham",-41.13129311,175.0425736
+195,Fire Station,Johnsonville Fire Station,"13 Burgess Road, Johnsonville, Wellington",-41.22157858,174.8083605
+196,Fire Station,Lake Ferry Volunteer Fire Brigade,"34 Lake Ferry Road, Lake Ferry",-41.39042305,175.1460657
+197,Fire Station,Eastbourne Volunteer Fire Brigade,"2 Makaro Street, Eastbourne",-41.29206297,174.8967511
+198,Fire Station,Karori Fire Station,"84 Karori Road, Karori, Wellington",-41.28068685,174.7509526
+199,Fire Station,Thorndon Fire Station,"97 Thorndon Quay, Thorndon, Wellington",-41.27531715,174.7830424
+200,Fire Station,Wellington City Fire Station,"38/2 Oriental Parade, Oriental Bay, Wellington",-41.2931843,174.7847393
+201,Fire Station,Brooklyn Fire station,"51 Cleveland Street, Brooklyn, Wellington",-41.30519675,174.7643256
+202,Fire Station,Newtown Fire Station,"318 Mansfield Street, Newtown, Wellington",-41.31819732,174.7810147
+203,Fire Station,Kilbirnie Fire Station,"7 Troy Street, Kilbirnie, Wellington",-41.31802616,174.8031553
+204,Fire Station,Tawa Fire Station,"16 Lyndhurst Road, Tawa, Wellington",-41.17114985,174.8223781
+205,Fire Station,Titahi Bay Volunteer Fire Brigade,"5 Te Pene Avenue, Titahi Bay",-41.10860053,174.8365611
+206,Fire Station,Plimmerton Fire Station,"Sunset Parade, Plimmerton",-41.08262391,174.8630145
+207,Fire Station,Paekakariki Fire Station,"31 Tilley Road, Paekakariki",-40.98545518,174.9547782
+208,Fire Station,Paraparaumu Fire Station,"22 Te Roto Drive, Paraparaumu",-40.90571614,174.9989827
+209,Fire Station,Waikanae Fire Station,"353 Te Moana Road, Waikanae",-40.87805554,175.0473822
+210,Fire Station,Te Horo Fire Station,"58 School Road, Te Horo",-40.80665045,175.1239117
+211,Fire Station,Tora Fire Station,"3159 White Rock Road, White Rock",-41.42682588,175.4715239
+212,Fire Station,Castlepoint Volunteer Fire Brigade,"Jetty Road, Castlepoint",-40.89868636,176.2209569
+213,Fire Station,Riversdale Beach Volunteer Fire Brigade,"10 Pinedale Crescent, Riversdale Beach",-41.08753362,176.0710978
+214,Fire Station,Remutaka Fire Station,"35 Park Street, Kingsley Heights, Upper Hutt",-41.12367519,175.0785566
+215,Fire Station,Herbertville Fire Station,"32 Seaview Road, Herbertville",-40.4918547,176.5574041
+216,Fire Station,Apiti Fire Station,"3 Watsons Road, Apiti",-39.97264372,175.8702349
