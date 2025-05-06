@@ -1,3 +1,8 @@
 # Python virtual environments
 .venv/
 venv/
+
+#Use the following command to create virtual env before running backend api
+#python3 -m venv .venv
+#source .venv/bin/activate
+#pip install -r requirements.txt
