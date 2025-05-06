@@ -1,0 +1,34 @@
+head, body {
+    font-family: Arial, sans-serif;
+}
+
+
+h1, h2 {
+    text-align: center;
+}
+
+/* Table styling */
+table {
+    width: auto;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+  
+th{
+    text-align: center;
+    border: 1px solid black;
+    padding: 8px;
+}
+  
+td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+  
+/* Highlight row on hover */
+tr:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
