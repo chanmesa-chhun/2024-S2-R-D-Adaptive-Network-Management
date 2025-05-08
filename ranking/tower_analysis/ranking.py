@@ -36,3 +36,63 @@ def rank_failed_towers(failed_exclusive_coverage, population_gdf, facility_gdf, 
 
 def save_ranking_to_csv(df, output_path):
     df.to_csv(output_path, index=False)
+
+
+def get_user_weights():
+    from . import config
+
+    def input_positive_int(prompt):
+        while True:
+            try:
+                value = int(input(prompt))
+                if value > 0:
+                    return value
+                else:
+                    print("Please enter a positive integer.")
+            except ValueError:
+                print("Invalid input. Please enter a positive integer.")
+
+    def input_positive_float(prompt):
+        while True:
+            try:
+                value = float(input(prompt))
+                if value > 0:
+                    return value
+                else:
+                    print("Please enter a positive number.")
+            except ValueError:
+                print("Invalid input. Please enter a positive number.")
+
+    print("\nSelect disaster type:")
+    disaster_types = list(config.PRESET_WEIGHTS.keys())
+    for i, disaster in enumerate(disaster_types):
+        print(f"{i + 1}. {disaster}")
+
+    while True:
+        try:
+            choice = int(input("Enter the number of the disaster type: "))
+            if 1 <= choice <= len(disaster_types):
+                selected = disaster_types[choice - 1]
+                break
+            else:
+                print("Please select a valid option.")
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+
+    if selected == "custom":
+        print("\nEnter custom positive weights:")
+        h = input_positive_int("Weight for hospital: ")
+        p = input_positive_int("Weight for police: ")
+        f = input_positive_int("Weight for fire station: ")
+        pop = input_positive_float("Population scaling factor: ")
+        weights = {
+            "hospital": h,
+            "police": p,
+            "fire_station": f,
+            "population_scale": pop
+        }
+    else:
+        weights = config.PRESET_WEIGHTS[selected]
+        print(f"\nUsing preset weights for {selected}: {weights}")
+
+    return weights
