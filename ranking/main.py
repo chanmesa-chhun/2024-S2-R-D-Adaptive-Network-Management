@@ -19,16 +19,22 @@ def main():
         )
 
         # Step 1: Load failed towers
-        logger.info("Step 1: Loading failed towers...")
+        logger.info("Step 1: Loading failed tower geometries...")
         failed_towers = load_failed_tower_geometries(
-            config.DISSOLVED_SHAPEFILE_DIR, config.FAILED_CSV, config.CRS
+            shapefile_dir=config.DISSOLVED_SHAPEFILE_DIR,
+            failed_csv_path=config.FAILED_CSV,
+            crs=config.CRS
         )
-        logger.info(f"Loaded {len(failed_towers)} failed towers.")
+        logger.info(f"Successfully loaded {len(failed_towers)} failed tower geometries.")
 
         # Step 2: Load facility data
         logger.info("Step 2: Loading facility data...")
-        facility_gdf = load_facility_data(list(config.FACILITY_FILES.values()), config.CRS)
-        logger.info(f"Loaded {len(facility_gdf)} facilities.")
+        facility_gdf = load_facility_data(
+            file_paths=list(config.FACILITY_FILES.values()),
+            target_crs=config.CRS
+        )
+        logger.info(f"Successfully loaded {len(facility_gdf)} facilities across {facility_gdf['type'].nunique()} types.")
+
 
         # Step 3: Load population data
         logger.info("Step 3: Loading population data...")

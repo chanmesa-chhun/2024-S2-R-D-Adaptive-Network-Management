@@ -11,50 +11,88 @@ def read_failed_towers(failed_csv_path):
 def list_shapefiles_from_dir(directory):
     return [f for f in os.listdir(directory) if f.endswith(".shp")]
 
-def load_failed_tower_geometries(dissolved_dir, failed_csv_path, crs):
-    failed_towers = read_failed_towers(failed_csv_path)
-    shapefiles = list_shapefiles_from_dir(dissolved_dir)
-    gdfs = {}
+def load_failed_tower_geometries(shapefile_dir, failed_csv_path, crs):
+    """
+    Load dissolved shapefiles for failed towers and ensure all are in the target CRS.
 
-    for shp in shapefiles:
-        tower_name = shp.replace("-Dissolved.shp", "")
-        if tower_name in failed_towers:
-            gdf = gpd.read_file(os.path.join(dissolved_dir, shp))
+    Parameters:
+    - shapefile_dir: directory containing dissolved shapefiles.
+    - failed_csv_path: path to CSV file listing failed tower IDs.
+    - crs: target coordinate reference system (e.g., 'EPSG:2193').
+
+    Returns:
+    - Dictionary of {tower_id: GeoDataFrame} for each failed tower.
+    """
+    failed_df = pd.read_csv(failed_csv_path)
+    failed_tower_ids = failed_df["tower_id"].astype(str).tolist()
+
+    tower_geometries = {}
+
+    for tower_id in failed_tower_ids:
+        shapefile_path = os.path.join(shapefile_dir, f"{tower_id}-Dissolved.shp")
+        if not os.path.exists(shapefile_path):
+            print(f"⚠️ Shapefile not found for tower: {tower_id}")
+            continue
+
+        try:
+            gdf = gpd.read_file(shapefile_path)
+            # Handle CRS safely
+            if gdf.crs != crs:
+                try:
+                    gdf = gdf.to_crs(crs)
+                except Exception as e:
+                    print(f"❌ CRS transform failed for {tower_id}: {e}")
+                    continue
+            tower_geometries[tower_id] = gdf
+        except Exception as e:
+            print(f"❌ Error reading shapefile for {tower_id}: {e}")
+            continue
+
+    return tower_geometries
+
+def load_facility_data(file_paths, target_crs):
+    """
+    Load multiple facility shapefiles, assign 'type' field based on filename,
+    ensure CRS consistency, and return as a combined GeoDataFrame.
+    
+    Parameters:
+        file_paths (list): List of paths to facility shapefiles.
+        target_crs (str): CRS string, e.g., "EPSG:2193"
+    
+    Returns:
+        GeoDataFrame: Combined and reprojected facility data with 'type' field.
+    """
+    all_gdfs = []
+    for path in file_paths:
+        if not os.path.exists(path):
+            print(f"⚠️ File not found: {path}")
+            continue
+
+        try:
+            gdf = gpd.read_file(path)
+            if gdf.empty:
+                print(f"⚠️ Empty file skipped: {path}")
+                continue
+
+            # Extract type from filename, e.g., "fire_stations.shp" → "fire_station"
+            facility_type = os.path.splitext(os.path.basename(path))[0].replace("_stations", "").rstrip("s")
+            gdf["type"] = facility_type
+
+            # Reproject if necessary
             if gdf.crs is None:
-                gdf = gdf.set_crs(crs)
-            elif gdf.crs.to_string() != crs:
-                gdf = gdf.to_crs(crs)
-            gdfs[tower_name] = gdf
+                gdf.set_crs(target_crs, inplace=True)
+            elif gdf.crs != target_crs:
+                gdf = gdf.to_crs(target_crs)
 
-    return gdfs
+            all_gdfs.append(gdf)
 
-def load_facility_data(facility_paths, target_crs):
-    dfs = []
-    for path in facility_paths:
-        gdf = gpd.read_file(path)
-        gdf = gdf.to_crs(target_crs)
+        except Exception as e:
+            print(f"Error reading {path}: {e}")
 
-        if "facility_t" not in gdf.columns:
-            raise ValueError(f"Missing 'facility_t' column in {path}")
+    if not all_gdfs:
+        raise RuntimeError("No valid facility data could be loaded.")
 
-        gdf["facility_t"] = gdf["facility_t"].str.lower().str.strip()
-
-        def classify_type(text):
-            if "police" in text:
-                return "police"
-            elif "fire" in text:
-                return "fire_station"
-            elif "hospital" in text:
-                return "hospital"
-            else:
-                return "other"
-
-        gdf["type"] = gdf["facility_t"].apply(classify_type)
-        gdf = gdf[gdf["type"].isin(["police", "fire_station", "hospital"])]
-
-        dfs.append(gdf)
-
-    return gpd.GeoDataFrame(pd.concat(dfs, ignore_index=True), crs=target_crs)
+    return gpd.GeoDataFrame(pd.concat(all_gdfs, ignore_index=True), crs=target_crs)
 
 def load_population_data(population_path, target_crs):
     gdf = gpd.read_file(population_path)
