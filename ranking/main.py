@@ -4,8 +4,13 @@ from tower_analysis.file_utils import load_failed_tower_geometries, load_facilit
 from tower_analysis.coverage_analysis import calculate_exclusive_coverage
 from tower_analysis.ranking import rank_failed_towers, save_ranking_to_csv, get_user_weights
 from tower_analysis.logger_utils import setup_logger
-from tower_analysis.preprocessing import merge_and_dissolve_shapefiles
+from tower_analysis.preprocessing import (
+    merge_and_dissolve_shapefiles,
+    generate_live_coverage_shapefile,
+    filter_uncovered_facilities
+)
 import tower_analysis.config as config
+
 
 def main():
     logger = setup_logger()
@@ -18,6 +23,23 @@ def main():
             logger=logger
         )
 
+        logger.info("Step 0.1: Generating live tower coverage union...")
+        generate_live_coverage_shapefile(
+            config.DISSOLVED_SHAPEFILE_DIR,
+            config.FAILED_CSV,
+            config.LIVE_NETWORK_COVERAGE_FILE,
+            config.CRS,
+            logger=logger
+        )
+
+        logger.info("Step 0.2: Filtering facilities not covered by live towers...")
+        filtered_facility_file = filter_uncovered_facilities(
+            config.LIVE_NETWORK_COVERAGE_FILE,
+            list(config.FACILITY_FILES.values()),
+            config.FILTERED_FACILITY_FILE,
+            logger=logger
+        )
+        
         # Step 1: Load failed towers
         logger.info("Step 1: Loading failed tower geometries...")
         failed_towers = load_failed_tower_geometries(
@@ -28,13 +50,12 @@ def main():
         logger.info(f"Successfully loaded {len(failed_towers)} failed tower geometries.")
 
         # Step 2: Load facility data
-        logger.info("Step 2: Loading facility data...")
+        logger.info("Step 2: Loading filtered facility data...")
         facility_gdf = load_facility_data(
-            file_paths=list(config.FACILITY_FILES.values()),
+            file_paths=[filtered_facility_file],
             target_crs=config.CRS
         )
-        logger.info(f"Successfully loaded {len(facility_gdf)} facilities across {facility_gdf['type'].nunique()} types.")
-
+        logger.info(f"Successfully loaded {len(facility_gdf)} filtered facilities across {facility_gdf['type'].nunique()} types.")
 
         # Step 3: Load population data
         logger.info("Step 3: Loading population data...")
@@ -69,6 +90,7 @@ def main():
         end_time = time.time()
         elapsed = end_time - start_time
         logger.info(f"Script completed in {elapsed:.2f} seconds.")
+
 
 if __name__ == "__main__":
     main()
