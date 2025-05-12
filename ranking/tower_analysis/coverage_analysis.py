@@ -13,7 +13,6 @@ def calculate_exclusive_coverage(coverage_geometries):
     tower_gdfs = [coverage_geometries[k] for k in tower_list]
     
     # Create a GeoDataFrame for spatial indexing
-
     all_gdf = gpd.GeoDataFrame({'tower_id': tower_list, 'geometry': [gdf.unary_union for gdf in tower_gdfs]})
     all_gdf = all_gdf.set_crs(coverage_geometries[tower_list[0]].crs)
 

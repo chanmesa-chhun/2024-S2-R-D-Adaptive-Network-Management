@@ -22,7 +22,7 @@ WEIGHTS = {
     "hospital": 9,        # 每个 hospital +9 分
     "police": 5,          # 每个 police station +5 分
     "fire_station": 7,    # 每个 fire station +7 分
-    "population_scale": 0.0015,   # 人口加权比例（人口数 * 0.0015）
+    "population_scale": 0.00015,   # 人口加权比例（人口数 * 0.0015）
 }
 
 # import os
