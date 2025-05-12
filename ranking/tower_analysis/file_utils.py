@@ -1,4 +1,3 @@
-# file_utils.py
 import geopandas as gpd
 import pandas as pd
 import os
@@ -37,17 +36,18 @@ def load_failed_tower_geometries(shapefile_dir, failed_csv_path, crs):
 
     return tower_geometries
 
+
 def load_facility_data(file_paths, target_crs):
     """
     Load and merge facility shapefiles, reprojecting to a target CRS.
-    If a pre-filtered facility shapefile exists (excluding live-covered areas), use it.
+    If a pre-filtered facility shapefile exists, use it and ensure a 'type' column.
 
     Parameters:
         file_paths (list): List of paths to facility shapefiles.
         target_crs (str): Target coordinate reference system.
 
     Returns:
-        GeoDataFrame: Combined facility data in target CRS.
+        GeoDataFrame: Combined facility data with 'type' field, in target CRS.
     """
     if os.path.exists(FILTERED_FACILITY_FILE):
         facility_gdf = gpd.read_file(FILTERED_FACILITY_FILE)
@@ -56,7 +56,7 @@ def load_facility_data(file_paths, target_crs):
         elif not facility_gdf.crs:
             facility_gdf.set_crs(target_crs, inplace=True)
 
-        # Ensure 'type' column exists
+        # Normalize and infer 'type' field if missing
         if 'type' not in facility_gdf.columns and 'facility_t' in facility_gdf.columns:
             facility_gdf["facility_t"] = facility_gdf["facility_t"].str.lower().str.strip()
             facility_gdf["type"] = facility_gdf["facility_t"].apply(
@@ -64,9 +64,9 @@ def load_facility_data(file_paths, target_crs):
                           "fire_station" if "fire" in x else
                           "police" if "police" in x else "other"
             )
-
         return facility_gdf
 
+    # Load and label each facility layer from filename
     all_facilities = []
     for path in file_paths:
         gdf = gpd.read_file(path)
@@ -75,12 +75,14 @@ def load_facility_data(file_paths, target_crs):
         elif not gdf.crs:
             gdf.set_crs(target_crs, inplace=True)
 
+        # Use filename to define type
         facility_type = os.path.splitext(os.path.basename(path))[0].lower()
         gdf['type'] = facility_type
         all_facilities.append(gdf)
 
     combined = gpd.GeoDataFrame(pd.concat(all_facilities, ignore_index=True), crs=target_crs)
     return combined
+
 
 def load_population_data(population_path, target_crs):
     """

@@ -1,7 +1,8 @@
 import os
 import time
+import geopandas as gpd
 from tower_analysis.file_utils import load_failed_tower_geometries, load_facility_data, load_population_data
-from tower_analysis.coverage_analysis import calculate_exclusive_coverage
+from tower_analysis.coverage_analysis import calculate_exclusive_coverage_against_live
 from tower_analysis.ranking import rank_failed_towers, save_ranking_to_csv, get_user_weights
 from tower_analysis.logger_utils import setup_logger
 from tower_analysis.preprocessing import (
@@ -11,11 +12,11 @@ from tower_analysis.preprocessing import (
 )
 import tower_analysis.config as config
 
-
 def main():
     logger = setup_logger()
     start_time = time.time()
     try:
+        # Step 0: Dissolve shapefiles if missing
         logger.info("Step 0: Checking and preprocessing dissolved shapefiles if missing...")
         merge_and_dissolve_shapefiles(
             config.RAW_SHP_DIR,
@@ -23,23 +24,27 @@ def main():
             logger=logger
         )
 
+        # Step 0.1: Generate or reuse live tower coverage
         logger.info("Step 0.1: Generating live tower coverage union...")
-        generate_live_coverage_shapefile(
+        live_coverage_path = generate_live_coverage_shapefile(
             config.DISSOLVED_SHAPEFILE_DIR,
             config.FAILED_CSV,
-            config.LIVE_NETWORK_COVERAGE_FILE,
             config.CRS,
+            config.OUTPUT_DIR,
             logger=logger
         )
 
+        # Step 0.2: Filter facilities uncovered by live towers
         logger.info("Step 0.2: Filtering facilities not covered by live towers...")
         filtered_facility_file = filter_uncovered_facilities(
-            config.LIVE_NETWORK_COVERAGE_FILE,
+            live_coverage_path,
             list(config.FACILITY_FILES.values()),
-            config.FILTERED_FACILITY_FILE,
+            config.FAILED_CSV,
+            config.CRS,
+            config.OUTPUT_DIR,
             logger=logger
         )
-        
+
         # Step 1: Load failed towers
         logger.info("Step 1: Loading failed tower geometries...")
         failed_towers = load_failed_tower_geometries(
@@ -64,7 +69,8 @@ def main():
 
         # Step 4: Calculate exclusive coverage areas
         logger.info("Step 4: Calculating exclusive coverage areas...")
-        failed_exclusive_coverage = calculate_exclusive_coverage(failed_towers)
+        live_union_geom = gpd.read_file(live_coverage_path).unary_union
+        failed_exclusive_coverage = calculate_exclusive_coverage_against_live(failed_towers, live_union_geom)
         logger.info(f"Calculated exclusive coverage for {len(failed_exclusive_coverage)} towers.")
 
         # Step 5: Ask user to choose preset or custom weights
@@ -90,7 +96,6 @@ def main():
         end_time = time.time()
         elapsed = end_time - start_time
         logger.info(f"Script completed in {elapsed:.2f} seconds.")
-
 
 if __name__ == "__main__":
     main()
