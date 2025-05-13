@@ -7,6 +7,7 @@ from fastapi import FastAPI, HTTPException, UploadFile, File, Request
 from fastapi.responses import JSONResponse, FileResponse
 from pydantic import BaseModel, validator
 from tower_analysis.runner import run_pipeline
+from fastapi.middleware.cors import CORSMiddleware
 
 # --- Configure logging ---
 logging.basicConfig(
@@ -20,6 +21,13 @@ app = FastAPI(
     title="Tower Analysis API",
     version="2.2.0",
     description="Upload a CSV of failed towers, run full coverage & ranking pipeline, return JSON results and provide a download link."
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:8080"],  # or ["*"] during dev
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # --- Global error handlers ---
