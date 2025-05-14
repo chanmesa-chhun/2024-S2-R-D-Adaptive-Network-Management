@@ -1,19 +1,14 @@
 import geopandas as gpd
 import pandas as pd
 import os
-from tower_analysis.config import FILTERED_FACILITY_FILE
+from tower_analysis.config import FILTERED_FACILITY_FILE, FACILITY_MERGED_FILE
 
 def load_failed_tower_geometries(shapefile_dir, failed_csv_path, crs):
     """
     Load dissolved coverage shapefiles for failed towers listed in a CSV file.
 
-    Parameters:
-        shapefile_dir (str): Path to the directory with dissolved tower shapefiles.
-        failed_csv_path (str): Path to the CSV file listing failed tower IDs.
-        crs (str): Target coordinate reference system (e.g., EPSG:2193).
-
     Returns:
-        dict: Mapping from tower ID to corresponding GeoDataFrame of dissolved coverage.
+        dict: {tower_id: GeoDataFrame}
     """
     failed_ids = pd.read_csv(failed_csv_path)['tower_id'].astype(str).tolist()
     tower_geometries = {}
@@ -39,61 +34,38 @@ def load_failed_tower_geometries(shapefile_dir, failed_csv_path, crs):
 
 def load_facility_data(file_paths, target_crs):
     """
-    Load and merge facility shapefiles, reprojecting to a target CRS.
-    If a pre-filtered facility shapefile exists, use it and ensure a 'type' column.
+    Load the pre-merged facilities.shp with standardized 'type' field.
 
     Parameters:
-        file_paths (list): List of paths to facility shapefiles.
-        target_crs (str): Target coordinate reference system.
+        file_paths (list): Expect a single path: merged facilities file
+        target_crs (str): Target coordinate reference system (e.g. EPSG:2193)
 
     Returns:
-        GeoDataFrame: Combined facility data with 'type' field, in target CRS.
+        GeoDataFrame
     """
-    if os.path.exists(FILTERED_FACILITY_FILE):
-        facility_gdf = gpd.read_file(FILTERED_FACILITY_FILE)
-        if facility_gdf.crs and facility_gdf.crs != target_crs:
-            facility_gdf = facility_gdf.to_crs(target_crs)
-        elif not facility_gdf.crs:
-            facility_gdf.set_crs(target_crs, inplace=True)
+    if not file_paths or not os.path.exists(file_paths[0]):
+        raise FileNotFoundError("Merged facility file not found.")
 
-        # Normalize and infer 'type' field if missing
-        if 'type' not in facility_gdf.columns and 'facility_t' in facility_gdf.columns:
-            facility_gdf["facility_t"] = facility_gdf["facility_t"].str.lower().str.strip()
-            facility_gdf["type"] = facility_gdf["facility_t"].apply(
-                lambda x: "hospital" if "hospital" in x else
-                          "fire_station" if "fire" in x else
-                          "police" if "police" in x else "other"
-            )
-        return facility_gdf
+    gdf = gpd.read_file(file_paths[0])
 
-    # Load and label each facility layer from filename
-    all_facilities = []
-    for path in file_paths:
-        gdf = gpd.read_file(path)
-        if gdf.crs and gdf.crs != target_crs:
-            gdf = gdf.to_crs(target_crs)
-        elif not gdf.crs:
-            gdf.set_crs(target_crs, inplace=True)
+    # Assume it’s already cleaned, just check CRS
+    if gdf.crs and gdf.crs != target_crs:
+        gdf = gdf.to_crs(target_crs)
+    elif not gdf.crs:
+        gdf.set_crs(target_crs, inplace=True)
 
-        # Use filename to define type
-        facility_type = os.path.splitext(os.path.basename(path))[0].lower()
-        gdf['type'] = facility_type
-        all_facilities.append(gdf)
+    if 'type' not in gdf.columns:
+        raise ValueError("Expected 'type' column missing from facilities file.")
 
-    combined = gpd.GeoDataFrame(pd.concat(all_facilities, ignore_index=True), crs=target_crs)
-    return combined
+    return gdf
 
 
 def load_population_data(population_path, target_crs):
     """
     Load population grid shapefile and convert to target CRS.
 
-    Parameters:
-        population_path (str): Path to the population shapefile.
-        target_crs (str): Target coordinate reference system.
-
     Returns:
-        GeoDataFrame: Population data in target CRS.
+        GeoDataFrame
     """
     gdf = gpd.read_file(population_path)
     if gdf.crs and gdf.crs != target_crs:

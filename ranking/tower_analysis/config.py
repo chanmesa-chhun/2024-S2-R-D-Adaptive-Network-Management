@@ -16,11 +16,7 @@ RAW_SHP_DIR = os.path.join(BASE_DIR, "..", "data", "SHP")
 FAILED_CSV = os.path.join(BASE_DIR, "..", "data", "failed_towers", "failed_towers.csv")
 
 # Paths to shapefiles for key facilities: hospitals, fire stations, and police
-FACILITY_FILES = {
-    "hospital": os.path.join(BASE_DIR, "..", "data", "facilities", "hospitals.shp"),
-    "fire_station": os.path.join(BASE_DIR, "..", "data", "facilities", "fire_stations.shp"),
-    "police": os.path.join(BASE_DIR, "..", "data", "facilities", "police.shp")
-}
+FACILITY_MERGED_FILE = os.path.join(BASE_DIR, "..", "data", "facilities", "facilities.shp")
 
 # Path to the population grid shapefile
 POPULATION_FILE = os.path.join(BASE_DIR, "..", "data", "population", "population.shp")
