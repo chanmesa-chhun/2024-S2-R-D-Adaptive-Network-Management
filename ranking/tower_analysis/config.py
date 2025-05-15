@@ -35,6 +35,12 @@ FILTERED_FACILITY_FILE = os.path.join(OUTPUT_DIR, "filtered_facilities.shp")
 
 # Preset weights for different disaster scenarios (used in ranking)
 PRESET_WEIGHTS = {
+    "Default": { 
+        "hospital": 10, 
+        "police": 6, 
+        "fire_station": 8, 
+        "population_scale": 0.0005, 
+    },
     "Tsunami": {
         "hospital": 10,
         "police": 8,

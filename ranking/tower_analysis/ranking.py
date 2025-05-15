@@ -1,37 +1,22 @@
-# ranking.py
+import os
 import pandas as pd
+import time
+import msvcrt
 from tower_analysis.coverage_analysis import (
     count_facilities_within_coverage,
     calculate_population_within_coverage,
 )
+from tower_analysis import config
 
-def rank_failed_towers(failed_exclusive_coverage, population_gdf, facility_gdf, weights):
-    """
-    Rank failed towers based on weighted scores calculated from uncovered facilities and population.
 
-    Parameters:
-        failed_exclusive_coverage (dict): {tower_id: geometry} of exclusive areas
-        population_gdf (GeoDataFrame): Population shapefile with PopEst2023
-        facility_gdf (GeoDataFrame): Facilities within exclusive areas
-        weights (dict): Weight config for each feature type and population scale
-
-    Returns:
-        DataFrame: Sorted ranking of towers with score and counts
-    """
-    # Validate weights
+def rank_failed_towers(failed_exclusive_coverage, population_gdf, facility_gdf, weights, logger=None):
     for key in ["hospital", "police", "fire_station", "population_scale"]:
         if key not in weights:
             raise ValueError(f"Missing weight for key: {key}")
 
-    # Count how many facilities each tower covers
     facility_counts = count_facilities_within_coverage(failed_exclusive_coverage, facility_gdf)
+    pop_weighted, pop_unweighted = calculate_population_within_coverage(failed_exclusive_coverage, population_gdf)
 
-    # Calculate how many people each tower covers
-    pop_weighted, pop_unweighted = calculate_population_within_coverage(
-        failed_exclusive_coverage, population_gdf
-    )
-
-    # Compute weighted scores
     scores = []
     for tower_id in failed_exclusive_coverage:
         facilities = facility_counts.get(tower_id, {})
@@ -44,6 +29,11 @@ def rank_failed_towers(failed_exclusive_coverage, population_gdf, facility_gdf, 
             facilities.get("hospital", 0) * weights["hospital"] +
             pop_w * weights["population_scale"]
         )
+
+        if logger:
+            logger.debug(f"Tower {tower_id} | police: {facilities.get('police', 0)} | "
+                         f"fire: {facilities.get('fire_station', 0)} | hospital: {facilities.get('hospital', 0)} | "
+                         f"pop_w: {pop_w:.2f} | score: {score:.2f}")
 
         scores.append({
             "tower_id": tower_id,
@@ -70,67 +60,72 @@ def save_ranking_to_csv(df, output_path):
     df.to_csv(output_path, index=False)
 
 
-def get_user_weights():
-    """
-    Prompt user to select a disaster type or input custom weights.
-
-    Returns:
-        dict: Weight configuration based on user input
-    """
-    from . import config
-
-    def input_positive_int(prompt):
-        while True:
-            try:
-                value = int(input(prompt))
-                if value > 0:
-                    return value
-                else:
-                    print("Please enter a positive integer.")
-            except ValueError:
-                print("Invalid input. Please enter a positive integer.")
-
-    def input_positive_float(prompt):
-        while True:
-            try:
-                value = float(input(prompt))
-                if value > 0:
-                    return value
-                else:
-                    print("Please enter a positive number.")
-            except ValueError:
-                print("Invalid input. Please enter a positive number.")
-
-    print("\nSelect disaster type:")
-    disaster_types = list(config.PRESET_WEIGHTS.keys())
-    for i, disaster in enumerate(disaster_types):
-        print(f"{i + 1}. {disaster}")
+def get_user_input_with_timeout(prompt, timeout=20):
+    print(prompt, end='', flush=True)
+    start_time = time.time()
+    user_input = ""
 
     while True:
-        try:
-            choice = int(input("Enter the number of the disaster type: "))
-            if 1 <= choice <= len(disaster_types):
-                selected = disaster_types[choice - 1]
-                break
+        if msvcrt.kbhit():
+            char = msvcrt.getwch()
+            if char == '\r':  # Enter key
+                print()  # Move to next line
+                return user_input.strip()
+            elif char == '\b':  # Backspace
+                user_input = user_input[:-1]
+                print('\b \b', end='', flush=True)
             else:
-                print("Please select a valid option.")
-        except ValueError:
-            print("Invalid input. Please enter a number.")
+                user_input += char
+                print(char, end='', flush=True)
 
-    if selected == "custom":
-        print("\nEnter custom positive weights:")
-        h = input_positive_int("Weight for hospital: ")
-        p = input_positive_int("Weight for police: ")
-        f = input_positive_int("Weight for fire station: ")
-        pop = input_positive_float("Population scaling factor: ")
-        weights = {
-            "hospital": h,
-            "police": p,
-            "fire_station": f,
-            "population_scale": pop
+        if time.time() - start_time > timeout:
+            print(f"\n⏱️ No input after {timeout} seconds. Falling back to default.")
+            return None
+
+        time.sleep(0.1)
+
+def get_user_weights(default="Default"):
+    """
+    Prompt user to select disaster type or fallback to default after 20 seconds (Windows-compatible).
+    Supports numeric index or name input.
+    """
+
+    # Ensure "Default" preset exists
+    if "Default" not in config.PRESET_WEIGHTS:
+        config.PRESET_WEIGHTS["Default"] = {
+            "hospital": 10,
+            "police": 6,
+            "fire_station": 8,
+            "population_scale": 0.0005,
         }
-    else:
-        weights = config.PRESET_WEIGHTS[selected]
-        print(f"\nUsing preset weights for {selected}: {weights}")
 
-    return weights
+    disaster_types = list(config.PRESET_WEIGHTS.keys())
+
+    print("\nAvailable disaster types:")
+    for i, dtype in enumerate(disaster_types, 1):
+        print(f"{i}. {dtype}")
+
+    choice = get_user_input_with_timeout(
+        "\nEnter disaster type (number or name, press Enter or wait 20s to use Default): ",
+        timeout=20
+    )
+
+    if not choice:
+        selected = default
+    else:
+        if choice.isdigit():
+            idx = int(choice) - 1
+            if 0 <= idx < len(disaster_types):
+                selected = disaster_types[idx]
+            else:
+                print(f"⚠️ Invalid index: {choice}. Using default '{default}'")
+                selected = default
+        elif choice in disaster_types:
+            selected = choice
+        else:
+            print(f"⚠️ Invalid disaster name: '{choice}'. Using default '{default}'")
+            selected = default
+
+    print(f"\n✅ Using weights for disaster type: {selected}")
+    print(config.PRESET_WEIGHTS[selected])
+    return config.PRESET_WEIGHTS[selected]

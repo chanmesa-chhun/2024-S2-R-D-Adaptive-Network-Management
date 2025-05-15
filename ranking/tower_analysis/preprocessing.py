@@ -73,183 +73,6 @@ def merge_and_dissolve_shapefiles(raw_shp_dir, output_dir, logger=None):
             else:
                 print(msg)
 
-
-# def generate_live_coverage_shapefile(dissolved_dir, failed_csv_path, crs, output_base_dir, logger=None):
-#     """
-#     Generate a uniquely-named shapefile representing live tower coverage,
-#     excluding failed towers listed in the CSV, using fast dissolve.
-#     """
-#     os.makedirs(output_base_dir, exist_ok=True)
-
-#     # Step 1: Build unique hash key from failed IDs
-#     failed_ids = pd.read_csv(failed_csv_path)["tower_id"].astype(str)
-#     hash_key = hashlib.md5(",".join(sorted(failed_ids)).encode()).hexdigest()[:8]
-#     output_filename = f"live_network_coverage_{hash_key}.shp"
-#     output_path = os.path.join(output_base_dir, output_filename)
-
-#     if os.path.exists(output_path):
-#         logger and logger.info(f"[Reuse] Live network coverage already exists: {output_path}")
-#         return output_path
-
-#     failed_set = set(failed_ids)
-#     live_shps = [
-#         os.path.join(dissolved_dir, f)
-#         for f in os.listdir(dissolved_dir)
-#         if f.endswith("-Dissolved.shp") and f.replace("-Dissolved.shp", "") not in failed_set
-#     ]
-
-#     logger and logger.info(f"Found {len(live_shps)} live tower shapefiles to process.")
-
-#     gdfs = []
-#     for shp_path in tqdm(live_shps, desc="Loading live towers"):
-#         try:
-#             gdf = gpd.read_file(shp_path)
-#             if gdf.empty:
-#                 continue
-#             if gdf.crs != crs:
-#                 gdf = gdf.to_crs(crs)
-#             gdf["dissolve_key"] = 1
-#             gdfs.append(gdf[["geometry", "dissolve_key"]])
-#         except Exception as e:
-#             logger and logger.warning(f"Skipping {shp_path} due to error: {e}")
-
-#     if not gdfs:
-#         logger and logger.warning("No valid live tower geometries found.")
-#         return output_path
-
-#     combined_gdf = gpd.GeoDataFrame(pd.concat(gdfs, ignore_index=True), crs=crs)
-#     dissolved = combined_gdf.dissolve(by="dissolve_key")
-#     dissolved.reset_index(drop=True, inplace=True)
-#     dissolved.to_file(output_path)
-#     logger and logger.info(f"[Generated] Live network coverage saved to {output_path}")
-#     return output_path
-
-def filter_uncovered_facilities(live_coverage_file, merged_facility_file, failed_csv_path, crs, output_dir, logger=None):
-    """
-    Filter facilities not covered by the live tower network using fast spatial checks.
-
-    Parameters:
-        live_coverage_file (str): Path to live tower union shapefile.
-        merged_facility_file (str): Path to pre-merged facilities.shp.
-        failed_csv_path (str): Path to failed_towers.csv for hash-based output naming.
-        crs (str): Target CRS.
-        output_dir (str): Output directory.
-        logger (Logger): Optional logger.
-
-    Returns:
-        str: Path to saved uncovered facilities shapefile.
-    """
-    os.makedirs(output_dir, exist_ok=True)
-
-    # Generate unique output path
-    failed_ids = pd.read_csv(failed_csv_path)["tower_id"].astype(str).tolist()
-    hash_key = hashlib.md5(",".join(sorted(failed_ids)).encode()).hexdigest()[:8]
-    output_path = os.path.join(output_dir, f"filtered_facilities_{hash_key}.shp")
-
-    if os.path.exists(output_path):
-        logger and logger.info(f"[Reuse] Filtered facilities already exists: {output_path}")
-        return output_path
-
-    # Load data
-    live_gdf = gpd.read_file(live_coverage_file).to_crs(crs)
-    facility_gdf = gpd.read_file(merged_facility_file).to_crs(crs)
-
-    # Prepare live coverage geometry
-    live_union = prep(live_gdf.unary_union)
-    union_bounds = live_gdf.total_bounds  # minx, miny, maxx, maxy
-    bbox_geom = box(*union_bounds)
-
-    # First filter by bounding box
-    bbox_filtered = facility_gdf[facility_gdf.geometry.intersects(bbox_geom)]
-
-    # Then check actual intersection using prepared geometry
-    uncovered_mask = ~bbox_filtered.geometry.apply(live_union.intersects)
-    uncovered = bbox_filtered[uncovered_mask]
-
-    # Save result
-    uncovered.to_file(output_path)
-    logger and logger.info(f"[Generated] Saved {len(uncovered)} uncovered facilities to {output_path}")
-
-    return output_path
-
-# def generate_live_coverage_shapefile(dissolved_dir, failed_csv_path, crs, output_base_dir, logger=None):
-#     """
-#     Optimized version: Only include live towers whose bounding boxes intersect with the failed tower area.
-
-#     Parameters:
-#         dissolved_dir (str): Folder containing dissolved tower shapefiles.
-#         failed_csv_path (str): CSV file listing failed tower IDs.
-#         crs (str): Coordinate reference system.
-#         output_base_dir (str): Folder to store output shapefile.
-#         logger (Logger, optional): Logger instance.
-
-#     Returns:
-#         str: Path to generated/reused live tower coverage shapefile.
-#     """
-#     os.makedirs(output_base_dir, exist_ok=True)
-#     failed_ids = pd.read_csv(failed_csv_path)["tower_id"].astype(str).tolist()
-#     hash_key = hashlib.md5(",".join(sorted(failed_ids)).encode()).hexdigest()[:8]
-#     output_filename = f"live_network_coverage_{hash_key}_opt.shp"
-#     output_path = os.path.join(output_base_dir, output_filename)
-
-#     if os.path.exists(output_path):
-#         logger and logger.info(f"[Reuse] Live network coverage already exists: {output_path}")
-#         return output_path
-
-#     # Step 1: Combine all failed tower geometries
-#     failed_geoms = []
-#     for tower_id in failed_ids:
-#         path = os.path.join(dissolved_dir, f"{tower_id}-Dissolved.shp")
-#         if os.path.exists(path):
-#             gdf = gpd.read_file(path)
-#             if gdf.crs != crs:
-#                 gdf = gdf.to_crs(crs)
-#             failed_geoms.extend(gdf.geometry)
-
-#     if not failed_geoms:
-#         logger and logger.warning("No failed tower geometries found.")
-#         return output_path
-
-#     # Step 2: Get bounding box of failed region
-#     failed_union_bounds = gpd.GeoSeries(failed_geoms).total_bounds
-#     minx, miny, maxx, maxy = failed_union_bounds
-
-#     # Step 3: Load live towers only if they intersect with failed bbox
-#     live_geoms = []
-#     for file in tqdm(os.listdir(dissolved_dir), desc="Filtering live towers"):
-#         if not file.endswith("-Dissolved.shp"):
-#             continue
-#         tower_id = file.replace("-Dissolved.shp", "")
-#         if tower_id in failed_ids:
-#             continue
-
-#         path = os.path.join(dissolved_dir, file)
-#         try:
-#             gdf = gpd.read_file(path)
-#             if gdf.empty:
-#                 continue
-#             if gdf.crs != crs:
-#                 gdf = gdf.to_crs(crs)
-#             geom = gdf.unary_union
-#             bx, by, tx, ty = geom.bounds
-#             if tx < minx or bx > maxx or ty < miny or by > maxy:
-#                 continue  # Skip non-overlapping
-#             live_geoms.append(geom)
-#         except Exception as e:
-#             logger and logger.warning(f"Skipping {file} due to error: {e}")
-
-#     if not live_geoms:
-#         logger and logger.warning("No intersecting live towers found.")
-#         return output_path
-
-#     # Step 4: Dissolve geometries
-#     union_geom = unary_union(live_geoms)
-#     gdf_union = gpd.GeoDataFrame(geometry=[union_geom], crs=crs)
-#     gdf_union.to_file(output_path)
-
-#     logger and logger.info(f"[Generated] Optimized live coverage saved to {output_path}")
-#     return output_path
-
 def generate_live_coverage_shapefile(dissolved_dir, failed_csv_path, crs, output_base_dir, logger=None, batch_size=200):
     """
     Optimized version: Generate a live tower coverage shapefile by performing batched unary_union.
@@ -317,4 +140,45 @@ def generate_live_coverage_shapefile(dissolved_dir, failed_csv_path, crs, output
     union_gdf.to_file(output_path)
 
     logger and logger.info(f"[Generated] Batched live network coverage saved to {output_path}")
+    return output_path
+
+def filter_uncovered_facilities(live_coverage_path, facility_path, failed_csv_path, crs, output_dir, logger=None):
+    """
+    Filter facilities not covered by live towers. Output file is hash-based for reusability.
+    """
+    # Generate unique hash based on input content
+    failed_ids = pd.read_csv(failed_csv_path)["tower_id"].astype(str)
+    hash_input = "|".join([
+        live_coverage_path,
+        facility_path,
+        ",".join(sorted(failed_ids))
+    ])
+    hash_key = hashlib.md5(hash_input.encode()).hexdigest()[:8]
+    output_filename = f"filtered_facilities_{hash_key}.shp"
+    output_path = os.path.join(output_dir, output_filename)
+
+    if os.path.exists(output_path):
+        logger and logger.info(f"[Reuse] Filtered facilities exist: {output_path}")
+        return output_path
+
+    # Load and align CRS
+    live_gdf = gpd.read_file(live_coverage_path)
+    fac_gdf = gpd.read_file(facility_path)
+    if fac_gdf.crs != crs:
+        fac_gdf = fac_gdf.to_crs(crs)
+    if live_gdf.crs != crs:
+        live_gdf = live_gdf.to_crs(crs)
+
+    # Check uncovered via spatial join
+    covered = gpd.sjoin(fac_gdf, live_gdf, predicate="within", how="inner")
+    uncovered = fac_gdf[~fac_gdf.index.isin(covered.index)]
+
+    if uncovered.empty:
+        logger and logger.warning("No uncovered facilities found.")
+    else:
+        logger and logger.info(f"{len(uncovered)} uncovered facilities identified.")
+
+    uncovered.to_file(output_path)
+    logger and logger.info(f"[Generated] Saved to {output_path}")
+
     return output_path

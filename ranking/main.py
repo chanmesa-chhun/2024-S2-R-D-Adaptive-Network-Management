@@ -79,16 +79,33 @@ def main():
         population_gdf = load_population_data(config.POPULATION_FILE, config.CRS)
         logger.info(f"Loaded {len(population_gdf)} population grid cells.")
 
-        # Step 4: Exclusive coverage using spatial index + batch
+       # Step 4: Exclusive coverage using spatial index + batch
         logger.info("Step 4: Calculating exclusive coverage areas (batched with index)...")
         t0 = time.time()
         live_union_geom = gpd.read_file(live_coverage_path).geometry.iloc[0]
         failed_exclusive_coverage = calculate_exclusive_coverage_batch_with_index(
-            failed_towers,
-            live_union_geom,
-            batch_size=20
+        failed_towers,
+        live_union_geom,
+        batch_size=20
         )
         logger.info(f"Exclusive coverage calculated in {time.time() - t0:.2f}s")
+
+        # ✅ NEW: Export individual exclusive shapefiles for inspection
+        exclusive_output_dir = os.path.join(config.OUTPUT_DIR, "exclusive_areas")
+        os.makedirs(exclusive_output_dir, exist_ok=True)
+
+        logger.info(f"Exporting individual exclusive shapefiles to: {exclusive_output_dir}")
+        for tower_id, geom in failed_exclusive_coverage.items():
+            try:
+                gdf = gpd.GeoDataFrame(
+                    {"tower_id": [tower_id]}, 
+                    geometry=[geom], 
+                    crs=config.CRS
+                )
+                output_path = os.path.join(exclusive_output_dir, f"{tower_id}_exclusive.shp")
+                gdf.to_file(output_path)
+            except Exception as e:
+                logger.warning(f"Failed to export shapefile for tower {tower_id}: {e}")
 
         # Step 5: Weights
         logger.info("Step 5: Getting weights...")

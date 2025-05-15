@@ -5,17 +5,6 @@ from tqdm import tqdm
 
 
 def calculate_exclusive_coverage_batch_with_index(failed_towers_dict, live_union_geom, batch_size=10):
-    """
-    Calculate exclusive coverage for each failed tower using spatial index and batched difference.
-
-    Parameters:
-        failed_towers_dict (dict): {tower_id: GeoDataFrame}
-        live_union_geom (shapely.geometry): Union of all live towers
-        batch_size (int): Number of towers per batch for union and processing
-
-    Returns:
-        dict: {tower_id: exclusive geometry not covered by live towers}
-    """
     exclusive_coverage = {}
 
     failed_ids = list(failed_towers_dict.keys())
@@ -46,16 +35,6 @@ def calculate_exclusive_coverage_batch_with_index(failed_towers_dict, live_union
 
 
 def count_facilities_within_coverage(exclusive_coverage, facility_gdf):
-    """
-    Count facilities of each type within exclusive coverage areas using spatial index.
-
-    Parameters:
-        exclusive_coverage (dict): {tower_id: shapely geometry}
-        facility_gdf (GeoDataFrame): Facilities with 'type' column
-
-    Returns:
-        dict: {tower_id: {facility_type: count, ...}}
-    """
     counts = {}
     sindex = facility_gdf.sindex
 
@@ -74,46 +53,58 @@ def count_facilities_within_coverage(exclusive_coverage, facility_gdf):
 
 def calculate_population_within_coverage(exclusive_coverage, population_gdf):
     """
-    Calculate weighted and unweighted population for each failed tower's exclusive area.
-
-    Parameters:
-        exclusive_coverage (dict): {tower_id: shapely geometry}
-        population_gdf (GeoDataFrame): Population grid with 'PopEst2023' column
-
-    Returns:
-        (dict, dict): weighted and unweighted population per tower_id
+    For each tower's exclusive area:
+    - Calculate weighted population = sum of (area_ratio * PopEst)
+    - Calculate unweighted population = sum of unique grids where area_ratio > threshold
     """
-    # Ensure original grid area is preserved for weighting
-    if "orig_area" not in population_gdf.columns:
-        population_gdf = population_gdf.copy()
-        population_gdf["orig_area"] = population_gdf.geometry.area
-
     pop_weighted = {}
     pop_unweighted = {}
 
-    sindex = population_gdf.sindex  # spatial index for quick candidate selection
+    # --- Prepare required fields ---
+    if "grid_id" not in population_gdf.columns:
+        population_gdf["grid_id"] = population_gdf.index.astype(str)
+    if "Shape_Area" not in population_gdf.columns:
+        population_gdf["Shape_Area"] = population_gdf.geometry.area
+    pop_field_candidates = [c for c in population_gdf.columns if "PopEst" in c]
+    if not pop_field_candidates:
+        raise ValueError("No PopEst field (like PopEst2023) found.")
+    pop_field = pop_field_candidates[-1]
+
+    crs = population_gdf.crs
 
     for tower_id, geom in tqdm(exclusive_coverage.items(), desc="Calculating population"):
-        # Select candidates via spatial index
-        candidate_idx = list(sindex.intersection(geom.bounds))
-        candidates = population_gdf.iloc[candidate_idx]
-
-        # Perform precise geometry intersection
-        intersection = gpd.overlay(
-            candidates,
-            gpd.GeoDataFrame(geometry=[geom], crs=population_gdf.crs),
-            how="intersection"
-        )
-
-        if not intersection.empty:
-            intersection["intersect_area"] = intersection.geometry.area
-            intersection["area_ratio"] = intersection["intersect_area"] / intersection["orig_area"]
-            intersection["weighted_pop"] = intersection["PopEst2023"] * intersection["area_ratio"]
-
-            pop_weighted[tower_id] = intersection["weighted_pop"].sum()
-            pop_unweighted[tower_id] = intersection["PopEst2023"].sum()
-        else:
+        if geom.is_empty or geom.area == 0:
             pop_weighted[tower_id] = 0
             pop_unweighted[tower_id] = 0
+            continue
+
+        # Perform intersection using overlay
+        try:
+            tower_gdf = gpd.GeoDataFrame({"geometry": [geom]}, crs=crs)
+            intersection = gpd.overlay(population_gdf, tower_gdf, how="intersection")
+        except Exception as e:
+            print(f"Warning: overlay failed for tower {tower_id}: {e}")
+            pop_weighted[tower_id] = 0
+            pop_unweighted[tower_id] = 0
+            continue
+
+        if intersection.empty:
+            pop_weighted[tower_id] = 0
+            pop_unweighted[tower_id] = 0
+            continue
+
+        # Calculate intersection area and population ratio
+        intersection["intersect_area"] = intersection.geometry.area
+        intersection["area_ratio"] = intersection["intersect_area"] / intersection["Shape_Area"]
+        intersection["weighted_pop"] = intersection["area_ratio"] * intersection[pop_field]
+
+        filtered = intersection[intersection["area_ratio"] > 0.005].copy()
+
+        # Weighted population = sum of partial grid populations
+        pop_weighted[tower_id] = filtered["weighted_pop"].sum()
+
+        # Unweighted population = sum of full grids with meaningful overlap (no duplicates)
+        unique_grids = filtered.drop_duplicates(subset="grid_id")
+        pop_unweighted[tower_id] = unique_grids[pop_field].sum()
 
     return pop_weighted, pop_unweighted
