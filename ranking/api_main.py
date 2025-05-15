@@ -5,6 +5,7 @@ import csv
 
 from fastapi import FastAPI, HTTPException, UploadFile, File, Request
 from fastapi.responses import JSONResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, validator
 from tower_analysis.runner import run_pipeline
 from fastapi.middleware.cors import CORSMiddleware
@@ -22,6 +23,8 @@ app = FastAPI(
     version="2.2.0",
     description="Upload a CSV of failed towers, run full coverage & ranking pipeline, return JSON results and provide a download link."
 )
+
+app.mount("/static", StaticFiles(directory="data"), name="static")
 
 app.add_middleware(
     CORSMiddleware,
