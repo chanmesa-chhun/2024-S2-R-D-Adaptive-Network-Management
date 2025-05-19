@@ -18,12 +18,8 @@ POPULATION_FILE = os.path.join(BASE_DIR, "..", "data", "population", "population
 
 OUTPUT_CSV = os.path.join(BASE_DIR, "..", "output", "tower_priority_ranking.csv")
 
-WEIGHTS = {
-    "hospital": 9,        # 每个 hospital +9 分
-    "police": 5,          # 每个 police station +5 分
-    "fire_station": 7,    # 每个 fire station +7 分
-    "population_scale": 0.00015,   # 人口加权比例（人口数 * 0.0015）
-}
+# Output CSV path for tower priority ranking results
+OUTPUT_CSV = os.path.join(OUTPUT_DIR, "tower_priority_ranking.csv")
 
 # import os
 

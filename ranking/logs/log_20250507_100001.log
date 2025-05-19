@@ -1,0 +1,49 @@
+2025-05-07 10:00:01,004 [INFO] Step 1: Loading failed towers...
+2025-05-07 10:00:04,220 [INFO] Loaded 39 failed towers.
+2025-05-07 10:00:04,220 [INFO] Step 2: Loading facility data...
+2025-05-07 10:00:04,290 [INFO] Loaded 600 facilities.
+2025-05-07 10:00:04,291 [INFO] Step 3: Loading population data...
+2025-05-07 10:00:08,750 [INFO] Loaded 196942 population grid cells.
+2025-05-07 10:00:08,751 [INFO] Step 4: Calculating exclusive coverage areas...
+2025-05-07 10:06:02,006 [INFO] Calculated exclusive coverage for 39 towers.
+2025-05-07 10:06:02,006 [INFO] Step 5: Ranking failed towers...
+2025-05-07 10:06:02,537 [ERROR] An error occurred during execution.
+Traceback (most recent call last):
+  File "c:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\ranking\main.py", line 32, in main
+    tower_scores = rank_failed_towers(
+        failed_exclusive_coverage, population_gdf, facility_gdf, config.WEIGHTS
+    )
+  File "c:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\ranking\tower_analysis\ranking.py", line 9, in rank_failed_towers
+    pop_weighted, pop_unweighted = calculate_population_within_coverage(failed_exclusive_coverage, population_gdf)
+                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "c:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\ranking\tower_analysis\coverage_analysis.py", line 81, in calculate_population_within_coverage
+    intersected["area_ratio"] = intersected.area / candidates.loc[intersected.index, "geometry"].area
+                                                   ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Jeremy\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\indexing.py", line 1184, in __getitem__
+    return self._getitem_tuple(key)
+           ~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\Jeremy\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\indexing.py", line 1368, in _getitem_tuple
+    return self._getitem_lowerdim(tup)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^
+  File "C:\Users\Jeremy\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\indexing.py", line 1089, in _getitem_lowerdim
+    return getattr(section, self.name)[new_key]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Jeremy\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\indexing.py", line 1191, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Jeremy\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\indexing.py", line 1420, in _getitem_axis
+    return self._getitem_iterable(key, axis=axis)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Jeremy\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\indexing.py", line 1360, in _getitem_iterable
+    keyarr, indexer = self._get_listlike_indexer(key, axis)
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "C:\Users\Jeremy\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\indexing.py", line 1558, in _get_listlike_indexer
+    keyarr, indexer = ax._get_indexer_strict(key, axis_name)
+                      ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\Jeremy\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 6200, in _get_indexer_strict
+    self._raise_if_missing(keyarr, indexer, axis_name)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Jeremy\AppData\Local\Programs\Python\Python313\Lib\site-packages\pandas\core\indexes\base.py", line 6249, in _raise_if_missing
+    raise KeyError(f"None of [{key}] are in the [{axis_name}]")
+KeyError: 'None of [RangeIndex(start=0, stop=353, step=1)] are in the [index]'
+2025-05-07 10:06:02,545 [INFO] Script completed in 361.54 seconds.

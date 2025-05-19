@@ -1,0 +1,32 @@
+2025-05-06 21:23:07,865 [INFO] Step 1: Loading failed towers...
+2025-05-06 21:23:08,812 [INFO] Loaded 15 failed towers.
+2025-05-06 21:23:08,813 [INFO] Step 2: Loading facility data...
+2025-05-06 21:23:08,867 [ERROR] An error occurred during execution.
+Traceback (most recent call last):
+  File "c:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\ranking\main.py", line 20, in main
+    facility_gdf = load_facility_data(list(config.FACILITY_FILES.values()), config.CRS)
+  File "c:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\ranking\tower_analysis\file_utils.py", line 34, in load_facility_data
+    gdf = gpd.read_file(path)
+  File "C:\Users\Jeremy\AppData\Local\Programs\Python\Python313\Lib\site-packages\geopandas\io\file.py", line 294, in _read_file
+    return _read_file_pyogrio(
+        filename, bbox=bbox, mask=mask, columns=columns, rows=rows, **kwargs
+    )
+  File "C:\Users\Jeremy\AppData\Local\Programs\Python\Python313\Lib\site-packages\geopandas\io\file.py", line 547, in _read_file_pyogrio
+    return pyogrio.read_dataframe(path_or_bytes, bbox=bbox, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Jeremy\AppData\Local\Programs\Python\Python313\Lib\site-packages\pyogrio\geopandas.py", line 265, in read_dataframe
+    result = read_func(
+        path_or_buffer,
+    ...<14 lines>...
+        **kwargs,
+    )
+  File "C:\Users\Jeremy\AppData\Local\Programs\Python\Python313\Lib\site-packages\pyogrio\raw.py", line 198, in read
+    return ogr_read(
+        get_vsi_path_or_buffer(path_or_buffer),
+    ...<15 lines>...
+        datetime_as_string=datetime_as_string,
+    )
+  File "pyogrio\\_io.pyx", line 1240, in pyogrio._io.ogr_read
+  File "pyogrio\\_io.pyx", line 220, in pyogrio._io.ogr_open
+pyogrio.errors.DataSourceError: c:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\ranking\tower_analysis\..\data\facilities\police.shp: No such file or directory
+2025-05-06 21:23:08,874 [INFO] Script completed in 1.01 seconds.
