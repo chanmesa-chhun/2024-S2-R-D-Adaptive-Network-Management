@@ -1,42 +1,69 @@
+# tower_analysis/config.py
+
 import os
 
+# Base directory of this module
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# Coordinate Reference System (NZTM2000)
 CRS = "EPSG:2193"
 
+# Input paths
+RAW_SHP_DIR            = os.path.join(BASE_DIR, "..", "data", "SHP")
 DISSOLVED_SHAPEFILE_DIR = os.path.join(BASE_DIR, "..", "data", "dissolved_coverage")
+FAILED_CSV             = os.path.join(BASE_DIR, "..", "data", "failed_towers", "failed_towers.csv")
+FACILITY_MERGED_FILE   = os.path.join(BASE_DIR, "..", "data", "facilities", "facilities.shp")
+POPULATION_FILE        = os.path.join(BASE_DIR, "..", "data", "population", "population.shp")
 
-FAILED_CSV = os.path.join(BASE_DIR, "..", "data", "failed_towers", "failed_towers.csv")
+# Output dirs & files
+OUTPUT_DIR                  = os.path.join(BASE_DIR, "..", "output")
+OUTPUT_CSV                  = os.path.join(OUTPUT_DIR, "tower_priority_ranking.csv")
+LIVE_NETWORK_COVERAGE_FILE  = os.path.join(OUTPUT_DIR, "live_network_coverage.shp")
+FILTERED_FACILITY_FILE      = os.path.join(OUTPUT_DIR, "filtered_facilities.shp")
 
-FACILITY_FILES = {
-    "hospital": os.path.join(BASE_DIR, "..", "data", "facilities", "hospitals.shp"),
-    "fire_station": os.path.join(BASE_DIR, "..", "data", "facilities", "fire_stations.shp"),
-    "police": os.path.join(BASE_DIR, "..", "data", "facilities", "police.shp")
+# Preset weights for different disaster scenarios
+PRESET_WEIGHTS = {
+    "Default": {
+        "hospital": 10,
+        "police": 6,
+        "fire_station": 8,
+        "population_scale": 0.0005,
+    },
+    "Tsunami": {
+        "hospital": 10,
+        "police": 8,
+        "fire_station": 9,
+        "population_scale": 0.00015 * 3,
+    },
+    "Wildfire": {
+        "hospital": 9,
+        "police": 8,
+        "fire_station": 10,
+        "population_scale": 0.00015 * 3,
+    },
+    "Earthquake": {
+        "hospital": 9,
+        "police": 8,
+        "fire_station": 10,
+        "population_scale": 0.00015 * 3,
+    },
+    "Flood": {
+        "hospital": 10,
+        "police": 6,
+        "fire_station": 9,
+        "population_scale": 0.00015 * 3,
+    },
+    "Storm": {
+        "hospital": 10,
+        "police": 7,
+        "fire_station": 9,
+        "population_scale": 0.00015 * 3,
+    },
+    "Volcanic Eruption": {
+        "hospital": 9,
+        "police": 7,
+        "fire_station": 10,
+        "population_scale": 0.00015 * 3,
+    },
+    "custom": None,
 }
-
-POPULATION_FILE = os.path.join(BASE_DIR, "..", "data", "population", "population.shp")
-
-OUTPUT_CSV = os.path.join(BASE_DIR, "..", "output", "tower_priority_ranking.csv")
-
-# Output CSV path for tower priority ranking results
-OUTPUT_CSV = os.path.join(OUTPUT_DIR, "tower_priority_ranking.csv")
-
-# import os
-
-# # Base directory
-# BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-# # CRS
-# CRS = "EPSG:2193"
-
-# # Input paths
-# FAILED_CSV = os.path.join(BASE_DIR, "C:\Users\Jeremy\Desktop\COMP703\2degrees North island data\failed_towers", "data", "failed_towers.csv")
-# RAW_SHP_DIR = os.path.join(BASE_DIR, "C:\Users\Jeremy\Desktop\COMP703\2degrees North island data\SHP", "data", "raw_shapefiles")
-# MERGED_DIR = os.path.join(BASE_DIR, "..", "data", "merged_output")
-# DISSOLVED_DIR = os.path.join(BASE_DIR, "..", "data", "dissolved_output")
-# POPULATION_SHP = os.path.join(BASE_DIR, "C:\Users\Jeremy\Desktop\COMP703\2degrees North island data\SHP", "data", "new-zealand-estimated-resident-population-grid-250-metre.shp")
-# FACILITY_SHP = os.path.join(BASE_DIR, "C:\Users\Jeremy\Desktop\COMP703\2degrees North island data\SHP", "data", "facilities.shp")
-
-# # Output paths
-# LIVE_COVERAGE_PATH = os.path.join(BASE_DIR, "..", "output", "live_network_coverage.shp")
-# OUTPUT_RANKING_CSV = os.path.join(BASE_DIR, "..", "output", "ranking.csv")

@@ -1,34 +1,162 @@
-head, body {
-    font-family: Arial, sans-serif;
-}
-
-
-h1, h2 {
+/* Base */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background-color: #fafafa;
+    color: #333;
+  }
+  
+  /* Header */
+  h1 {
     text-align: center;
-}
-
-/* Table styling */
-table {
-    width: auto;
     margin: 20px auto;
-    border-collapse: collapse;
-}
-  
-th{
-    text-align: center;
-    border: 1px solid black;
-    padding: 8px;
-}
-  
-td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: left;
-}
-
-  
-/* Highlight row on hover */
-tr:hover {
-    background-color: #f2f2f2;
+    font-size: 2em;
+    color: #222;
+  }
+  /* Controls */
+  #controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+  }
+  #controls input,
+  #controls select,
+  #controls button {
+    font-size: 1em;
+    padding: 6px 10px;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+  }
+  #controls button {
+    background-color: #007bff;
+    color: white;
     cursor: pointer;
+  }
+  #controls button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Download link */
+  #download-link {
+    text-align: center;
+    margin-top: 10px;
+  }
+  #download-link a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  #download-link a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Map */
+  #map {
+    width: 100%;
+    max-width: 900px;
+    height: 400px;
+    margin: 0 auto 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+  /* Table */
+  table {
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto 20px;
+    border-collapse: collapse;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  th, td {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+  }
+  th {
+    background-color: #f0f0f0;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.9em;
+  }
+  tbody tr:nth-child(odd) {
+    background-color: #fff;
+  }
+  tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  tbody tr:hover {
+    background-color: #e8f4fc;
+  }
+  
+  /* --- Nav Bar --- */
+/* make the navbar stick to the top */
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  /* space out & style each link */
+  .navbar ul {
+    display: flex;
+    justify-content: center;
+    padding: 0.5em 1em;
+    margin: 0;
+    list-style: none;
+    background: #333;
+  }
+  
+  /* give each item a little breathing room */
+  .navbar li {
+    margin: 0 1em;
+  }
+  
+  /* base link styles */
+  .navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 0.5em 0.75em;
+    border-radius: 4px;
+    transition: background 0.2s, color 0.2s;
+  }
+  
+  /* hover/focus state */
+  .navbar a:hover,
+  .navbar a:focus {
+    background: #555;
+    color: #fff;
+  }
+  
+  /* active page indicator (optional) */
+  .navbar a.active {
+    background: #007bff;
+    color: #fff;
+  }
+
+/* --- Legend & Documentation --- */
+.legend, .documentation {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+.legend h2, .documentation h2 {
+  margin-top: 0;
+  text-align: center;
+}
+.legend ul, .documentation ul {
+  list-style: disc inside;
+  margin: 1em 0;
+  padding-left: 0;
+}
+.legend li, .documentation li {
+  margin: 0.5em 0;
+  line-height: 1.4;
 }
