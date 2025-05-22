@@ -3,7 +3,7 @@ import os
 # Get the absolute path of the current directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Coordinate Reference System used throughout the project (NZGD2000 / New Zealand Transverse Mercator 2000)
+# Coordinate Reference System used throughout the project (NZGD2000 / NZTM2000)
 CRS = "EPSG:2193"
 
 # Directory where dissolved tower coverage shapefiles are stored
@@ -27,6 +27,9 @@ OUTPUT_DIR = os.path.join(BASE_DIR, "..", "output")
 # Output CSV path for tower priority ranking results
 OUTPUT_CSV = os.path.join(OUTPUT_DIR, "tower_priority_ranking.csv")
 
+# Optional: prefix range for restricting live tower union (set to None to include all)
+# e.g., ("001", "010") means only towers starting with 001 to 010 will be included in union
+
 # Shapefile storing the merged coverage of all non-failed (live) towers
 LIVE_NETWORK_COVERAGE_FILE = os.path.join(OUTPUT_DIR, "live_network_coverage.shp")
 
@@ -35,47 +38,47 @@ FILTERED_FACILITY_FILE = os.path.join(OUTPUT_DIR, "filtered_facilities.shp")
 
 # Preset weights for different disaster scenarios (used in ranking)
 PRESET_WEIGHTS = {
-    "Default": { 
-        "hospital": 10, 
-        "police": 6, 
-        "fire_station": 8, 
-        "population_scale": 0.0005, 
+    "Default": {
+        "hospital": 10,
+        "police": 6,
+        "fire_station": 8,
+        "population_scale": 0.005,
     },
     "Tsunami": {
         "hospital": 10,
         "police": 8,
         "fire_station": 9,
-        "population_scale": 0.00015 * 3,
+        "population_scale": 0.0015 * 3,
     },
     "Wildfire": {
         "hospital": 9,
         "police": 8,
         "fire_station": 10,
-        "population_scale": 0.00015 * 3,
+        "population_scale": 0.0015 * 3,
     },
     "Earthquake": {
         "hospital": 9,
         "police": 8,
         "fire_station": 10,
-        "population_scale": 0.00015 * 3,
+        "population_scale": 0.0015 * 3,
     },
     "Flood": {
         "hospital": 10,
         "police": 6,
         "fire_station": 9,
-        "population_scale": 0.00015 * 3,
+        "population_scale": 0.0015 * 3,
     },
     "Storm": {
         "hospital": 10,
         "police": 7,
         "fire_station": 9,
-        "population_scale": 0.00015 * 3,
+        "population_scale": 0.0015 * 3,
     },
     "Volcanic Eruption": {
         "hospital": 9,
         "police": 7,
         "fire_station": 10,
-        "population_scale": 0.00015 * 3,
+        "population_scale": 0.0015 * 3,
     },
     "custom": None  # Used if user manually inputs weights
 }
