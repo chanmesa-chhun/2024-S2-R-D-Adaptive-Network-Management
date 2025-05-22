@@ -10,12 +10,18 @@ import re
 import hashlib
 from shapely.prepared import prep
 from shapely.geometry import box
+from typing import Optional, Tuple
 
 from tower_analysis.config import (
-    DISSOLVED_SHAPEFILE_DIR, FAILED_CSV, FACILITY_MERGED_FILE, CRS, OUTPUT_DIR
+    DISSOLVED_SHAPEFILE_DIR,
+    FAILED_CSV,
+    FACILITY_MERGED_FILE,
+    CRS,
+    OUTPUT_DIR,
 )
 
-def extract_prefix(filename):
+
+def extract_prefix(filename: str) -> Optional[str]:
     """
     Extract the common tower prefix from the filename.
     Example: '001-AHPA-L07-1.shp' -> '001-AHPA'
@@ -24,15 +30,18 @@ def extract_prefix(filename):
     return match.group(1) if match else None
 
 
-def merge_and_dissolve_shapefiles(raw_shp_dir, output_dir, logger=None):
+def merge_and_dissolve_shapefiles(
+    raw_shp_dir: str,
+    output_dir: str,
+    logger=None,
+    prefix_range: Optional[Tuple[int, int]] = None,
+) -> None:
     """
     Merge and dissolve tower shapefiles grouped by prefix.
-    Skips processing if dissolved shapefile already exists.
+    If prefix_range is provided, only prefixes whose numeric code
+    falls within [lo, hi] will be processed.
 
-    Parameters:
-        raw_shp_dir (str): Path to folder with raw shapefiles.
-        output_dir (str): Folder where dissolved shapefiles are saved.
-        logger (Logger, optional): Optional logger.
+    Skips processing if dissolved shapefile already exists.
     """
     os.makedirs(output_dir, exist_ok=True)
     shp_files = glob.glob(os.path.join(raw_shp_dir, "*.shp"))
@@ -42,16 +51,26 @@ def merge_and_dissolve_shapefiles(raw_shp_dir, output_dir, logger=None):
         filename = os.path.basename(path)
         prefix = extract_prefix(filename)
         if prefix:
+            # Filter by prefix_range if given
+            if prefix_range:
+                lo, hi = prefix_range
+                try:
+                    code = int(prefix.split('-')[0])
+                except ValueError:
+                    continue
+                if code < lo or code > hi:
+                    continue
             prefix_groups[prefix].append(path)
 
     if logger:
-        logger.info(f"Found {len(prefix_groups)} unique tower prefixes to process.")
+        logger.info(f"Found {len(prefix_groups)} unique tower prefixes to process (prefix_range={prefix_range}).")
 
     for prefix, files in tqdm(prefix_groups.items(), desc="Preprocessing towers"):
         dissolved_name = f"{prefix}-Dissolved.shp"
         dissolved_path = os.path.join(output_dir, dissolved_name)
 
-        if all(os.path.exists(dissolved_path.replace(".shp", ext)) for ext in [".shp", ".shx", ".dbf"]):
+        # Skip if all shapefile components exist
+        if all(os.path.exists(dissolved_path.replace('.shp', ext)) for ext in ['.shp', '.shx', '.dbf']):
             if logger:
                 logger.info(f"Skipped existing: {dissolved_name}")
             continue
@@ -73,26 +92,28 @@ def merge_and_dissolve_shapefiles(raw_shp_dir, output_dir, logger=None):
             else:
                 print(msg)
 
-def generate_live_coverage_shapefile(dissolved_dir, failed_csv_path, crs, output_base_dir, logger=None, batch_size=200):
+
+def generate_live_coverage_shapefile(
+    dissolved_dir: str,
+    failed_csv_path: str,
+    crs: str,
+    output_base_dir: str,
+    logger=None,
+    batch_size: int = 200,
+    prefix_range: Optional[Tuple[int, int]] = None,
+) -> Optional[str]:
     """
     Optimized version: Generate a live tower coverage shapefile by performing batched unary_union.
-
-    Parameters:
-        dissolved_dir (str): Directory with dissolved tower shapefiles.
-        failed_csv_path (str): Path to CSV with failed tower IDs.
-        crs (str): CRS to enforce.
-        output_base_dir (str): Output folder for live network shapefile.
-        logger (Logger, optional): Logger instance.
-        batch_size (int): Number of shapefiles per batch for union operation.
-
-    Returns:
-        str: Path to the generated or reused shapefile.
+    If prefix_range is provided, only dissolved files whose prefix code is in range
+    are included in the union.
     """
     os.makedirs(output_base_dir, exist_ok=True)
 
-    # Hash key for reusability
+    # Hash key for caching
     failed_ids = pd.read_csv(failed_csv_path)["tower_id"].astype(str)
-    hash_key = hashlib.md5(",".join(sorted(failed_ids)).encode()).hexdigest()[:8]
+    hash_key = hashlib.md5(
+        ",".join(sorted(failed_ids)).encode()
+    ).hexdigest()[:8]
     output_filename = f"live_network_coverage_{hash_key}_batched.shp"
     output_path = os.path.join(output_base_dir, output_filename)
 
@@ -102,13 +123,20 @@ def generate_live_coverage_shapefile(dissolved_dir, failed_csv_path, crs, output
         return output_path
 
     failed_set = set(failed_ids)
-    shp_paths = [
-        os.path.join(dissolved_dir, f)
-        for f in os.listdir(dissolved_dir)
-        if f.endswith("-Dissolved.shp") and f.replace("-Dissolved.shp", "") not in failed_set
-    ]
+    all_files = [f for f in os.listdir(dissolved_dir) if f.endswith("-Dissolved.shp")]
+    shp_paths = []
+    for f in all_files:
+        prefix = f.replace("-Dissolved.shp", "")
+        try:
+            code = int(prefix.split('-')[0])
+        except ValueError:
+            continue
+        if prefix_range and (code < prefix_range[0] or code > prefix_range[1]):
+            continue
+        if prefix not in failed_set:
+            shp_paths.append(os.path.join(dissolved_dir, f))
 
-    logger and logger.info(f"Filtering {len(shp_paths)} live towers for batch dissolve...")
+    logger and logger.info(f"Filtering {len(shp_paths)} live towers (prefix_range={prefix_range}).")
 
     geometries = []
     for path in tqdm(shp_paths, desc="Loading live towers"):
@@ -126,13 +154,11 @@ def generate_live_coverage_shapefile(dissolved_dir, failed_csv_path, crs, output
         logger and logger.warning("No valid live tower geometries found.")
         return None
 
-    # Batched unary union
     logger and logger.info("Starting batched unary_union...")
     batch_unions = []
     for i in tqdm(range(0, len(geometries), batch_size), desc="Union batches"):
-        batch = geometries[i:i+batch_size]
-        batch_union = unary_union(batch)
-        batch_unions.append(batch_union)
+        batch = geometries[i : i + batch_size]
+        batch_unions.append(unary_union(batch))
 
     logger and logger.info("Final union of batch results...")
     final_union = unary_union(batch_unions)
@@ -142,16 +168,23 @@ def generate_live_coverage_shapefile(dissolved_dir, failed_csv_path, crs, output
     logger and logger.info(f"[Generated] Batched live network coverage saved to {output_path}")
     return output_path
 
-def filter_uncovered_facilities(live_coverage_path, facility_path, failed_csv_path, crs, output_dir, logger=None):
+
+def filter_uncovered_facilities(
+    live_coverage_path: str,
+    facility_path: str,
+    failed_csv_path: str,
+    crs: str,
+    output_dir: str,
+    logger=None,
+) -> str:
     """
     Filter facilities not covered by live towers. Output file is hash-based for reusability.
     """
-    # Generate unique hash based on input content
     failed_ids = pd.read_csv(failed_csv_path)["tower_id"].astype(str)
     hash_input = "|".join([
         live_coverage_path,
         facility_path,
-        ",".join(sorted(failed_ids))
+        ",".join(sorted(failed_ids)),
     ])
     hash_key = hashlib.md5(hash_input.encode()).hexdigest()[:8]
     output_filename = f"filtered_facilities_{hash_key}.shp"
@@ -161,7 +194,6 @@ def filter_uncovered_facilities(live_coverage_path, facility_path, failed_csv_pa
         logger and logger.info(f"[Reuse] Filtered facilities exist: {output_path}")
         return output_path
 
-    # Load and align CRS
     live_gdf = gpd.read_file(live_coverage_path)
     fac_gdf = gpd.read_file(facility_path)
     if fac_gdf.crs != crs:
@@ -169,7 +201,6 @@ def filter_uncovered_facilities(live_coverage_path, facility_path, failed_csv_pa
     if live_gdf.crs != crs:
         live_gdf = live_gdf.to_crs(crs)
 
-    # Check uncovered via spatial join
     covered = gpd.sjoin(fac_gdf, live_gdf, predicate="within", how="inner")
     uncovered = fac_gdf[~fac_gdf.index.isin(covered.index)]
 

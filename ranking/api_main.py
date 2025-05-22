@@ -10,6 +10,7 @@ from fastapi.responses import JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
 from tower_analysis.runner import run_pipeline
 from fastapi.middleware.cors import CORSMiddleware
+from typing import Optional
 
 # — Logging setup —
 logging.basicConfig(
@@ -21,7 +22,7 @@ logger = logging.getLogger("tower-api")
 # — App init —
 app = FastAPI(
     title="Tower Analysis API",
-    version="2.3.0",
+    version="2.3.1",
     description="Upload failed-towers CSV + scenario → full coverage & ranking",
 )
 
@@ -35,10 +36,12 @@ app.add_middleware(
 
 app.mount("/static", StaticFiles(directory="data"), name="static")
 
+
 @app.exception_handler(HTTPException)
 async def http_exc(request: Request, exc: HTTPException):
     logger.warning(f"HTTP {exc.status_code} at {request.url}: {exc.detail}")
     return JSONResponse(status_code=exc.status_code, content={"error": exc.detail})
+
 
 @app.exception_handler(Exception)
 async def unhandled_exc(request: Request, exc: Exception):
@@ -48,10 +51,13 @@ async def unhandled_exc(request: Request, exc: Exception):
         content={"error": "Internal server error. Please try again later."},
     )
 
+
 @app.post("/run-ranking", response_model=dict)
 async def run_ranking_api(
     file: UploadFile = File(...),
     scenario: str = Form("Default"),
+    prefix_start: Optional[int] = Form(None),
+    prefix_end:   Optional[int] = Form(None),
 ):
     # 1) Validate file
     if file.content_type not in ("text/csv", "application/vnd.ms-excel"):
@@ -68,9 +74,14 @@ async def run_ranking_api(
     finally:
         tmp.close()
 
-    # 3) Run pipeline
+    # 3) Run pipeline (pass prefix_range if provided)
     try:
-        output_csv = run_pipeline(failed_csv_path=tmp.name, disaster_type=scenario)
+        pr = (prefix_start, prefix_end) if prefix_start is not None and prefix_end is not None else None
+        output_csv = run_pipeline(
+            failed_csv_path=tmp.name,
+            disaster_type=scenario,
+            prefix_range=pr,
+        )
     except FileNotFoundError as fnf:
         raise HTTPException(400, f"Missing data file: {fnf}")
     except ValueError as ve:
@@ -98,8 +109,9 @@ async def run_ranking_api(
         "results": results,
         "download_url": download_url,
     }
-    logger.info("→ /run-ranking: %d rows (scenario=%s)", len(results), scenario)
+    logger.info("→ /run-ranking: %d rows (scenario=%s, prefix=%s)", len(results), scenario, pr)
     return response
+
 
 @app.get("/download/{filename}")
 async def download_csv(filename: str):
