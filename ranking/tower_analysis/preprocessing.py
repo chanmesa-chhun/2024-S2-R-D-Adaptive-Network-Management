@@ -11,6 +11,7 @@ import hashlib
 from shapely.prepared import prep
 from shapely.geometry import box
 from typing import Optional, Tuple
+import logging
 
 from tower_analysis.config import (
     DISSOLVED_SHAPEFILE_DIR,

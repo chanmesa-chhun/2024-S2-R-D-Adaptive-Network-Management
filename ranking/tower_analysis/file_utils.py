@@ -63,13 +63,19 @@ def load_facility_data(file_paths, target_crs):
 def load_population_data(population_path, target_crs):
     """
     Load population grid shapefile and convert to target CRS.
-
-    Returns:
-        GeoDataFrame
     """
     gdf = gpd.read_file(population_path)
+    # 1) Raw CRS check
+    print("🔍 raw pop_gdf.crs:", gdf.crs)
+
+    # 2) Reproject
     if gdf.crs and gdf.crs != target_crs:
         gdf = gdf.to_crs(target_crs)
     elif not gdf.crs:
         gdf.set_crs(target_crs, inplace=True)
+
+    # 3) Post-reproject check & sample area
+    print("🔍 reprojected pop_gdf.crs:", gdf.crs)
+    print("🔍 sample cell area (m²):", gdf.geometry.iloc[0].area)
+
     return gdf

@@ -3,6 +3,7 @@
 import os
 import time
 import geopandas as gpd
+import logging
 from typing import Optional, Tuple
 
 from tower_analysis.config import (
@@ -35,6 +36,14 @@ from tower_analysis.ranking import (
 from tower_analysis.logger_utils import setup_logger
 
 
+class SkipExistingFilter(logging.Filter):
+    """
+    Drops any log record whose message contains 'Skipped existing:'.
+    """
+    def filter(self, record: logging.LogRecord) -> bool:
+        return "Skipped existing:" not in record.getMessage()
+
+
 def run_pipeline(
     failed_csv_path: str,
     disaster_type: str = "Default",
@@ -52,7 +61,13 @@ def run_pipeline(
       5. Fetch scenario weights
       6. Rank & save CSV
     """
+    # 1) Initialize your logger
     logger = setup_logger()
+
+    # 2) Attach filter to root logger to drop "Skipped existing" INFO lines
+    root_logger = logging.getLogger()
+    root_logger.addFilter(SkipExistingFilter())
+
     start = time.time()
 
     # 0: Preprocess raw shapefiles → dissolved coverage
@@ -111,7 +126,6 @@ def run_pipeline(
 
     # 4: Compute exclusive coverage
     logger.info("4: Calculating exclusive coverage (batch with index)")
-    # read the live-union geometry we just generated
     union_geom = gpd.read_file(live_cov_path).geometry.iloc[0]
     failed_excl = calculate_exclusive_coverage_batch_with_index(
         failed_towers,
