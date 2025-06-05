@@ -1,0 +1,16 @@
+2025-05-08 11:56:58,058 [INFO] Step 0: Checking and preprocessing dissolved shapefiles if missing...
+2025-05-08 11:56:58,058 [ERROR] An error occurred during execution.
+Traceback (most recent call last):
+  File "c:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\ranking\main.py", line 17, in main
+    merge_and_dissolve_shapefiles(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        config.RAW_SHP_DIR,
+        ^^^^^^^^^^^^^^^^^^^
+        config.DISSOLVED_SHAPEFILE_DIR,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        logger=logger
+        ^^^^^^^^^^^^^
+    )
+    ^
+TypeError: merge_and_dissolve_shapefiles() got an unexpected keyword argument 'logger'
+2025-05-08 11:56:58,060 [INFO] Script completed in 0.00 seconds.

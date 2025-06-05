@@ -1,0 +1,6 @@
+2025-06-02 19:53:56,385 [INFO] Logger initialized: logs/log_20250602_195356.log
+2025-06-02 19:53:56,388 [INFO] Current working directory: /Users/mesa/Documents/GitHub/2024-S2-R-D-Adaptive-Network-Management/Backend
+2025-06-02 19:53:56,389 [ERROR] Error during analysis
+Traceback (most recent call last):
+  File "/Users/mesa/Documents/GitHub/2024-S2-R-D-Adaptive-Network-Management/ranking/api_main.py", line 43, in analyze
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/mesa/Documents/GitHub/2024-S2-R-D-Adaptive-Network-Management/ranking/tower_analysis/../output/failed_tower.csv'

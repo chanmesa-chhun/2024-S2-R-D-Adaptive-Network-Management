@@ -1,0 +1,159 @@
+2025-05-22 12:46:37,472 [INFO] Logger initialized: logs\log_20250522_124637.log
+2025-05-22 12:46:37,473 [INFO] Current working directory: C:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\ranking
+2025-05-22 12:46:40,870 [INFO] Limiting live tower coverage to prefix range: ('001', '003')
+2025-05-22 12:46:40,870 [INFO] Step 1: Preprocessing dissolved shapefiles...
+2025-05-22 12:46:41,037 [INFO] Found 128 tower groups to process (within range).
+2025-05-22 12:46:41,046 [INFO] Skipped existing: 001-AHPA-Dissolved.shp
+2025-05-22 12:46:41,046 [INFO] Skipped existing: 001-COPB-Dissolved.shp
+2025-05-22 12:46:41,049 [INFO] Skipped existing: 001-HHRC-Dissolved.shp
+2025-05-22 12:46:41,050 [INFO] Skipped existing: 001-KAIH-Dissolved.shp
+2025-05-22 12:46:41,050 [INFO] Skipped existing: 001-KIKH-Dissolved.shp
+2025-05-22 12:46:41,051 [INFO] Skipped existing: 001-KRIL-Dissolved.shp
+2025-05-22 12:46:41,051 [INFO] Skipped existing: 001-KRKC-Dissolved.shp
+2025-05-22 12:46:41,052 [INFO] Skipped existing: 001-KRKR-Dissolved.shp
+2025-05-22 12:46:41,052 [INFO] Skipped existing: 001-KTIA-Dissolved.shp
+2025-05-22 12:46:41,052 [INFO] Skipped existing: 001-KWKA-Dissolved.shp
+2025-05-22 12:46:41,053 [INFO] Skipped existing: 001-KWKE-Dissolved.shp
+2025-05-22 12:46:41,053 [INFO] Skipped existing: 001-MTWA-Dissolved.shp
+2025-05-22 12:46:41,054 [INFO] Skipped existing: 001-PHIA-Dissolved.shp
+2025-05-22 12:46:41,054 [INFO] Skipped existing: 001-RAWR-Dissolved.shp
+2025-05-22 12:46:41,055 [INFO] Skipped existing: 001-RBRW-Dissolved.shp
+2025-05-22 12:46:41,055 [INFO] Skipped existing: 001-RDVB-Dissolved.shp
+2025-05-22 12:46:41,056 [INFO] Skipped existing: 001-RFIR-Dissolved.shp
+2025-05-22 12:46:41,056 [INFO] Skipped existing: 001-RFRB-Dissolved.shp
+2025-05-22 12:46:41,057 [INFO] Skipped existing: 001-RHRK-Dissolved.shp
+2025-05-22 12:46:41,057 [INFO] Skipped existing: 001-RLNG-Dissolved.shp
+2025-05-22 12:46:41,058 [INFO] Skipped existing: 001-RMGI-Dissolved.shp
+2025-05-22 12:46:41,058 [INFO] Skipped existing: 001-RMTC-Dissolved.shp
+2025-05-22 12:46:41,059 [INFO] Skipped existing: 001-RNMB-Dissolved.shp
+2025-05-22 12:46:41,059 [INFO] Skipped existing: 001-ROMN-Dissolved.shp
+2025-05-22 12:46:41,060 [INFO] Skipped existing: 001-ROMR-Dissolved.shp
+2025-05-22 12:46:41,060 [INFO] Skipped existing: 001-ROOK-Dissolved.shp
+2025-05-22 12:46:41,061 [INFO] Skipped existing: 001-ROUH-Dissolved.shp
+2025-05-22 12:46:41,061 [INFO] Skipped existing: 001-RPOI-Dissolved.shp
+2025-05-22 12:46:41,062 [INFO] Skipped existing: 001-RPRB-Dissolved.shp
+2025-05-22 12:46:41,062 [INFO] Skipped existing: 001-RPTH-Dissolved.shp
+2025-05-22 12:46:41,063 [INFO] Skipped existing: 001-RPWE-Dissolved.shp
+2025-05-22 12:46:41,063 [INFO] Skipped existing: 001-RSLL-Dissolved.shp
+2025-05-22 12:46:41,064 [INFO] Skipped existing: 001-RTAK-Dissolved.shp
+2025-05-22 12:46:41,064 [INFO] Skipped existing: 001-RTEP-Dissolved.shp
+2025-05-22 12:46:41,064 [INFO] Skipped existing: 001-RTPA-Dissolved.shp
+2025-05-22 12:46:41,065 [INFO] Skipped existing: 001-RTSS-Dissolved.shp
+2025-05-22 12:46:41,065 [INFO] Skipped existing: 001-RUTK-Dissolved.shp
+2025-05-22 12:46:41,066 [INFO] Skipped existing: 001-RWAL-Dissolved.shp
+2025-05-22 12:46:41,066 [INFO] Skipped existing: 001-RWAN-Dissolved.shp
+2025-05-22 12:46:41,067 [INFO] Skipped existing: 001-RWAR-Dissolved.shp
+2025-05-22 12:46:41,067 [INFO] Skipped existing: 001-RWAV-Dissolved.shp
+2025-05-22 12:46:41,068 [INFO] Skipped existing: 001-RWMA-Dissolved.shp
+2025-05-22 12:46:41,069 [INFO] Skipped existing: 001-RWMK-Dissolved.shp
+2025-05-22 12:46:41,069 [INFO] Skipped existing: 001-RWNE-Dissolved.shp
+2025-05-22 12:46:41,070 [INFO] Skipped existing: 001-TBAY-Dissolved.shp
+2025-05-22 12:46:41,070 [INFO] Skipped existing: 001-VAWN-Dissolved.shp
+2025-05-22 12:46:41,070 [INFO] Skipped existing: 001-VCKP-Dissolved.shp
+2025-05-22 12:46:41,071 [INFO] Skipped existing: 001-VHRF-Dissolved.shp
+2025-05-22 12:46:41,072 [INFO] Skipped existing: 001-VKAO-Dissolved.shp
+2025-05-22 12:46:41,072 [INFO] Skipped existing: 001-VMBY-Dissolved.shp
+2025-05-22 12:46:41,073 [INFO] Skipped existing: 001-VMHK-Dissolved.shp
+2025-05-22 12:46:41,073 [INFO] Skipped existing: 001-VOKI-Dissolved.shp
+2025-05-22 12:46:41,074 [INFO] Skipped existing: 001-VOMP-Dissolved.shp
+2025-05-22 12:46:41,075 [INFO] Skipped existing: 001-VOPR-Dissolved.shp
+2025-05-22 12:46:41,075 [INFO] Skipped existing: 001-VPAR-Dissolved.shp
+2025-05-22 12:46:41,076 [INFO] Skipped existing: 001-VTKE-Dissolved.shp
+2025-05-22 12:46:41,076 [INFO] Skipped existing: 001-VTOW-Dissolved.shp
+2025-05-22 12:46:41,076 [INFO] Skipped existing: 001-VTRB-Dissolved.shp
+2025-05-22 12:46:41,077 [INFO] Skipped existing: 001-VWGA-Dissolved.shp
+2025-05-22 12:46:41,077 [INFO] Skipped existing: 001-VXHK-Dissolved.shp
+2025-05-22 12:46:41,078 [INFO] Skipped existing: 002-BRDW-Dissolved.shp
+2025-05-22 12:46:41,078 [INFO] Skipped existing: 002-BUSH-Dissolved.shp
+2025-05-22 12:46:41,079 [INFO] Skipped existing: 002-HIKU-Dissolved.shp
+2025-05-22 12:46:41,079 [INFO] Skipped existing: 002-KAMO-Dissolved.shp
+2025-05-22 12:46:41,079 [INFO] Skipped existing: 002-KENS-Dissolved.shp
+2025-05-22 12:46:41,080 [INFO] Skipped existing: 002-KNTH-Dissolved.shp
+2025-05-22 12:46:41,080 [INFO] Skipped existing: 002-MARU-Dissolved.shp
+2025-05-22 12:46:41,081 [INFO] Skipped existing: 002-MAUN-Dissolved.shp
+2025-05-22 12:46:41,081 [INFO] Skipped existing: 002-MGKM-Dissolved.shp
+2025-05-22 12:46:41,082 [INFO] Skipped existing: 002-MRPT-Dissolved.shp
+2025-05-22 12:46:41,082 [INFO] Skipped existing: 002-MTPR-Dissolved.shp
+2025-05-22 12:46:41,082 [INFO] Skipped existing: 002-MVLG-Dissolved.shp
+2025-05-22 12:46:41,083 [INFO] Skipped existing: 002-OKAR-Dissolved.shp
+2025-05-22 12:46:41,083 [INFO] Skipped existing: 002-OTAN-Dissolved.shp
+2025-05-22 12:46:41,084 [INFO] Skipped existing: 002-OTKA-Dissolved.shp
+2025-05-22 12:46:41,085 [INFO] Skipped existing: 002-OTPT-Dissolved.shp
+2025-05-22 12:46:41,085 [INFO] Skipped existing: 002-PTLD-Dissolved.shp
+2025-05-22 12:46:41,085 [INFO] Skipped existing: 002-RARC-Dissolved.shp
+2025-05-22 12:46:41,086 [INFO] Skipped existing: 002-RBAU-Dissolved.shp
+2025-05-22 12:46:41,086 [INFO] Skipped existing: 002-RDIG-Dissolved.shp
+2025-05-22 12:46:41,087 [INFO] Skipped existing: 002-RKAR-Dissolved.shp
+2025-05-22 12:46:41,087 [INFO] Skipped existing: 002-RMKA-Dissolved.shp
+2025-05-22 12:46:41,088 [INFO] Skipped existing: 002-RMTG-Dissolved.shp
+2025-05-22 12:46:41,089 [INFO] Skipped existing: 002-ROMM-Dissolved.shp
+2025-05-22 12:46:41,089 [INFO] Skipped existing: 002-ROWB-Dissolved.shp
+2025-05-22 12:46:41,090 [INFO] Skipped existing: 002-RPNK-Dissolved.shp
+2025-05-22 12:46:41,090 [INFO] Skipped existing: 002-RPPW-Dissolved.shp
+2025-05-22 12:46:41,091 [INFO] Skipped existing: 002-RPRK-Dissolved.shp
+2025-05-22 12:46:41,091 [INFO] Skipped existing: 002-RRBW-Dissolved.shp
+2025-05-22 12:46:41,092 [INFO] Skipped existing: 002-RRKB-Dissolved.shp
+2025-05-22 12:46:41,092 [INFO] Skipped existing: 002-RTAH-Dissolved.shp
+2025-05-22 12:46:41,093 [INFO] Skipped existing: 002-RTWT-Dissolved.shp
+2025-05-22 12:46:41,093 [INFO] Skipped existing: 002-RURQ-Dissolved.shp
+2025-05-22 12:46:41,094 [INFO] Skipped existing: 002-RWGH-Dissolved.shp
+2025-05-22 12:46:41,094 [INFO] Skipped existing: 002-SHER-Dissolved.shp
+2025-05-22 12:46:41,094 [INFO] Skipped existing: 002-SNAU-Dissolved.shp
+2025-05-22 12:46:41,095 [INFO] Skipped existing: 002-TPNG-Dissolved.shp
+2025-05-22 12:46:41,095 [INFO] Skipped existing: 002-TTKK-Dissolved.shp
+2025-05-22 12:46:41,096 [INFO] Skipped existing: 002-VHBY-Dissolved.shp
+2025-05-22 12:46:41,096 [INFO] Skipped existing: 002-VHKI-Dissolved.shp
+2025-05-22 12:46:41,097 [INFO] Skipped existing: 002-WCAU-Dissolved.shp
+2025-05-22 12:46:41,097 [INFO] Skipped existing: 002-WGRU-Dissolved.shp
+2025-05-22 12:46:41,098 [INFO] Skipped existing: 002-WHNG-Dissolved.shp
+2025-05-22 12:46:41,098 [INFO] Skipped existing: 002-WHOS-Dissolved.shp
+2025-05-22 12:46:41,099 [INFO] Skipped existing: 002-WIPU-Dissolved.shp
+2025-05-22 12:46:41,099 [INFO] Skipped existing: 002-WVAU-Dissolved.shp
+2025-05-22 12:46:41,100 [INFO] Skipped existing: 003-DGVL-Dissolved.shp
+2025-05-22 12:46:41,100 [INFO] Skipped existing: 003-HRKA-Dissolved.shp
+2025-05-22 12:46:41,101 [INFO] Skipped existing: 003-KAKA-Dissolved.shp
+2025-05-22 12:46:41,101 [INFO] Skipped existing: 003-MGTT-Dissolved.shp
+2025-05-22 12:46:41,102 [INFO] Skipped existing: 003-MNGW-Dissolved.shp
+2025-05-22 12:46:41,102 [INFO] Skipped existing: 003-RAGA-Dissolved.shp
+2025-05-22 12:46:41,103 [INFO] Skipped existing: 003-RGLG-Dissolved.shp
+2025-05-22 12:46:41,103 [INFO] Skipped existing: 003-RKPE-Dissolved.shp
+2025-05-22 12:46:41,104 [INFO] Skipped existing: 003-RMHM-Dissolved.shp
+2025-05-22 12:46:41,104 [INFO] Skipped existing: 003-ROOK-Dissolved.shp
+2025-05-22 12:46:41,105 [INFO] Skipped existing: 003-RTGO-Dissolved.shp
+2025-05-22 12:46:41,105 [INFO] Skipped existing: 003-RTNP-Dissolved.shp
+2025-05-22 12:46:41,106 [INFO] Skipped existing: 003-RTRB-Dissolved.shp
+2025-05-22 12:46:41,106 [INFO] Skipped existing: 003-RTTM-Dissolved.shp
+2025-05-22 12:46:41,106 [INFO] Skipped existing: 003-RWAI-Dissolved.shp
+2025-05-22 12:46:41,107 [INFO] Skipped existing: 003-RWFS-Dissolved.shp
+2025-05-22 12:46:41,107 [INFO] Skipped existing: 003-RWHP-Dissolved.shp
+2025-05-22 12:46:41,108 [INFO] Skipped existing: 003-VBYB-Dissolved.shp
+2025-05-22 12:46:41,108 [INFO] Skipped existing: 003-VKAI-Dissolved.shp
+2025-05-22 12:46:41,109 [INFO] Skipped existing: 003-VMSO-Dissolved.shp
+2025-05-22 12:46:41,109 [INFO] Skipped existing: 003-VPPA-Dissolved.shp
+2025-05-22 12:46:41,110 [INFO] Skipped existing: 003-VTGH-Dissolved.shp
+2025-05-22 12:46:41,111 [INFO] Step 2: Generating live tower coverage union...
+2025-05-22 12:46:41,120 [INFO] Selected 119 live towers for union.
+2025-05-22 12:46:47,914 [INFO] Starting batched unary_union...
+2025-05-22 12:50:18,168 [INFO] Final union of batch results...
+2025-05-22 12:50:29,924 [INFO] [Generated] Live network coverage saved to c:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\ranking\tower_analysis\..\output\live_network_coverage_0374f815_batched.shp
+2025-05-22 12:50:30,029 [INFO] Live coverage generated in 228.92s
+2025-05-22 12:50:30,029 [INFO] Step 3: Filtering uncovered facilities...
+2025-05-22 12:50:30,576 [INFO] 529 uncovered facilities identified.
+2025-05-22 12:50:30,600 [INFO] [Generated] Saved to c:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\ranking\tower_analysis\..\output\filtered_facilities_2bb9a7d2.shp
+2025-05-22 12:50:30,604 [INFO] Facility filtering done in 0.57s
+2025-05-22 12:50:30,604 [INFO] Step 4: Loading failed tower geometries...
+2025-05-22 12:50:31,377 [INFO] Loaded 18 failed tower geometries.
+2025-05-22 12:50:31,377 [INFO] Step 5: Loading filtered facility data...
+2025-05-22 12:50:31,395 [INFO] Loaded 529 filtered facilities.
+2025-05-22 12:50:31,395 [INFO] Step 6: Loading population data...
+2025-05-22 12:50:34,774 [INFO] Loaded 196942 population grid cells.
+2025-05-22 12:50:34,774 [INFO] Step 7: Calculating exclusive coverage areas (batched with index)...
+2025-05-22 12:50:50,717 [INFO] Exclusive coverage calculated in 15.94s
+2025-05-22 12:50:50,718 [INFO] Exporting individual exclusive shapefiles to: c:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\ranking\tower_analysis\..\output\exclusive_areas
+2025-05-22 12:50:50,902 [INFO] Step 9: Getting weights...
+2025-05-22 12:50:55,342 [INFO] Using weights: {'hospital': 10, 'police': 8, 'fire_station': 9, 'population_scale': 0.0045000000000000005}
+2025-05-22 12:50:55,342 [INFO] Step 10: Ranking failed towers...
+2025-05-22 12:51:59,687 [INFO] Ranking completed in 64.34s
+2025-05-22 12:51:59,687 [INFO] Step 11: Saving results...
+2025-05-22 12:51:59,689 [INFO] Ranking saved to c:\Users\Jeremy\Documents\GitHub\2024-S2-R-D-Adaptive-Network-Management\ranking\tower_analysis\..\output\tower_priority_ranking.csv
+2025-05-22 12:51:59,690 [INFO] Script completed in 322.22 seconds.

@@ -1,0 +1,4 @@
+tower_id,police,fire_station,hospital,weighted_population,unweighted_population,score
+004-RWGR,0,0,0,90.78,351,0.41
+004-RTAI,0,0,0,73.41,405,0.33
+004-RKCH,0,0,0,18.75,163,0.08
