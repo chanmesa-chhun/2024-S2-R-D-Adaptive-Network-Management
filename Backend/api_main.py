@@ -43,7 +43,11 @@ async def analyze(
     failed_towers: UploadFile = File(...),
     disaster_type: str = Form(...),
     prefix_start: str = Form(None),
-    prefix_end: str = Form(None)
+    prefix_end: str = Form(None),
+    hospital_weight: float = Form(None),
+    police_weight: float = Form(None),
+    fire_weight: float = Form(None),
+    population_scale: float = Form(None),
 ):
     logger = setup_logger()
     start_time = time.time()
@@ -106,7 +110,18 @@ async def analyze(
             except Exception as e:
                 logger.warning(f"Failed to export shapefile for tower {tower_id}: {e}")
 
-        user_weights = get_user_weights(disaster_type)
+        if disaster_type == "Custom":
+            if None in (hospital_weight, police_weight, fire_weight, population_scale):
+                raise ValueError("All custom weights must be provided for 'Custom' disaster type")
+            user_weights = {
+                "hospital": hospital_weight,
+                "police": police_weight,
+                "fire_station": fire_weight,
+                "population_scale": population_scale,
+            }
+        else:
+            user_weights = get_user_weights(disaster_type)
+
         tower_scores = rank_failed_towers(
             failed_exclusive_coverage,
             population_gdf,

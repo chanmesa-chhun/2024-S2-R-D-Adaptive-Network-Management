@@ -36,8 +36,28 @@
         <option value="Flood">Flood</option>
         <option value="Storm">Storm</option>
         <option value="Volcanic Eruption">Volcanic Eruption</option>
+        <option value="Custom">Custom</option>
       </select>
     </div>
+    <fieldset class="form-group custom-weights" style="display: none;">
+        <legend>Custom Weights</legend>
+
+        <div class="weight-row">
+            <label for="hospital_weight">Hospital weight:</label>
+            <input type="number" name="hospital_weight" step="0.1" placeholder="e.g. 10" min="0" />
+
+            <label for="police_weight">Police weight:</label>
+            <input type="number" name="police_weight" step="0.1" placeholder="e.g. 6" min="0" />
+        </div>
+
+        <div class="weight-row">
+            <label for="fire_weight">Fire station weight:</label>
+            <input type="number" name="fire_weight" step="0.1" placeholder="e.g. 8" min="0" />
+
+            <label for="population_scale">Population scale:</label>
+            <input type="number" name="population_scale" step="0.0001" placeholder="e.g. 0.0005" min="0" />
+        </div>
+    </fieldset>
 
     <div class="form-group">
       <label for="prefix_start">Prefix start:</label>
@@ -151,7 +171,20 @@
             .addTo(rankingLayer);
         }
       }
+
+      
     });
+    
+    document.getElementById('scenario').addEventListener('change', e => {
+    const customInputs = document.querySelector('.custom-weights');
+    if (e.target.value === 'Custom') {
+        customInputs.style.display = 'block';
+    } else {
+        customInputs.style.display = 'none';
+    }
+    });
+
+
   </script>
 
   <div class="legend" id="legend">
