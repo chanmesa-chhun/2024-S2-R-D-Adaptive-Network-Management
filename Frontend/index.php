@@ -72,13 +72,20 @@
     <div class="form-group">
       <button type="submit" id="run-ranking">Run Ranking</button>
     </div>
-    
-    </form> <!-- close the form here -->
+    </form>
 
-<div class="search-box">
-  <label for="search-tower">Search a tower by ID:</label><br>
-  <input type="text" id="search-tower" placeholder="Search tower ID…" />
-</div>
+    <form id="searching-form">
+        <div class="form-group">
+            <label for="coverage-prefix">View tower coverage by prefix:</label>
+            <input type="text" id="coverage-prefix" placeholder="e.g. 001" />
+            <button type="button" id="load-coverage">Load Coverage</button>
+        </div>
+
+    </form>
+    <div class="search-box">
+        <label for="search-tower">Search a tower by ID:</label><br>
+        <input type="text" id="search-tower" placeholder="Search tower ID…" />
+    </div>
 
 <div id="download-link"></div>
 
@@ -183,6 +190,30 @@
         customInputs.style.display = 'none';
     }
     });
+
+    document.getElementById('load-coverage').addEventListener('click', async () => {
+    const prefix = document.getElementById('coverage-prefix').value.trim();
+    if (!prefix) return alert("Please enter a prefix.");
+
+    try {
+        const res = await fetch(`http://localhost:8000/coverage?prefix=${prefix}`);
+        if (!res.ok) {
+        const err = await res.json();
+        return alert(`Error: ${err.error || 'Failed to fetch coverage'}`);
+        }
+
+        const geojson = await res.json();
+        const layer = L.geoJSON(geojson, {
+        style: { color: 'orange', weight: 2 }
+        }).addTo(map);
+
+        map.fitBounds(layer.getBounds());
+    } catch (err) {
+        console.error(err);
+        alert("Unexpected error loading coverage");
+    }
+    });
+
 
 
   </script>

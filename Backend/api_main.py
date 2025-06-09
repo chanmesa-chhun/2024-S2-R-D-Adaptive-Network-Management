@@ -1,7 +1,8 @@
-from fastapi import FastAPI, File, UploadFile, Form
+from fastapi import FastAPI, File, UploadFile, Form, Query
 from fastapi.responses import JSONResponse
 import shutil
 import os
+import glob
 import time
 import geopandas as gpd
 import pandas as pd
@@ -37,6 +38,30 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/coverage")
+def get_coverage(prefix: str):
+    # Load matching shapefiles
+    files = glob.glob(os.path.join(config.DISSOLVED_SHAPEFILE_DIR, f"{prefix}-*-Dissolved.shp"))
+
+    if not files:
+        return JSONResponse(content={"features": []})
+        
+    gdfs = []
+    for shp_path in files:
+        gdf = gpd.read_file(shp_path)
+        if gdf.crs != config.CRS:
+            gdf = gdf.to_crs(config.CRS)
+        gdfs.append(gdf)
+
+    full_gdf = gpd.GeoDataFrame(pd.concat(gdfs, ignore_index=True))
+        
+    # Reproject to EPSG:4326 (WGS84 for Leaflet)
+    full_gdf = full_gdf.to_crs("EPSG:4326")
+
+    return JSONResponse(content=full_gdf.__geo_interface__)
+
 
 @app.post("/analyze")
 async def analyze(

@@ -3,6 +3,9 @@ import os
 # Get the absolute path of the current directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+# Path to help finding towers, Search towers coverage use this one
+DATA_DIR = os.path.join(BASE_DIR, "../data") 
+
 # Coordinate Reference System used throughout the project (NZGD2000 / NZTM2000)
 CRS = "EPSG:2193"
 
