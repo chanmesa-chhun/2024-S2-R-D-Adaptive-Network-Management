@@ -1,6 +1,8 @@
 # Python virtual environments
 .venv/
 venv/
+.DS_Store
+Backend/.DS_Store
 
 #Use the following command to create virtual env before running backend api
 #python3 -m venv .venv
