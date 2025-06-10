@@ -166,7 +166,7 @@ html, body {
   flex-direction: column;
   gap: 10px;
   max-width: 500px;
-  margin: 0 auto;
+  margin: 20px auto;
   padding: 25px;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.3);
@@ -291,4 +291,40 @@ html, body {
 
 .weight-row input {
   flex: 1 1 45%;
+}
+
+/* --- Download Link --- */
+#download-link {
+  text-align: center;
+  margin: 30px auto;
+}
+#download-link a {
+  display: inline-block;
+  padding: 10px 24px;
+  background: #17a2b8;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background 0.2s;
+}
+#download-link a:hover {
+  background: #138496;
+}
+
+/* shared primary button style */
+.btn-primary {
+  padding: 12px 20px;
+  background: linear-gradient(to right, #007bff, #00c6ff);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin-top: 10px;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(to right, #0056b3, #00aaff);
 }

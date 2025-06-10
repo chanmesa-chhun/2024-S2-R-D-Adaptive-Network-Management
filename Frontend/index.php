@@ -73,12 +73,12 @@
       <button type="submit" id="run-ranking">Run Ranking</button>
     </div>
     </form>
-
-    <form id="searching-form">
+    
+    <form id="searching-form" class="ranking-form">
         <div class="form-group">
             <label for="coverage-prefix">View tower coverage by prefix:</label>
             <input type="text" id="coverage-prefix" placeholder="e.g. 001" />
-            <button type="button" id="load-coverage">Load Coverage</button>
+            <button type="button" id="load-coverage" class="btn-primary">Load Coverage</button>
         </div>
 
     </form>
@@ -184,10 +184,13 @@
     
     document.getElementById('scenario').addEventListener('change', e => {
     const customInputs = document.querySelector('.custom-weights');
+    const inputs = customInputs.querySelectorAll('input');
     if (e.target.value === 'Custom') {
-        customInputs.style.display = 'block';
+      customInputs.style.display = 'block';
+      inputs.forEach(i => i.disabled = false);
     } else {
-        customInputs.style.display = 'none';
+      customInputs.style.display = 'none';
+      inputs.forEach(i => i.disabled = true);  // disabled fields don’t get submitted
     }
     });
 
@@ -228,9 +231,5 @@
       <li>Weighted Population: The weighted population is a more accurate estimate.  It adjusts the population based on how much of each population grid cell is actually covered by the tower’s exclusive area. It calculates the area of intersection between each population grid and the exclusive area. Then it multiplies the proportion of covered area by the total population of the grid.</li>
     </ul>
   </div>
-
-  <section id="documentation" class="documentation">
-    <h2>Documentation</h2>
-  </section>
 </body>
 </html>
